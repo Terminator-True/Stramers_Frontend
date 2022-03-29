@@ -1,0 +1,21 @@
+<div class="login-dark">
+
+    <form #form='ngForm' (ngSubmit)="onSubmit(form)" >
+        <h2 class="sr-only">Register Stramers</h2>
+
+        <label for="nick">Nick:</label>
+        <input class="form-control" type="text" name="nick"  [(ngModel)]="iniciUsuari.nick" required /><br>
+
+        <label for="email">Email:</label>
+        <input class="form-control" type="email" name="email"  [(ngModel)]="iniciUsuari.email" required /><br>
+
+        <label for="pasw">Password:</label>
+        <input class="form-control" type="password" name="pasw"  [(ngModel)]="iniciUsuari.pasw" required /><br>
+
+        <label for="pasw2">Repetir Password:</label>
+        <input class="form-control" type="password" name="pasw2"  [(ngModel)]="iniciUsuari.pasw2" required /><br>
+
+        <input class="btn btn-primary btn-block" type="submit" value="Register" [disabled]="!form.form.valid" ><br>
+        </form>
+        {{ alert }}
+</div>
