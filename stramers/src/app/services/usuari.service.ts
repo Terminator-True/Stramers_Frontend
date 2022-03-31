@@ -17,12 +17,11 @@ export class UsuariService{
         this.url = Global.url;
     }
     //para gurdar un nuevo usuari a la base de dades con el node
-    saveUsuari(register:Register){
+    Registrar(register:Register){
         let params = JSON.stringify(register);
         let headers =new HttpHeaders().set('Content-Type', 'application/json');
-
-        console.log(this.url+'+usuari');
-        return this._http.post(this.url+'+usuari', params, {headers: headers});
+        console.log(this.url+'register');
+        return this._http.post(this.url+'register', params, {headers: headers});
     }
 
 }

@@ -6,15 +6,17 @@ import { routing,appRoutingProviders } from './app.routing';
 //impost form
 import { FormsModule } from '@angular/forms';
 
+//Modulos necesarios para ahcer peticiones http
+import { HttpClientModule } from '@angular/common/http';
 //Imports componentes
 import { AppComponent } from './app.component';
-import { BasegameComponent } from './componets/basegame/basegame.component';
-import { IniciComponent } from './componets/inici/inici.component';
-import { LobbyComponent } from './componets/lobby/lobby.component';
-import { MazoComponent } from './componets/mazo/mazo.component';
-import { TiendaComponent } from './componets/tienda/tienda.component';
-import { ErrorComponent } from './componets/error/error.component';
-import { RegisterComponent } from './componets/register/register.component';
+import { BasegameComponent } from './components/basegame/basegame.component';
+import { IniciComponent } from './components/inici/inici.component';
+import { LobbyComponent } from './components/lobby/lobby.component';
+import { MazoComponent } from './components/mazo/mazo.component';
+import { TiendaComponent } from './components/tienda/tienda.component';
+import { ErrorComponent } from './components/error/error.component';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { RegisterComponent } from './componets/register/register.component';
   imports: [
     BrowserModule,
     routing,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [
     appRoutingProviders

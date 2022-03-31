@@ -2,16 +2,16 @@
 import { ModuleWithProviders, NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
-//Imports de lso componentes
-import { BasegameComponent } from "./componets/basegame/basegame.component";
-import { IniciComponent } from "./componets/inici/inici.component";
-import { RegisterComponent } from "./componets/register/register.component";
-import { LobbyComponent } from "./componets/lobby/lobby.component";
-import { MazoComponent } from "./componets/mazo/mazo.component";
-import { TiendaComponent } from "./componets/tienda/tienda.component";
-import { ErrorComponent } from "./componets/error/error.component";
+//Imports de los componentes
+import { BasegameComponent } from "./components/basegame/basegame.component";
+import { IniciComponent } from "./components/inici/inici.component";
+import { RegisterComponent } from "./components/register/register.component";
+import { LobbyComponent } from "./components/lobby/lobby.component";
+import { MazoComponent } from "./components/mazo/mazo.component";
+import { TiendaComponent } from "./components/tienda/tienda.component";
+import { ErrorComponent } from "./components/error/error.component";
 
-//Array de routers
+//Array de routas
 const appRoutes: Routes = [
     {path: '', component: IniciComponent},
     {path: 'lobby', component: LobbyComponent},
