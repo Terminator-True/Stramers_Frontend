@@ -3,6 +3,5 @@ export class Register{
         public nick:String,
         public email:String,
         public pasw:String,
-        public pasw2:String
     ){}
 }

@@ -13,13 +13,22 @@ export class RegisterComponent implements OnInit {
 
   public iniciUsuari: Register;
   alert = '';
+  public pasw2:string;
+  public error_status:string;
+
 
   constructor(
     private _UsuariService:UsuariService
   ) {
-    this.iniciUsuari = new Register('','','','');
+    this.pasw2="";
+    this.iniciUsuari = new Register('','','');
+    this.error_status="none";
+
    }
   ngOnInit(): void {
+  }
+  tanca(){
+    this.error_status="none"
   }
   onSubmit(form:any){
     this._UsuariService.Registrar(this.iniciUsuari).subscribe(

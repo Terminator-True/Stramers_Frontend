@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 //Form
 import { Login } from 'src/app/models/inici.usuari';
 
+import { UsuariService } from 'src/app/services/usuari.service';
+
 @Component({
   selector: 'app-inici',
   templateUrl: './inici.component.html',
@@ -11,7 +13,10 @@ export class IniciComponent implements OnInit {
 
   public iniciUsuari: Login;
 
-  constructor() {
+  constructor(
+    private _UsuariService:UsuariService
+
+  ) {
     this.iniciUsuari = new Login('','');
 
    }
@@ -20,8 +25,9 @@ export class IniciComponent implements OnInit {
   }
 
   onSubmit(form:any){
-    console.log("Input from capturat");
-    console.log(this.iniciUsuari);
+    this._UsuariService.Login(this.iniciUsuari).subscribe(
+      user_data=>console.log(user_data)
+    )
   }
 
 }
