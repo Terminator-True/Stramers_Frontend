@@ -4,7 +4,7 @@ export class Carta{
         public category:String,
         public type: String,
         public coste: Number,
-        public daño: Number,
+        public dmg: Number,
         public vida: Number,
         public text: String,
         public funcion: String,

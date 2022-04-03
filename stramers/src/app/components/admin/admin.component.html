@@ -1,0 +1,43 @@
+<div class="login-dark">
+    <form #form='ngForm' (ngSubmit)="onSubmit(form)" >
+        <h2 class="sr-only">Subir Stramers</h2>
+
+        <label for="name">Name:</label>
+        <input class="form-control" type="text" name="name"  [(ngModel)]="cartas.name" required />
+
+        <label for="category">Category:</label><br>
+        <select name="category" [(ngModel)]="cartas.category" required>
+            <option value="Comun">Comun</option>
+            <option value="Raro">Raro</option>
+            <option value="Epica">Epica</option>
+            <option value="Legend">Legend</option>
+          </select><br>
+
+          <label for="type">Type:</label><br>
+          <select name="type" [(ngModel)]="cartas.type" required>
+              <option value="Esbirro">Esbirro</option>
+              <option value="Hechizo">Hechizo</option>
+              <option value="Construccion">Construccion</option>
+            </select><br>
+
+        <label for="coste">Coste:</label>
+        <input class="form-control" type="number" name="coste"  [(ngModel)]="cartas.coste" required /><br>
+
+        <label for="dmg">Dmg:</label>
+        <input class="form-control" type="number" name="dmg"  [(ngModel)]="cartas.dmg" required /><br>
+
+        <label for="vida">Vida:</label>
+        <input class="form-control" type="number" name="vida"  [(ngModel)]="cartas.vida" required /><br>
+
+        <label for="text">Text:</label>
+        <input class="form-control" type="text" name="text"  [(ngModel)]="cartas.text" required /><br>
+
+        <label for="funcion">Funcion:</label>
+        <input class="form-control" type="text" name="funcion"  [(ngModel)]="cartas.funcion" required /><br>
+
+        <label for="img">Img:</label>
+        <input class="form-control" type="file" name="img"  [(ngModel)]="cartas.img" required /><br>
+
+        <input class="btn btn-primary btn-block" type="submit" value="Subir" [disabled]="!form.form.valid" ><br>
+        </form>
+</div>

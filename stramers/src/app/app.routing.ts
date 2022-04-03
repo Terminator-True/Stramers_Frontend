@@ -6,19 +6,23 @@ import { Routes, RouterModule } from "@angular/router";
 import { BasegameComponent } from "./components/basegame/basegame.component";
 import { IniciComponent } from "./components/inici/inici.component";
 import { RegisterComponent } from "./components/register/register.component";
+import { MenuComponent } from "./components/menu/menu.component";
 import { LobbyComponent } from "./components/lobby/lobby.component";
 import { MazoComponent } from "./components/mazo/mazo.component";
 import { TiendaComponent } from "./components/tienda/tienda.component";
+import { AdminComponent } from "./components/admin/admin.component";
 import { ErrorComponent } from "./components/error/error.component";
 
 //Array de routas
 const appRoutes: Routes = [
     {path: '', component: IniciComponent},
-    {path: 'lobby', component: LobbyComponent},
     {path: 'register', component: RegisterComponent},
+    {path: 'menu', component: MenuComponent},
+    {path: 'lobby', component: LobbyComponent},
     {path: 'mazo', component: MazoComponent},
     {path: 'tienda', component: TiendaComponent},
     {path: 'game', component: BasegameComponent},
+    {path: 'lmta', component: AdminComponent},
     {path: '**', component: ErrorComponent}
 ]
 

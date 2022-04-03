@@ -1,0 +1,60 @@
+nav {
+    background-color: #2c3e50;
+  }
+  /* centra el menu */
+  ul {
+    margin: 0;
+    padding: 0;
+    font-size: 0;
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
+  /* coloca el menu horizental */
+  ul li {
+    display: inline-block;
+    vertical-align: top;
+  }
+  /* menu */
+  ul li a {
+    text-decoration: none;
+    font-size: 46px;
+    display: block;
+    line-height: 1000px;
+    width: 400px;
+    padding: 0 35px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    font-weight: 300;
+    color: #fff;
+    font-family: 'Open Sans';
+  }
+  /* hover active */
+  ul li a:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #3498db;
+    z-index: -1;
+    transform: skewX(-30deg);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  ul li:hover a,
+  ul li:focus a,
+  ul li.mazo a {
+    color: #fff;
+  }
+  ul li:hover a:after,
+  ul li:focus a:after,
+  ul li.mazo a:after {
+    opacity: 1;
+  }
+  
+
+  /* tiene una barra diagonal
+  https://codepen.io/dibuchis/pen/aWzdew?editors=1100 */

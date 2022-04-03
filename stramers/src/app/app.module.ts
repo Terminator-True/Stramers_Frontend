@@ -17,6 +17,8 @@ import { MazoComponent } from './components/mazo/mazo.component';
 import { TiendaComponent } from './components/tienda/tienda.component';
 import { ErrorComponent } from './components/error/error.component';
 import { RegisterComponent } from './components/register/register.component';
+import { MenuComponent } from './components/menu/menu.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { RegisterComponent } from './components/register/register.component';
     MazoComponent,
     TiendaComponent,
     ErrorComponent,
-    RegisterComponent
+    RegisterComponent,
+    MenuComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
