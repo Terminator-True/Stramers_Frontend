@@ -36,8 +36,9 @@
         <input class="form-control" type="text" name="funcion"  [(ngModel)]="cartas.funcion" required /><br>
 
         <label for="img">Img:</label>
-        <input class="form-control" type="file" name="img"  [(ngModel)]="cartas.img" required /><br>
+        <input class="form-control" type="file" name="img"  (change)="fileChangeEvent($event)" required /><br>
 
         <input class="btn btn-primary btn-block" type="submit" value="Subir" [disabled]="!form.form.valid" ><br>
         </form>
+        {{ guardat }}
 </div>
