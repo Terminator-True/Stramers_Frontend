@@ -21,8 +21,8 @@ export class CardService{
         let params = JSON.stringify(carta);
         let headers =new HttpHeaders().set('Content-Type', 'application/json');
 
-        console.log(this.url+'+carta');
-        return this._http.post(this.url+'+carta', params, {headers: headers});
+        console.log(this.url+'save-carta');
+        return this._http.post(this.url+'save-carta', params, {headers: headers});
     }
     // obtenemos todos los cartas
     getCards(){

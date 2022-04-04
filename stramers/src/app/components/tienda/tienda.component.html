@@ -15,7 +15,7 @@
 
   <!-- lista de todas las cartas -->
   <ul *ngFor="let card of cards" class="list-group">
-    <li class="list-group-item " > <img src="{{url+'/get-image/'+card.image}}" *ngIf="card.image != 'null'" style="width: 100px;"> </li>
+    <li class="list-group-item " > <img src="{{url+'get-image/'+card.img}}" *ngIf="card.img != 'null'" style="width: 100px;"> </li>
     <li class="list-group-item" ><a [routerLink]="['/detail/',card._id]" >Comprar</a></li>
   </ul>
 </div>

@@ -27,8 +27,8 @@ export class TiendaComponent implements OnInit {
     //obtenim un array de todas las cartas
     this._cardService.getCards()
     .subscribe(cards=>{
-      this.cards=Object.values(cards)[0]; //obtenemos 3 arrays pero solo queremos la primera con les dades del proyecto
-      console.log(this.cards.image)
+      this.cards=Object.values(cards)[0]; //obtenemos 3 arrays pero solo queremos la primera con les dades de la carta
+      console.log(this.cards)
     },
     error=>{
       console.log(error)

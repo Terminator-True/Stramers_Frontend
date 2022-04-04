@@ -4,8 +4,6 @@ import { Global } from "./global";
 @Injectable()
 export class UploadService{
     public url: string;
-    public filesToUpload: File[]=[];
-
     constructor(){
         this.url = Global.url;
     }
@@ -21,13 +19,16 @@ export class UploadService{
             
             xhr.onreadystatechange = function(){
                 if (xhr.readyState == 4){
+                    if (xhr.status == 200) {
+                        resolve(JSON.parse(xhr.response));
+                    }else{
+                        reject(xhr.response)
+                    }
                     resolve(JSON.parse(xhr.response));
-                }else{
-                    reject(xhr.response);
                 }
             }
-            xhr.open('POST',url,true);
-            xhr.send(formData);
+            xhr.open('POST',url,true); 
+            xhr.send(formData); 
         })
     }
 }
