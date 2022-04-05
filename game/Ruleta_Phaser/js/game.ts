@@ -1,22 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-
-import { Global } from 'src/app/services/global';
-import { CardService } from 'src/app/services/carta.service'; 
-
-import { Injectable } from '@angular/core';
-
-import Phaser from 'phaser';
-
+import Phaser from "phaser";
 class Roulete extends Phaser.Scene{
      
     //Definicion de variables
-    public result:any;
-    public boton:any;
-    public ruleta:any;
-    public particles: any;
+    public config={
+        type: Phaser.AUTO,
+        width: 800,
+        height: 600,
+        parent: 'phaser-example',
+        scene: {
+            preload: this.preload,
+            create: this.create,
+            update: this.update
+        }
+    };
+    public result;
+    public boton;
+    public ruleta;
+    public particles;
     public aceleracion = -.1;
     public velocidad = 0;
-    public arrow:any;
+    public arrow;
     public resultado_entregado=true;
     public categorias=[
         { id:0, a_i:0, a_f:0, nombre: 'uncommon'},
@@ -40,48 +43,47 @@ class Roulete extends Phaser.Scene{
     //Se asignan los valores de angulos a las categorias
     //Se usan angulos de 0 a 360 como seria lògico
 
+    public game = new Phaser.Game(this.config);
+
     preload ()
     {
-        this.load.image('fondo', Global.url+'/get-image-roulete/wallpaper.jpg');
-        this.load.image('arrow', Global.url+'/get-image-roulete/select_ruleta.svg');
-        this.load.image('ruleta', Global.url+'/get-image-roulete/ruleta4.png');
-        this.load.image('boton',Global.url+'/get-image-roulete/btn_tirar.svg');
-        this.load.atlas('flare', Global.url+'/get-image-roulete/flares.png', Global.url+"get-image-roulete/flares.json");
-        
+        this.load.image('fondo', './assets/imagen/wallpaper.jpg');
+        this.load.image('arrow', './assets/imagen/select_ruleta.svg');
+        this.load.image('ruleta', './assets/imagen/ruleta4.png');
+        this.load.image('boton', './assets/imagen/btn_tirar.svg');
+        this.load.atlas('flare', './assets/imagen/flares.png',"./assets/json/flares.json");
 
     }
 
     create (){
-        var that=this;
-        //this.add.image(400, 300, 'fondo');
+        this.add.image(400, 300, 'fondo');
         this.ruleta = this.add.sprite(400, 300, 'ruleta')
         this.arrow = this.add.sprite(570, 300, 'arrow');
         this.arrow.angle+=90;
         this.boton = this.add.sprite(400, 550, 'boton').setInteractive();
-        this.boton.on('pointerdown', function () {
-          //that.setTint(0xff0000);
-          that.tirar();
+        this.boton.on('pointerdown', function (pointer) {
+            this.setTint(0xff0000);
+            this.tirar();
 
         });
-        this.boton.on('pointerout', function () {
+        this.boton.on('pointerout', function (pointer) {
 
-            //that.clearTint();
+            this.clearTint();
 
         });
-        this.boton.on('pointerup', function () {
+        this.boton.on('pointerup', function (pointer) {
 
-            //that.clearTint()
+            this.clearTint();
 
         });
     }
 
-    override update (){   
+    update (){   
         if (this.velocidad < 0){
             this.velocidad = 0;
             if (!this.resultado_entregado) {
                 this.resultado_entregado=true
                 this.result=this.getResultado()
-                console.log(this.result)
                 if (this.result=="legend") {
                     this.particles = this.add.particles('flare');
                     this.particles.createEmitter({
@@ -108,7 +110,7 @@ class Roulete extends Phaser.Scene{
                         quantity: 5,
                         blendMode: 'ADD'
                     });    
-                    this.time.delayedCall(8000, () => {
+                    this.time.delayedCall(8000, function() {
                         this.particles.destroy();
                     });   
                 }
@@ -124,7 +126,7 @@ class Roulete extends Phaser.Scene{
         this.velocidad   = Math.floor(Math.random() * 30)+15;
     }
 
-    numeroEntre(n: number, num1: number, num2: number){
+    numeroEntre(n, num1, num2){
         if (num2 < num1){
             let aux = num2;
             num2 = num1;
@@ -140,14 +142,14 @@ class Roulete extends Phaser.Scene{
 
     //corrección para basarse en los angulos que usa Phaser :/
     // no costaba mucho que se basara en una notacion de 0 a 360º
-    anguloComunAPhaser( angulo: number ){
+    anguloComunAPhaser( angulo ){
         if (angulo > 180){
             return 360 - angulo;
         }
         return angulo;
     }
 
-    anguloPhaserAComun( angulo: number ){
+    anguloPhaserAComun( angulo ){
         if (angulo < 0){
             return angulo + 360;
         }
@@ -164,51 +166,4 @@ class Roulete extends Phaser.Scene{
         }
         return null;
     }
-}
-
-@Component({
-  selector: 'app-tienda',
-  templateUrl: './tienda.component.html',
-  styleUrls: ['./tienda.component.css']
-})
-
-@Injectable()
-
-
-export class TiendaComponent implements OnInit {
-
-  public url:any;
-  public projects:any;
-  public cards:any;
-  config: Phaser.Types.Core.GameConfig;
-  phaserGame:any;
-
-
-  constructor(
-    private _cardService:CardService
-  ) {
-    this.url=Global.url
-    this.config={
-      type: Phaser.CANVAS,
-      width: 800,
-      height: 600,
-      parent: "gameContainer",
-      scene: [Roulete]
-  };
-    
-  }
-  
-  ngOnInit(): void {
-    this.phaserGame=new Phaser.Game(this.config);
-    //obtenim un array de todas las cartas
-    this._cardService.getCards()
-    .subscribe(cards=>{
-      this.cards=Object.values(cards)[0]; //obtenemos 3 arrays pero solo queremos la primera con les dades de la carta
-      console.log(this.cards)
-    },
-    error=>{
-      console.log(error)
-    })
-  }
-
 }
