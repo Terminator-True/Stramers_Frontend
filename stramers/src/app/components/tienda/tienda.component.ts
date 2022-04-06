@@ -5,7 +5,6 @@ import { CardService } from 'src/app/services/carta.service';
 
 import { Injectable } from '@angular/core';
 
-import Phaser from 'phaser';
 
 
 

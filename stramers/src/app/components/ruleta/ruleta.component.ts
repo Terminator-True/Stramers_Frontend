@@ -19,13 +19,13 @@ class Roulete extends Phaser.Scene{
     public arrow:any;
     public resultado_entregado=true;
     public categorias=[
-        { id:0, a_i:0, a_f:0, nombre: 'uncommon'},
-        { id:1, a_i:0, a_f:0, nombre: 'common'},
-        { id:2, a_i:0, a_f:0, nombre: 'legend' }, //-27
+        { id:0, a_i:0, a_f:0, nombre: 'Raro'},
+        { id:1, a_i:0, a_f:0, nombre: 'Comun'},
+        { id:2, a_i:0, a_f:0, nombre: 'Legend' }, //-27
         { id:3, a_i:0, a_f:0, nombre: 'retrigger'},
-        { id:4, a_i:0, a_f:0, nombre: 'common'},
-        { id:5, a_i:0, a_f:0, nombre: 'uncommon'},
-        { id:6, a_i:0, a_f:0, nombre: 'epic'},             
+        { id:4, a_i:0, a_f:0, nombre: 'Comun'},
+        { id:5, a_i:0, a_f:0, nombre: 'Raro'},
+        { id:6, a_i:0, a_f:0, nombre: 'Epica'},             
     ];
     public intervalo_subdivision = 360/this.categorias.length;
 
