@@ -24,7 +24,7 @@ export class AdminComponent implements OnInit {
     private _CardService:CardService, 
     private _uploadService: UploadService
   ) {
-    this.cartas = new Carta('','','',0,0,0,'','',"null");
+    this.cartas = new Carta('','Comun','Esbirro',0,0,0,'',true,"null");
   }
   ngOnInit() {
   }

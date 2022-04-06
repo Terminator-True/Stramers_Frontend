@@ -7,7 +7,7 @@ export class Carta{
         public dmg: Number,
         public vida: Number,
         public text: String,
-        public funcion: String,
+        public obtenible: Boolean,
         public img:String
     ){}
 }

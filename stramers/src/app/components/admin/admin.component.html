@@ -32,9 +32,12 @@
         <label for="text">Text:</label>
         <input class="form-control" type="text" name="text"  [(ngModel)]="cartas.text" required /><br>
 
-        <label for="funcion">Funcion:</label>
-        <input class="form-control" type="text" name="funcion"  [(ngModel)]="cartas.funcion" required /><br>
-
+        <label for="obtenible">Obtenible:</label><br>
+        <select name="obtenible" [(ngModel)]="cartas.obtenible" required>
+            <option [ngValue]="true">true</option>
+            <option [ngValue]="false">false</option>
+          </select><br>
+          
         <label for="img">Img:</label>
         <input class="form-control" type="file" name="img"  (change)="fileChangeEvent($event)" required /><br>
 
