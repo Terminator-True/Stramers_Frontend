@@ -19,6 +19,7 @@ import { ErrorComponent } from './components/error/error.component';
 import { RegisterComponent } from './components/register/register.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { RuletaComponent } from './components/ruleta/ruleta.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { AdminComponent } from './components/admin/admin.component';
     ErrorComponent,
     RegisterComponent,
     MenuComponent,
-    AdminComponent
+    AdminComponent,
+    RuletaComponent
   ],
   imports: [
     BrowserModule,

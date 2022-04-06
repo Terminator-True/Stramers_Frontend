@@ -10,6 +10,7 @@ import { MenuComponent } from "./components/menu/menu.component";
 import { LobbyComponent } from "./components/lobby/lobby.component";
 import { MazoComponent } from "./components/mazo/mazo.component";
 import { TiendaComponent } from "./components/tienda/tienda.component";
+import { RuletaComponent } from "./components/ruleta/ruleta.component";
 import { AdminComponent } from "./components/admin/admin.component";
 import { ErrorComponent } from "./components/error/error.component";
 
@@ -20,7 +21,8 @@ const appRoutes: Routes = [
     {path: 'menu', component: MenuComponent},
     {path: 'lobby', component: LobbyComponent},
     {path: 'mazo', component: MazoComponent},
-    {path: 'tienda', component: TiendaComponent},
+    {path: 'tienda/cartas', component: TiendaComponent},
+    {path: 'tienda/ruleta', component: RuletaComponent},
     {path: 'game', component: BasegameComponent},
     {path: 'lmta', component: AdminComponent},
     {path: '**', component: ErrorComponent}
