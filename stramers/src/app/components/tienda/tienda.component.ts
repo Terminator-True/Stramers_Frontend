@@ -10,6 +10,7 @@ import Phaser from 'phaser';
 class Roulete extends Phaser.Scene{
      
     //Definicion de variables
+    public boton_sig:any;
     public result:any;
     public boton:any;
     public ruleta:any;
@@ -46,6 +47,8 @@ class Roulete extends Phaser.Scene{
         this.load.image('arrow', Global.url+'/get-image-roulete/select_ruleta.svg');
         this.load.image('ruleta', Global.url+'/get-image-roulete/ruleta4.png');
         this.load.image('boton',Global.url+'/get-image-roulete/btn_tirar.svg');
+        this.load.image('boton_sig', Global.url+'/get-image-roulete/btn_sig.svg');
+
         this.load.atlas('flare', Global.url+'/get-image-roulete/flares.png', Global.url+"get-image-roulete/flares.json");
         
 
@@ -73,6 +76,12 @@ class Roulete extends Phaser.Scene{
             //that.clearTint()
 
         });
+
+        this.boton_sig = this.add.sprite(400, 550, 'boton_sig').setInteractive();
+        this.boton_sig.visible=false
+        this.boton_sig.on('pointerdown',  () => {
+            this.siguiente();
+            });
     }
 
     override update (){   
@@ -82,36 +91,77 @@ class Roulete extends Phaser.Scene{
                 this.resultado_entregado=true
                 this.result=this.getResultado()
                 console.log(this.result)
-                if (this.result=="legend") {
-                    this.particles = this.add.particles('flare');
-                    this.particles.createEmitter({
-                        frame: 'yellow',
-                        x: 0,
-                        y: 100,
-                        lifespan: 2000,
-                        speed: { min: 400, max: 600 },
-                        angle: 680,
-                        gravityY: 1000,
-                        scale: { start: 0.4, end: 0 },
-                        quantity: 5,
-                        blendMode: 'ADD'
-                    });
-                    this.particles.createEmitter({
-                        frame: 'yellow',
-                        x: 800,
-                        y: 100,
-                        lifespan: 2000,
-                        speed: { min: 400, max: 600 },
-                        angle: 930,
-                        gravityY: 1000,
-                        scale: { start: 0.4, end: 0 },
-                        quantity: 5,
-                        blendMode: 'ADD'
-                    });    
-                    this.time.delayedCall(8000, () => {
-                        this.particles.destroy();
-                    });   
+                switch (this.result) {
+                    case "legend":
+                        this.particles = this.add.particles('flare');
+                        this.particles.createEmitter({
+                            frame: 'yellow',
+                            x: 0,
+                            y: 100,
+                            lifespan: 2000,
+                            speed: { min: 400, max: 600 },
+                            angle: 680,
+                            gravityY: 1000,
+                            scale: { start: 0.4, end: 0 },
+                            quantity: 5,
+                            blendMode: 'ADD'
+                        });
+                        this.particles.createEmitter({
+                            frame: 'yellow',
+                            x: 800,
+                            y: 100,
+                            lifespan: 2000,
+                            speed: { min: 400, max: 600 },
+                            angle: 930,
+                            gravityY: 1000,
+                            scale: { start: 0.4, end: 0 },
+                            quantity: 5,
+                            blendMode: 'ADD'
+                        });
+    
+                        this.boton_sig.visible=true
+                        this.boton.visible=false
+                        //this.carta.visible=true
+                        break;
+                    case "epic":
+                        this.particles = this.add.particles('flare');
+                        this.particles.createEmitter({
+                            frame: 'red',
+                            x: 0,
+                            y: 100,
+                            lifespan: 2000,
+                            speed: { min: 400, max: 600 },
+                            angle: 680,
+                            gravityY: 1000,
+                            scale: { start: 0.4, end: 0 },
+                            quantity: 5,
+                            blendMode: 'ADD'
+                        });
+                        this.particles.createEmitter({
+                            frame: 'red',
+                            x: 800,
+                            y: 100,
+                            lifespan: 2000,
+                            speed: { min: 400, max: 600 },
+                            angle: 930,
+                            gravityY: 1000,
+                            scale: { start: 0.4, end: 0 },
+                            quantity: 5,
+                            blendMode: 'ADD'
+                        });     
+                        this.boton_sig.visible=true
+                        this.boton.visible=false
+                        //this.carta.visible=true
+                        break;
+                    case "retrigger":
+                        this.time.delayedCall(500, () => {this.tirar()});   
+                       
+                        break;
+                    default:
+                        break;
                 }
+                   
+                
             }
         }
         this.ruleta.angle += this.velocidad;
@@ -163,6 +213,13 @@ class Roulete extends Phaser.Scene{
             }
         }
         return null;
+    }
+
+    siguiente() {
+        //this.carta.visible=false
+        this.boton_sig.visible=false
+        this.boton.visible=true
+        this.particles.destroy()
     }
 }
 
