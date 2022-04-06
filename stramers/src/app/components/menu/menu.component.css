@@ -44,6 +44,7 @@ nav {
     opacity: 0;
     transition: opacity 0.3s;
   }
+
   ul li:hover a,
   ul li:focus a,
   ul li.mazo a {
