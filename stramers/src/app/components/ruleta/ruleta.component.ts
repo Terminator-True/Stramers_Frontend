@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 
 import Phaser from 'phaser';
 
-class Roulete extends Phaser.Scene{
+export class Roulete extends Phaser.Scene{
      
     //Definicion de variables
     public boton_sig:any;
@@ -29,7 +29,7 @@ class Roulete extends Phaser.Scene{
     ];
     public intervalo_subdivision = 360/this.categorias.length;
 
-    constructor(){
+    constructor(private _cardService:CardService){
         super({key: 'Game'})
         for (let c=0; c < this.categorias.length; c++){
             this.categorias[c].a_i =  c*this.intervalo_subdivision;
@@ -50,6 +50,7 @@ class Roulete extends Phaser.Scene{
 
         this.load.atlas('flare', Global.url+'/get-image-roulete/flares.png', Global.url+"get-image-roulete/flares.json");
         
+        //Carga imagenes de las cartas
 
     }
 
@@ -122,7 +123,7 @@ class Roulete extends Phaser.Scene{
                         this.boton.visible=false
                         //this.carta.visible=true
                         break;
-                    case "epic":
+                    case "epica":
                         this.particles = this.add.particles('flare');
                         this.particles.createEmitter({
                             frame: 'red',
@@ -153,9 +154,14 @@ class Roulete extends Phaser.Scene{
                         //this.carta.visible=true
                         break;
                     case "retrigger":
-                        this.time.delayedCall(500, () => {this.tirar()});   
+                        this.time.delayedCall(500, () => {this.tirar(true)});   
                        
                         break;
+                    case "comun":
+                        break;
+                    case "raro":
+                        break;
+
                     default:
                         break;
                 }
@@ -167,10 +173,21 @@ class Roulete extends Phaser.Scene{
         this.velocidad += this.aceleracion; 
     }
 
-    tirar() {
-        this.resultado_entregado=false;
-        this.aceleracion = - ((Math.random() * 3)+3)/30;
-        this.velocidad   = Math.floor(Math.random() * 30)+15;
+    tirar(auto=false) {
+        console.log(auto)
+        if (auto) {
+            this.resultado_entregado=false;
+            this.aceleracion = - ((Math.random() * 3)+3)/30;
+            this.velocidad   = Math.floor(Math.random() * 30)+15;   
+        }else{
+            console.log(Global.url+'get-money/'+localStorage.getItem("nick"))
+            if ("") {
+                
+            }
+            this.resultado_entregado=false;
+            this.aceleracion = - ((Math.random() * 3)+3)/30;
+            this.velocidad   = Math.floor(Math.random() * 30)+15;   
+        }
     }
 
     numeroEntre(n: number, num1: number, num2: number){
