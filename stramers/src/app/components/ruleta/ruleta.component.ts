@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 
 import Phaser from 'phaser';
 
-export class Roulete extends Phaser.Scene{
+class Roulete extends Phaser.Scene{
      
     //Definicion de variables
     public boton_sig:any;
@@ -49,7 +49,6 @@ export class Roulete extends Phaser.Scene{
         this.load.image('boton_sig', Global.url+'/get-image-roulete/btn_sig.svg');
 
         this.load.atlas('flare', Global.url+'/get-image-roulete/flares.png', Global.url+"get-image-roulete/flares.json");
-        
         //Carga imagenes de las cartas
 
     }
@@ -181,8 +180,12 @@ export class Roulete extends Phaser.Scene{
             this.velocidad   = Math.floor(Math.random() * 30)+15;   
         }else{
             console.log(Global.url+'get-money/'+localStorage.getItem("nick"))
-            if ("") {
-                
+            console.log(localStorage.getItem("moneda"))
+            if (localStorage.getItem("moneda")) {
+                var moneda = localStorage.getItem("moneda")
+                if ("") {
+                    
+                }
             }
             this.resultado_entregado=false;
             this.aceleracion = - ((Math.random() * 3)+3)/30;
@@ -196,11 +199,9 @@ export class Roulete extends Phaser.Scene{
             num2 = num1;
             num1 = aux;
         }
-
         if (n >= num1 && n <= num2){
             return true;
         }
-
         return false;
     }
 
@@ -238,6 +239,7 @@ export class Roulete extends Phaser.Scene{
         this.particles.destroy()
     }
 }
+
 @Component({
   selector: 'app-ruleta',
   templateUrl: './ruleta.component.html',
@@ -261,6 +263,7 @@ export class RuletaComponent implements OnInit {
 
   ngOnInit(): void {
     this.phaserGame=new Phaser.Game(this.config);
+    console.log(Roulete)
 
   }
 
