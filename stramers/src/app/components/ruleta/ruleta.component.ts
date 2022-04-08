@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Global } from 'src/app/services/global';
 import { CardService } from 'src/app/services/carta.service'; 
-
 import { Injectable } from '@angular/core';
+import { UsuariService } from 'src/app/services/usuari.service';
 
 import Phaser from 'phaser';
 
 class Roulete extends Phaser.Scene{
-     
+
     //Definicion de variables
     public boton_sig:any;
     public result:any;
@@ -29,12 +29,12 @@ class Roulete extends Phaser.Scene{
     ];
     public intervalo_subdivision = 360/this.categorias.length;
 
-    constructor(private _cardService:CardService){
+    constructor(){
         super({key: 'Game'})
         for (let c=0; c < this.categorias.length; c++){
             this.categorias[c].a_i =  c*this.intervalo_subdivision;
             this.categorias[c].a_f = (c+1)*this.intervalo_subdivision;
-        }
+        }        
     }
 
     //Se asignan los valores de angulos a las categorias
@@ -55,11 +55,11 @@ class Roulete extends Phaser.Scene{
 
     create (){
         var that=this;
-        //this.add.image(400, 300, 'fondo');
-        this.ruleta = this.add.sprite(400, 300, 'ruleta')
-        this.arrow = this.add.sprite(570, 300, 'arrow');
+        this.add.image(600, 400, 'fondo');
+        this.ruleta = this.add.sprite(600, 300, 'ruleta')
+        this.arrow = this.add.sprite(770, 300, 'arrow');
         this.arrow.angle+=90;
-        this.boton = this.add.sprite(400, 550, 'boton').setInteractive();
+        this.boton = this.add.sprite(600, 550, 'boton').setInteractive();
         this.boton.on('pointerdown', function () {
           //that.setTint(0xff0000);
           that.tirar();
@@ -76,7 +76,7 @@ class Roulete extends Phaser.Scene{
 
         });
 
-        this.boton_sig = this.add.sprite(400, 550, 'boton_sig').setInteractive();
+        this.boton_sig = this.add.sprite(600, 550, 'boton_sig').setInteractive();
         this.boton_sig.visible=false
         this.boton_sig.on('pointerdown',  () => {
             this.siguiente();
@@ -107,7 +107,7 @@ class Roulete extends Phaser.Scene{
                         });
                         this.particles.createEmitter({
                             frame: 'yellow',
-                            x: 800,
+                            x: 1200,
                             y: 100,
                             lifespan: 2000,
                             speed: { min: 400, max: 600 },
@@ -138,7 +138,7 @@ class Roulete extends Phaser.Scene{
                         });
                         this.particles.createEmitter({
                             frame: 'red',
-                            x: 800,
+                            x: 1200,
                             y: 100,
                             lifespan: 2000,
                             speed: { min: 400, max: 600 },
@@ -154,7 +154,6 @@ class Roulete extends Phaser.Scene{
                         break;
                     case "retrigger":
                         this.time.delayedCall(500, () => {this.tirar(true)});   
-                       
                         break;
                     case "comun":
                         break;
@@ -173,23 +172,21 @@ class Roulete extends Phaser.Scene{
     }
 
     tirar(auto=false) {
-        console.log(auto)
         if (auto) {
             this.resultado_entregado=false;
             this.aceleracion = - ((Math.random() * 3)+3)/30;
             this.velocidad   = Math.floor(Math.random() * 30)+15;   
         }else{
-            console.log(Global.url+'get-money/'+localStorage.getItem("nick"))
-            console.log(localStorage.getItem("moneda"))
-            if (localStorage.getItem("moneda")) {
-                var moneda = localStorage.getItem("moneda")
-                if ("") {
-                    
-                }
-            }
-            this.resultado_entregado=false;
-            this.aceleracion = - ((Math.random() * 3)+3)/30;
-            this.velocidad   = Math.floor(Math.random() * 30)+15;   
+            var moneda = sessionStorage.getItem("moneda")
+            //Si la variable moneda al local storage es null retorna 0 si no
+            // retorna el valor indicat
+            console.log(moneda)
+            if (moneda==null ? 0:parseInt(moneda) >= 1000) {
+                sessionStorage.setItem("moneda",(parseInt(typeof(moneda)=="string"? moneda:"0")-1000).toString())
+                this.resultado_entregado=false;
+                this.aceleracion = - ((Math.random() * 3)+3)/30;
+                this.velocidad   = Math.floor(Math.random() * 30)+15;  
+            } 
         }
     }
 
@@ -249,22 +246,43 @@ export class RuletaComponent implements OnInit {
   config: Phaser.Types.Core.GameConfig;
   phaserGame:any;
   public url:any;
-
-  constructor() {
+  public cards:any;
+  public nick:any;
+  constructor(private _userService:UsuariService) {
     this.url=Global.url
     this.config={
       type: Phaser.CANVAS,
-      width: 800,
-      height: 600,
+      width: 1200,
+      height: 800,
       parent: "gameContainer",
       scene: [Roulete]
   };
    }
 
   ngOnInit(): void {
-    this.phaserGame=new Phaser.Game(this.config);
-    console.log(Roulete)
 
+    this.phaserGame=new Phaser.Game(this.config);
+    let nickT = localStorage.getItem("nick")
+    this.nick = nickT==null ? "null":nickT;
+    if (sessionStorage.getItem("moneda")) {
+        this.salir()
+    }
+    this._userService.getMoney(this.nick).subscribe(ok=>{
+        var moneda = Object.values(ok)[0]
+        sessionStorage.setItem("moneda",moneda)
+    })
+  }
+  salir(){
+        var moneda=sessionStorage.getItem("moneda")
+        this._userService.setMoney(this.nick,moneda == null ? 0: moneda).subscribe(ok=>{
+            if (ok) {
+                console.log(ok)
+                sessionStorage.clear()
+            }else{
+                console.log(ok)
+            }
+        })
+ 
   }
 
 }

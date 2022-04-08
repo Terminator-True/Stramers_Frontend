@@ -5,7 +5,6 @@ import { Login } from 'src/app/models/inici.usuari';
 import { UsuariService } from 'src/app/services/usuari.service';
 
 import {Router} from "@angular/router"
-import Phaser from 'phaser';
 
 
 @Component({
@@ -39,7 +38,6 @@ export class IniciComponent implements OnInit {
       setTimeout(() =>{
         localStorage.setItem("email",this.session_storage.session.user.email)
         localStorage.setItem("nick",this.session_storage.session.user.nick)
-        localStorage.setItem("moneda",this.session_storage.session.user.moneda)
 
         this._router.navigate(["menu"])
       },500) 

@@ -33,4 +33,10 @@ export class UsuariService{
         return this._http.get(this.url+'/get-money/'+nick);
 
     }
+    setMoney(nick:string,money:any){
+        var monedaOBJ = {"moneda":money}
+        let params = JSON.stringify(monedaOBJ);
+        let headers =new HttpHeaders().set('Content-Type', 'application/json');
+        return this._http.put(this.url+'new-money/'+nick, params, {headers: headers});
+    }
 }
