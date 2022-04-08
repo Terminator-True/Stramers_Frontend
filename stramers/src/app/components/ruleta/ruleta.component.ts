@@ -1,6 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Global } from 'src/app/services/global';
 import { CardService } from 'src/app/services/carta.service'; 
+<<<<<<< HEAD
+=======
+import { UsuariService } from 'src/app/services/usuari.service';
+
+>>>>>>> 471985b207f0136fa7273ae0d5bce78905ffde47
 import { Injectable } from '@angular/core';
 import { UsuariService } from 'src/app/services/usuari.service';
 
@@ -246,9 +251,18 @@ export class RuletaComponent implements OnInit {
   config: Phaser.Types.Core.GameConfig;
   phaserGame:any;
   public url:any;
+<<<<<<< HEAD
   public cards:any;
   public nick:any;
   constructor(private _userService:UsuariService) {
+=======
+  public nick:any;
+  public moneda:any;
+
+  constructor(
+    private _cardService:CardService, private _userService:UsuariService
+  ) {
+>>>>>>> 471985b207f0136fa7273ae0d5bce78905ffde47
     this.url=Global.url
     this.config={
       type: Phaser.CANVAS,
@@ -260,6 +274,15 @@ export class RuletaComponent implements OnInit {
    }
 
   ngOnInit(): void {
+<<<<<<< HEAD
+=======
+    this.nick=localStorage.getItem("nick")
+    this._userService.getMoney(this.nick).subscribe(moneda=>{
+      this.moneda=Object.values(moneda)[0];
+    })
+    this.phaserGame=new Phaser.Game(this.config);
+    console.log(Roulete)
+>>>>>>> 471985b207f0136fa7273ae0d5bce78905ffde47
 
     this.phaserGame=new Phaser.Game(this.config);
     let nickT = localStorage.getItem("nick")

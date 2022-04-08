@@ -38,14 +38,13 @@ export class TiendaComponent implements OnInit {
   
   ngOnInit(): void {
     this.nick=localStorage.getItem("nick")
-    console.log(this.nick)
-    this.moneda=this._userService.getMoney(this.nick)
-    console.log(this.moneda)
+    this._userService.getMoney(this.nick).subscribe(moneda=>{
+      this.moneda=Object.values(moneda)[0];
+    })
     //obtenim un array de todas las cartas
     this._cardService.getCards()
     .subscribe(cards=>{
       this.cards=Object.values(cards)[0]; //obtenemos 3 arrays pero solo queremos la primera con les dades de la carta
-      console.log(this.cards)
     },
     error=>{
       console.log(error)
