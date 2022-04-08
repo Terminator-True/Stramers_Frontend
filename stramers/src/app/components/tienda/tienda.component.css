@@ -33,3 +33,12 @@
   .cag:hover {
     box-shadow: 0 0 10px 0 #1496aa inset, 0 0 10px 4px #1496aa;
   }
+
+.info{
+    background: #181728;
+    float: right;
+    padding: 10px;
+    color: #fff;
+    box-shadow: 0 0 10px 0 #1496aa inset, 0 0 10px 4px #1496aa;
+    border-radius: 15px;
+}

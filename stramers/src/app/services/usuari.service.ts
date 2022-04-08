@@ -29,7 +29,6 @@ export class UsuariService{
         return this._http.post(this.url+'login', params, {headers: headers});
     }
     getMoney(nick:string){
-        console.log(this.url+'/get-money/'+nick);
         return this._http.get(this.url+'/get-money/'+nick);
 
     }

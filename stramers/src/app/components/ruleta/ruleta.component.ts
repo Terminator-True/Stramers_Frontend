@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Global } from 'src/app/services/global';
 import { CardService } from 'src/app/services/carta.service'; 
+import { UsuariService } from 'src/app/services/usuari.service';
 
 import { Injectable } from '@angular/core';
 
@@ -249,8 +250,12 @@ export class RuletaComponent implements OnInit {
   config: Phaser.Types.Core.GameConfig;
   phaserGame:any;
   public url:any;
+  public nick:any;
+  public moneda:any;
 
-  constructor() {
+  constructor(
+    private _cardService:CardService, private _userService:UsuariService
+  ) {
     this.url=Global.url
     this.config={
       type: Phaser.CANVAS,
@@ -262,6 +267,10 @@ export class RuletaComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.nick=localStorage.getItem("nick")
+    this._userService.getMoney(this.nick).subscribe(moneda=>{
+      this.moneda=Object.values(moneda)[0];
+    })
     this.phaserGame=new Phaser.Game(this.config);
     console.log(Roulete)
 

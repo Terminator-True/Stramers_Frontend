@@ -49,3 +49,28 @@ div svg {
 .blanco{
   color: white;
 }
+
+/* chat global */
+#chatbox_ret_cont{
+  z-index: 10000;
+  background-color: transparent;
+  position: fixed;
+  bottom: 0;
+ }
+ #chatbox_ret_cont.chatbox_derecha{
+  right: 0;
+ }
+ #chatbox_ret_cont.chatbox_izquierda{
+  left: 0;
+ }
+ #chatbox_ret_cont div{
+  cursor: pointer;
+ }
+ #chatbox_ret_cont iframe#chatbox_ret{
+  background-color: white;
+  border: 2px solid grey;
+  display: none;
+  height: 450px;
+  margin-bottom: 0;
+  width: 900px;
+ }
