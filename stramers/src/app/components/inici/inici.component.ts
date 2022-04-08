@@ -5,6 +5,7 @@ import { Login } from 'src/app/models/inici.usuari';
 import { UsuariService } from 'src/app/services/usuari.service';
 
 import {Router} from "@angular/router"
+import Phaser from 'phaser';
 
 
 @Component({
@@ -12,10 +13,12 @@ import {Router} from "@angular/router"
   templateUrl: './inici.component.html',
   styleUrls: ['./inici.component.css']
 })
+
 export class IniciComponent implements OnInit {
 
   public iniciUsuari: Login;
   public session_storage:any;
+  public game:any;
   constructor(
     private _UsuariService:UsuariService,
     private _router: Router
@@ -26,6 +29,7 @@ export class IniciComponent implements OnInit {
    }
 
   ngOnInit(){
+
   }
 
   onSubmit(form:any){
