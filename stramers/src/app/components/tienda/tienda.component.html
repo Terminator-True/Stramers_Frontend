@@ -1,5 +1,6 @@
 <div class="body" >
   <div>
+    <!-- flecha -->
     <a href="/menu">
       <svg width="18px" height="17px" viewBox="0 0 18 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <g id="prev" transform="translate(8.500000, 8.500000) scale(-1, 1) translate(-8.500000, -8.500000)">
@@ -9,17 +10,22 @@
         </g>
       </svg>
     </a>
+     <!-- menu user -->
+    user: {{nick}}
+    monedas: {{moneda}}
   </div>
   
-  <!-- lista de todas las cartas -->
+  <!-- lista de todas las cartas 
   <ul *ngFor="let card of cards" class="list-group">
     <li class="list-group-item " > <img src="{{url+'get-image/'+card.img}}" *ngIf="card.img != 'null'" style="width: 100px;"> </li>
     <li class="list-group-item" ><a [routerLink]="['/detail/',card._id]" >Comprar</a></li>
-  </ul>
+  </ul>-->
+
+
+
 </div>
 
-
 <div class="lateral">
-  <div class="cag"> <a href="/tienda/ruleta">Ruleta</a></div>
-  <div class="cag"> <a href="/tienda/cartas">Cartas</a></div>
+  <div class="cag"> <a href="/tienda/ruleta" class="btn">Ruleta</a></div>
+  <div class="cag"> <a href="/tienda/cartas" class="btn">Cartas</a></div>
 </div>
