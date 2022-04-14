@@ -1,11 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Global } from 'src/app/services/global';
 import { CardService } from 'src/app/services/carta.service'; 
-<<<<<<< HEAD
-=======
-import { UsuariService } from 'src/app/services/usuari.service';
-
->>>>>>> 471985b207f0136fa7273ae0d5bce78905ffde47
 import { Injectable } from '@angular/core';
 import { UsuariService } from 'src/app/services/usuari.service';
 
@@ -60,7 +55,7 @@ class Roulete extends Phaser.Scene{
 
     create (){
         var that=this;
-        this.add.image(600, 400, 'fondo');
+        //this.add.image(600, 400, 'fondo');
         this.ruleta = this.add.sprite(600, 300, 'ruleta')
         this.arrow = this.add.sprite(770, 300, 'arrow');
         this.arrow.angle+=90;
@@ -186,8 +181,10 @@ class Roulete extends Phaser.Scene{
             //Si la variable moneda al local storage es null retorna 0 si no
             // retorna el valor indicat
             console.log(moneda)
-            if (moneda==null ? 0:parseInt(moneda) >= 1000) {
-                sessionStorage.setItem("moneda",(parseInt(typeof(moneda)=="string"? moneda:"0")-1000).toString())
+            if (moneda==null ? null:parseInt(moneda) >= 1000) {
+                setTimeout(() => {
+                    sessionStorage.setItem("moneda",(parseInt(typeof(moneda)=="string"? moneda:"null")-1000).toString())
+                }, 500);
                 this.resultado_entregado=false;
                 this.aceleracion = - ((Math.random() * 3)+3)/30;
                 this.velocidad   = Math.floor(Math.random() * 30)+15;  
@@ -251,39 +248,28 @@ export class RuletaComponent implements OnInit {
   config: Phaser.Types.Core.GameConfig;
   phaserGame:any;
   public url:any;
-<<<<<<< HEAD
-  public cards:any;
-  public nick:any;
-  constructor(private _userService:UsuariService) {
-=======
   public nick:any;
   public moneda:any;
 
   constructor(
     private _cardService:CardService, private _userService:UsuariService
   ) {
->>>>>>> 471985b207f0136fa7273ae0d5bce78905ffde47
     this.url=Global.url
     this.config={
       type: Phaser.CANVAS,
       width: 1200,
       height: 800,
+      backgroundColor: '#2c3e50',
       parent: "gameContainer",
       scene: [Roulete]
   };
+    setInterval(()=>{
+        this.moneda=sessionStorage.getItem("moneda")
+    }, 1000);
    }
 
   ngOnInit(): void {
-<<<<<<< HEAD
-=======
     this.nick=localStorage.getItem("nick")
-    this._userService.getMoney(this.nick).subscribe(moneda=>{
-      this.moneda=Object.values(moneda)[0];
-    })
-    this.phaserGame=new Phaser.Game(this.config);
-    console.log(Roulete)
->>>>>>> 471985b207f0136fa7273ae0d5bce78905ffde47
-
     this.phaserGame=new Phaser.Game(this.config);
     let nickT = localStorage.getItem("nick")
     this.nick = nickT==null ? "null":nickT;
@@ -294,10 +280,11 @@ export class RuletaComponent implements OnInit {
         var moneda = Object.values(ok)[0]
         sessionStorage.setItem("moneda",moneda)
     })
+    
   }
   salir(){
         var moneda=sessionStorage.getItem("moneda")
-        this._userService.setMoney(this.nick,moneda == null ? 0: moneda).subscribe(ok=>{
+        this._userService.setMoney(this.nick,moneda == null ? "null": moneda).subscribe(ok=>{
             if (ok) {
                 console.log(ok)
                 sessionStorage.clear()

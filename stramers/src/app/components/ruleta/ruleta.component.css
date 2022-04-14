@@ -2,6 +2,9 @@
     float:left;
 }
 
+.blancoHDP{
+    background: #2c3e50;
+}
 .lateral{
     float: right;
     width: 16%;
