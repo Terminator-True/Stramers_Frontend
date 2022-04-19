@@ -36,6 +36,10 @@ export class CardService{
     getCardsByType(type:string){
         return this._http.get(this.url+'get-card-type/'+type);
     }
+    //Obtener carta por type(Legend,epic...)
+    getCardsByCateg(category:string){
+        return this._http.get(this.url+'get-card-category/'+category);
+    }
     //elimiar carta
     deleteCard(id:string){
         return this._http.delete(this.url+'cartas/'+id);
