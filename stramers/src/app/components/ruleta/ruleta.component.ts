@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Global } from 'src/app/services/global';
-import { CardService } from 'src/app/services/carta.service'; 
+import { CardService } from 'src/app/services/carta.service';
 import { Injectable } from '@angular/core';
 import { UsuariService } from 'src/app/services/usuari.service';
+import {Router} from "@angular/router"
 
 import Phaser from 'phaser';
 
@@ -25,7 +26,7 @@ class Roulete extends Phaser.Scene{
         { id:3, a_i:0, a_f:0, nombre: 'retrigger'},
         { id:4, a_i:0, a_f:0, nombre: 'comun'},
         { id:5, a_i:0, a_f:0, nombre: 'raro'},
-        { id:6, a_i:0, a_f:0, nombre: 'epica'},           
+        { id:6, a_i:0, a_f:0, nombre: 'epica'},
     ];
     public intervalo_subdivision = 360/this.categorias.length;
 
@@ -34,7 +35,7 @@ class Roulete extends Phaser.Scene{
         for (let c=0; c < this.categorias.length; c++){
             this.categorias[c].a_i =  c*this.intervalo_subdivision;
             this.categorias[c].a_f = (c+1)*this.intervalo_subdivision;
-        }        
+        }
     }
 
     //Se asignan los valores de angulos a las categorias
@@ -83,7 +84,7 @@ class Roulete extends Phaser.Scene{
             });
     }
 
-    override update (){   
+    override update (){
         if (this.velocidad < 0){
             this.velocidad = 0;
             if (!this.resultado_entregado) {
@@ -117,7 +118,7 @@ class Roulete extends Phaser.Scene{
                             quantity: 5,
                             blendMode: 'ADD'
                         });
-    
+
                         this.boton_sig.visible=true
                         this.boton.visible=false
                         //this.carta.visible=true
@@ -147,13 +148,13 @@ class Roulete extends Phaser.Scene{
                             scale: { start: 0.4, end: 0 },
                             quantity: 5,
                             blendMode: 'ADD'
-                        });     
+                        });
                         this.boton_sig.visible=true
                         this.boton.visible=false
                         //this.carta.visible=true
                         break;
                     case "retrigger":
-                        this.time.delayedCall(500, () => {this.tirar(true)});   
+                        this.time.delayedCall(500, () => {this.tirar(true)});
                         break;
                     case "comun":
                         break;
@@ -163,19 +164,19 @@ class Roulete extends Phaser.Scene{
                     default:
                         break;
                 }
-                   
-                
+
+
             }
         }
         this.ruleta.angle += this.velocidad;
-        this.velocidad += this.aceleracion; 
+        this.velocidad += this.aceleracion;
     }
 
     tirar(auto=false) {
         if (auto) {
             this.resultado_entregado=false;
             this.aceleracion = - ((Math.random() * 3)+3)/30;
-            this.velocidad   = Math.floor(Math.random() * 30)+15;   
+            this.velocidad   = Math.floor(Math.random() * 30)+15;
         }else{
             var moneda = sessionStorage.getItem("moneda")
             //Si la variable moneda al local storage es null retorna 0 si no
@@ -187,8 +188,8 @@ class Roulete extends Phaser.Scene{
                 }, 500);
                 this.resultado_entregado=false;
                 this.aceleracion = - ((Math.random() * 3)+3)/30;
-                this.velocidad   = Math.floor(Math.random() * 30)+15;  
-            } 
+                this.velocidad   = Math.floor(Math.random() * 30)+15;
+            }
         }
     }
 
@@ -252,12 +253,13 @@ export class RuletaComponent implements OnInit {
   public moneda:any;
 
   constructor(
-    private _cardService:CardService, private _userService:UsuariService
+    private _cardService:CardService, private _userService:UsuariService,
+    private _router: Router
   ) {
     this.url=Global.url
     this.config={
       type: Phaser.CANVAS,
-      width: 1200,
+      width: 800,
       height: 800,
       backgroundColor: '#2c3e50',
       parent: "gameContainer",
@@ -269,9 +271,14 @@ export class RuletaComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    if (localStorage.getItem("nick")==null) {
+      this._router.navigate([""])
+    }
     this.nick=localStorage.getItem("nick")
-    this.phaserGame=new Phaser.Game(this.config);
     let nickT = localStorage.getItem("nick")
+
+
+    this.phaserGame=new Phaser.Game(this.config);
     this.nick = nickT==null ? "null":nickT;
     if (sessionStorage.getItem("moneda")) {
         this.salir()
@@ -280,7 +287,7 @@ export class RuletaComponent implements OnInit {
         var moneda = Object.values(ok)[0]
         sessionStorage.setItem("moneda",moneda)
     })
-    
+
   }
   salir(){
         var moneda=sessionStorage.getItem("moneda")
@@ -292,7 +299,7 @@ export class RuletaComponent implements OnInit {
                 console.log(ok)
             }
         })
- 
+
   }
 
 }

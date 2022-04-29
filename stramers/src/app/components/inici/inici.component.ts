@@ -38,9 +38,8 @@ export class IniciComponent implements OnInit {
       setTimeout(() =>{
         localStorage.setItem("email",this.session_storage.session.user.email)
         localStorage.setItem("nick",this.session_storage.session.user.nick)
-
         this._router.navigate(["menu"])
-      },500) 
+      },500)
   }
 
 }
