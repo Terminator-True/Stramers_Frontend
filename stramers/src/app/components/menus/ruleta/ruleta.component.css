@@ -1,0 +1,40 @@
+.body{
+    float:left;
+}
+
+.lateral{
+    float: right;
+    width: 16%;
+    height: 100vh;
+    background: #181728;
+    font-size: 1em;
+    text-align: center;
+}
+
+.lateral a{
+    text-decoration: none;
+    color: black;
+    width: 100%;
+    padding-left: 5px;
+}
+
+.cag {
+    margin-bottom: 1px;
+    border-color: #1496aa;
+    color: #fff;
+    box-shadow: 0 0 40px 40px #1496aa inset, 0 0 0 0 #1496aa;
+    -webkit-transition: all 150ms ease-in-out;
+    transition: all 150ms ease-in-out;
+}
+.cag:hover {
+    box-shadow: 0 0 10px 0 #1496aa inset, 0 0 10px 4px #1496aa;
+}
+
+.info{
+    background: #181728;
+    float: right;
+    padding: 10px;
+    color: #fff;
+    box-shadow: 0 0 10px 0 #1496aa inset, 0 0 10px 4px #1496aa;
+    border-radius: 15px;
+}

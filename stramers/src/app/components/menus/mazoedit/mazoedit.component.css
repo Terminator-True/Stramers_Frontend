@@ -1,0 +1,23 @@
+.lateral{
+    float: right;
+    width: 16%;
+    height: 100vh;
+    background: #181728;
+    font-size: 1em;
+    text-align: center;
+}
+
+.back{
+    float:left;
+}
+
+.mazo{
+    background-color: aquamarine;
+    height: 800px;
+}
+
+.guardar{
+    background-color: aqua;
+    border: 1px solid;
+    border-radius: 15px;
+}

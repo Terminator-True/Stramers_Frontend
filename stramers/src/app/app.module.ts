@@ -12,14 +12,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { BasegameComponent } from './components/basegame/basegame.component';
 import { IniciComponent } from './components/inici/inici.component';
-import { LobbyComponent } from './components/lobby/lobby.component';
-import { MazoComponent } from './components/mazo/mazo.component';
-import { TiendaComponent } from './components/tienda/tienda.component';
+import { LobbyComponent } from './components/menus/lobby/lobby.component';
+import { MazoComponent } from './components/menus/mazo/mazo.component';
+import { TiendaComponent } from './components/menus/tienda/tienda.component';
 import { ErrorComponent } from './components/error/error.component';
 import { RegisterComponent } from './components/register/register.component';
-import { MenuComponent } from './components/menu/menu.component';
+import { MenuComponent } from './components/menus/menu/menu.component';
 import { AdminComponent } from './components/admin/admin.component';
-import { RuletaComponent } from './components/ruleta/ruleta.component';
+import { RuletaComponent } from './components/menus/ruleta/ruleta.component';
+import { MazoeditComponent } from './components/menus/mazoedit/mazoedit.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { RuletaComponent } from './components/ruleta/ruleta.component';
     RegisterComponent,
     MenuComponent,
     AdminComponent,
-    RuletaComponent
+    RuletaComponent,
+    MazoeditComponent
   ],
   imports: [
     BrowserModule,
