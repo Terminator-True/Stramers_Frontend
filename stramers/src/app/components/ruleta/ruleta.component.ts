@@ -96,23 +96,11 @@ class Roulete extends Phaser.Scene{
                         this.particles = this.add.particles('flare');
                         this.particles.createEmitter({
                             frame: 'yellow',
-                            x: 0,
-                            y: 100,
+                            x: { min: 0, max: 1200 },
+                            y: 0,
                             lifespan: 2000,
                             speed: { min: 400, max: 600 },
-                            angle: 680,
-                            gravityY: 1000,
-                            scale: { start: 0.4, end: 0 },
-                            quantity: 5,
-                            blendMode: 'ADD'
-                        });
-                        this.particles.createEmitter({
-                            frame: 'yellow',
-                            x: 1200,
-                            y: 100,
-                            lifespan: 2000,
-                            speed: { min: 400, max: 600 },
-                            angle: 930,
+                            angle: 450,
                             gravityY: 1000,
                             scale: { start: 0.4, end: 0 },
                             quantity: 5,
@@ -127,23 +115,11 @@ class Roulete extends Phaser.Scene{
                         this.particles = this.add.particles('flare');
                         this.particles.createEmitter({
                             frame: 'red',
-                            x: 0,
-                            y: 100,
+                            x: { min: 0, max: 1200 },
+                            y: 0,
                             lifespan: 2000,
                             speed: { min: 400, max: 600 },
-                            angle: 680,
-                            gravityY: 1000,
-                            scale: { start: 0.4, end: 0 },
-                            quantity: 5,
-                            blendMode: 'ADD'
-                        });
-                        this.particles.createEmitter({
-                            frame: 'red',
-                            x: 1200,
-                            y: 100,
-                            lifespan: 2000,
-                            speed: { min: 400, max: 600 },
-                            angle: 930,
+                            angle: 450,
                             gravityY: 1000,
                             scale: { start: 0.4, end: 0 },
                             quantity: 5,
@@ -259,7 +235,7 @@ export class RuletaComponent implements OnInit {
     this.url=Global.url
     this.config={
       type: Phaser.CANVAS,
-      width: 800,
+      width: 1200,
       height: 800,
       backgroundColor: '#2c3e50',
       parent: "gameContainer",
