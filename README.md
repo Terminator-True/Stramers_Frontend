@@ -1,5 +1,4 @@
 # Stramers_Frontend
-#
 Frontend:
   #
   -Angular: Menú principal, amb la botiga, el formulari de login i el de register a més a més de del lobby on es començará la partida i un apartat per a poder
