@@ -21,3 +21,8 @@
     border: 1px solid;
     border-radius: 15px;
 }
+
+.cag input{
+    background-color: #181728;
+    color: aqua;
+}
