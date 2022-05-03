@@ -5,6 +5,8 @@
     background: #181728;
     font-size: 1em;
     text-align: center;
+    border: solid 1px;
+    border-radius: 10px;
 }
 
 .back{
@@ -25,4 +27,12 @@
 .cag input{
     background-color: #181728;
     color: aqua;
+    text-align: center;
+}
+
+.fixe{
+    position:fixed;
+}
+.relative{
+    position: relative;
 }

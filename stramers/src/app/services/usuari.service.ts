@@ -38,4 +38,13 @@ export class UsuariService{
         let headers =new HttpHeaders().set('Content-Type', 'application/json');
         return this._http.put(this.url+'new-money/'+nick, params, {headers: headers});
     }
+    getCards(nick:string){
+        return this._http.get(this.url+'get-cards/'+nick);
+    }
+    Updeck(updeck:Object){
+        let params = JSON.stringify(updeck);
+        let headers =new HttpHeaders().set('Content-Type', 'application/json');
+        return this._http.post(this.url+'updeck', params, {headers: headers});
+
+    }
 }
