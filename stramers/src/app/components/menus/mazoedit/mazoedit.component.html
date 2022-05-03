@@ -10,6 +10,10 @@
     </a>
   </div>
 
+    <!-- lista de todas las cartas -->
+  <div class="container" >
+     <button *ngFor="let card of cards" class="btn"> <img src="{{url+'get-image/'+card.img}}" *ngIf="card.img != 'null'" style="width: 100px;"> </button>
+  </div>
 
 <div class="lateral">
     <div class="cag"> <input type="text" name="mazoname" id="" value="Mazo 1" ></div>
