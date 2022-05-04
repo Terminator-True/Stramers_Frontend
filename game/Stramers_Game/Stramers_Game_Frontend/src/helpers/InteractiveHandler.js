@@ -18,7 +18,7 @@ export default class InteractiveHandler{
 
             let pointer = scene.input.activePointer;
 
-            if (gameObjects[0].type=== "Image" && gameObjects[0].data.list.name!== "cardBack") {
+            if (gameObjects[0].type=== "Image" && gameObjects[0].data.list.name!== "CardBack") {
                 scene.cardPreview = scene.add.image(pointer.worldX, pointer.worldY-100, gameObjects[0].data.values.sprite).setScale(0.20,0.20)
             }
 
@@ -30,7 +30,6 @@ export default class InteractiveHandler{
             }
 
         })
-
         scene.input.on("drag", (pointer, gameObject, dragx, dragy)=>{
             gameObject.x = dragx;
             gameObject.y = dragy;
@@ -47,13 +46,21 @@ export default class InteractiveHandler{
                 gameObject.y = gameObject.input.dragStartY
             }
         })
+        /**
+         * @gameObject Es la imagen que tenemos dragged(Apunte: scene.playerZone.data.values.cards_list[0].data.list.name) 
+         *                                                      ejemplo de como coger el nombre de una carta que está en la array)
+         */
         scene.input.on("drop",(pointer,gameObject,dropZone)=>{
             if(scene.GameHandler.isMyTurn && scene.GameHandler.gameState==="Ready" && dropZone.data.values.type==="player"){
-                gameObject.x = (dropZone.x-350)+(dropZone.data.values.cards*170);
-                gameObject.y = dropZone.y;
-                scene.playerZone.data.values.cards++;
-                scene.input.setDraggable(gameObject, false);
-                scene.socket.emit("cardPlayed",gameObject.data.values.name, scene.socket.id)
+                if (scene.playerZone.data.values.cards<4) {
+                    scene.playerZone.data.values.cards_list[scene.playerZone.data.values.cards]=gameObject;
+                    console.log(scene.playerZone.data.values.cards_list[0].data.list.name);
+                    gameObject.x = (dropZone.x-350)+(dropZone.data.values.cards*170);
+                    gameObject.y = dropZone.y;
+                    scene.playerZone.data.values.cards++;
+                    scene.input.setDraggable(gameObject, false);
+                    scene.socket.emit("cardPlayed",gameObject.data.values.name, scene.socket.id)   
+                }
             }else{
                 gameObject.x = gameObject.input.dragStartX
                 gameObject.y = gameObject.input.dragStartY
