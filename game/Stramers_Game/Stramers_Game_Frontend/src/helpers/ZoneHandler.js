@@ -5,6 +5,7 @@ export default class ZoneHandler{
             dropZone.setData({
                 "cards":0,
                 "type": type,
+                "cards_list":[],
             });
             return dropZone;    
         }
