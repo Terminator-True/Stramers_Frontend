@@ -9,11 +9,11 @@ export default class DeckHandler{
         this.dealCard = (x, y, name, type) => {
             let cards = {
                 cardBack: new CardBack(scene),
-                Elxokas: new Elxokas(scene),
-                Mdlr: new Mdlr(scene),
-                Garmy: new Garmy(scene),
-                Programador: new Programador(scene),
-                Streamer: new Streamer(scene),
+                elxokas: new Elxokas(scene),
+                mdlr: new Mdlr(scene),
+                garmy: new Garmy(scene),
+                programador: new Programador(scene),
+                streamer: new Streamer(scene),
             }
             let newCard = cards[name];
             //console.log(newCard)

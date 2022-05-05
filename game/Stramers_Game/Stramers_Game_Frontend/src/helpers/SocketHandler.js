@@ -40,7 +40,10 @@ export default class SocketHandler{
         scene.socket.on("cardPlayed", (cardName, socketId)=>{
             if (socketId !== scene.socket.id) {
                 scene.GameHandler.opponentHand.shift().destroy();
-                scene.DeckHandler.dealCard((scene.opponentZone.x-350)+(scene.opponentZone.data.values.cards*170), scene.opponentZone.y, cardName, "opponentCard");
+                let gameObject=scene.DeckHandler.dealCard((scene.opponentZone.x-350)+(scene.opponentZone.data.values.cards*170), scene.opponentZone.y, cardName, "opponentCard");
+                console.log(gameObject);
+                scene.opponentZone.data.values.cards_list[scene.opponentZone.data.values.cards]=gameObject;
+                scene.add.text(gameObject.x-20,gameObject.y-145,scene.opponentZone.data.values.cards_list[scene.opponentZone.data.values.cards].data.list.dmg+"/"+scene.opponentZone.data.values.cards_list[scene.opponentZone.data.values.cards].data.list.life).setFontSize(24)
                 scene.opponentZone.data.values.cards++;
             }
         })

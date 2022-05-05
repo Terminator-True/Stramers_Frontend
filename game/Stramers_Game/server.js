@@ -43,14 +43,14 @@ io.on("connection", function(socket){
      * éste devolverá el mazo principal(nombres de las cartas)
      */
     socket.on("dealDeck", function(socketId) {
-        players[socketId].inDeck = shuffle(["Elxokas","Mdlr","Garmy","Programador","Streamer"])
+        players[socketId].inDeck = shuffle(["elxokas","mdlr","garmy","programador","streamer"])
         if (Object.keys(players).lenght < 2) return;
         io.emit("changeGameState", "Initializing")
     })
     socket.on("dealCards", function(socketId){
         for(let i=0; i<5; i++){
             if (players[socketId].inDeck===0) {
-                players[socketId].inDeck = shuffle(["Elxokas","Mdlr","Garmy","Programador","Streamer"])
+                players[socketId].inDeck = shuffle(["elxokas","mdlr","garmy","programador","streamer"])
             }
             players[socketId].inHand.push(players[socketId].inDeck.shift());
         }

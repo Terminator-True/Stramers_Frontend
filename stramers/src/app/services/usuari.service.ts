@@ -45,6 +45,5 @@ export class UsuariService{
         let params = JSON.stringify(updeck);
         let headers =new HttpHeaders().set('Content-Type', 'application/json');
         return this._http.post(this.url+'updeck', params, {headers: headers});
-
     }
 }
