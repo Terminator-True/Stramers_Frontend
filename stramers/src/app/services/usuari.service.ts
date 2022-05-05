@@ -41,9 +41,20 @@ export class UsuariService{
     getCards(nick:string){
         return this._http.get(this.url+'get-cards/'+nick);
     }
-    Updeck(updeck:Object){
+    Updeck(updeck:Object,nick:string){
         let params = JSON.stringify(updeck);
         let headers =new HttpHeaders().set('Content-Type', 'application/json');
+<<<<<<< HEAD
         return this._http.post(this.url+'updeck', params, {headers: headers});
     }
 }
+=======
+        return this._http.put(this.url+'updeck/'+nick, params, {headers: headers});
+
+    }
+
+    getDecks(nick:string){
+        return this._http.get(this.url+'get-decks/'+nick);
+    }
+}
+>>>>>>> 9ac57c5832370bd9d180333937699b9c3bad462e

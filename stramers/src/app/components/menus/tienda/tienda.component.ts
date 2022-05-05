@@ -95,5 +95,13 @@ export class TiendaComponent implements OnInit {
       console.log(error)
     })
   }
+
+  addcard(card:any){
+    console.log(card);
+    // if (!this.lista.includes(card) || this.count>=15){
+    //   this.lista.push(card);
+    // }
+  }
+
 }
 
