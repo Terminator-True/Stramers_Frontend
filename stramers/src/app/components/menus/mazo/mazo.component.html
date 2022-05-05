@@ -11,11 +11,11 @@
 </div>
 
 <a href="/mazo/edit">
-  <div class="mazo">
+  <button class="mazo">
     Crear Mazo
-  </div>
+  </button>
 </a> 
 
-<!-- <div *ngFor="let mazo of mazos" class="list-group">
-  <li class="list-group-item" > {{ mazo.mazo }} </li>
-</div> -->
+<span *ngFor="let mazo of mazos">
+  <button class="mazo" > {{ mazo }} </button>
+</span>

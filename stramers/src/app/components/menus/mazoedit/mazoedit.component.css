@@ -31,7 +31,7 @@
 }
 
 .fixe{
-    position:fixed;
+    position:sticky;
 }
 .relative{
     position: relative;

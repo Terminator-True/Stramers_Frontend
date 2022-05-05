@@ -9,15 +9,16 @@
     </svg>
   </a>
 
-
-    <!-- lista de todas las cartas -->
   <div class="container" style="padding: 0%; margin:0%" >
+    <!-- lista todas las cartas que tiene el usuario -->
      <button *ngFor="let card of cards" (click)="addcard(card)" class="btn"> <img src="{{url+'get-image/'+card.img}}" *ngIf="card.img != 'null'" style="width: 300px;"> </button>
   </div>
 </div>
 <div class="lateral p-2">
-  <div class="fix">
+    <!-- nombre del mazo -->
     <div class="cag"> <input type="text" name="deckname" [(ngModel)]="deckname" id="deckname" value="Mazo 1" ></div>
+    <p style="color:white;" > {{count}}/15 </p> 
+    <!-- lista las cartas que tiene el usuario seleccionades con el color de la cactegoria -->
     <ul *ngFor="let card of lista" (click)="delcard(card)" class="container-fluid list-group">
        <li *ngIf="card.category=='Comun'" class="list-group-item p-2" style="color:white;background:rgb(171, 171, 171);" >{{card.name}}</li>
        <li *ngIf="card.category=='Raro'" class="list-group-item p-2" style="color:white; background:cadetblue;" >{{card.name}}</li>
@@ -25,5 +26,5 @@
        <li *ngIf="card.category=='Legend'" class="list-group-item p-2" style="color:white; background:darkorange;" >{{card.name}}</li>
     </ul>
     <div class="guardar"> <a (click)="updeck()" class="btn">Guardar</a></div>
-  </div>
+    
 </div>

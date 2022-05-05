@@ -19,12 +19,11 @@
   <!-- lista de todas las cartas 
   <ul *ngFor="let card of cards" class="list-group">
     <li class="list-group-item " > <img src="{{url+'get-image/'+card.img}}" *ngIf="card.img != 'null'" style="width: 100px;"> </li>
-    <li class="list-group-item" ><a [routerLink]="['/detail/',card._id]" >Comprar</a></li>
   </ul>-->
 
   <table>
     <tr>
-      <td><img src="{{url+'get-image/'+comun1cards.img}}" *ngIf="comun1cards.img != 'null'" style="width: 300px;"></td>
+      <td><a href="" ><img src="{{url+'get-image/'+comun1cards.img}}" *ngIf="comun1cards.img != 'null'" style="width: 300px;"></a></td>
       <td><img src="{{url+'get-image/'+comun2cards.img}}" *ngIf="comun2cards.img != 'null'" style="width: 300px;"></td>
       <td><img src="{{url+'get-image/'+raro1cards.img}}" *ngIf="raro1cards.img != 'null'" style="width: 300px;"></td>
       <td><img src="{{url+'get-image/'+raro2cards.img}}" *ngIf="raro2cards.img != 'null'" style="width: 300px;"></td>
