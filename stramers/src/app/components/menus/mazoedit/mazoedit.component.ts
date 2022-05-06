@@ -26,6 +26,7 @@ export class MazoeditComponent implements OnInit {
   alert = '';
   public mazos:any={};
   public count:number;
+  public mazonum:any;
 
   constructor(
     private _cardService:CardService, private _userService:UsuariService, private _router: Router
@@ -35,6 +36,7 @@ export class MazoeditComponent implements OnInit {
     this.lista=[];
     this.deckname="New Deck";
     this.count=0;
+
   }
 
   ngOnInit(): void {
@@ -57,10 +59,13 @@ export class MazoeditComponent implements OnInit {
       console.log(error)
     })
 
-    // peticion de obtener todos los mazos
+    // peticion de obtener todos los mazos del user
     this._userService.getDecks(this.nick)
     .subscribe(mazos=>{
-      this.mazos=Object.values(mazos)[0]; //obtenemos 3 arrays pero solo queremos la primera con les dades de la carta
+      this.mazos=Object.values(mazos)[0]; 
+      this.mazonum=Object.keys(Object.values(mazos)[0]);
+      this.mazonum=this.mazonum.length;
+      this.deckname="New Deck "+(this.mazonum+1);
     },
     error=>{
       console.log(error)
@@ -68,8 +73,7 @@ export class MazoeditComponent implements OnInit {
   }
   // añade un objecto de la carta a la llista y muesra el nombre a la llista de crear mazo
   addcard(card:any){
-    // console.log(card);
-    if (!this.lista.includes(card) || this.count>=15){
+    if (!this.lista.includes(card) && this.count<=15){
       this.lista.push(card);
       this.count+=1;
     }
@@ -84,19 +88,22 @@ export class MazoeditComponent implements OnInit {
 
   // get de todos los mazos que tiene el usuario, lo actualitzaos para añadir el nuevo mazo i enviamos el nuevo array assosiatiu de mazos
   updeck(){
-    if (localStorage.getItem("nick")==null) { 
-      this._router.navigate([""])
+    if(this.count==15){
+      if (localStorage.getItem("nick")==null) { 
+        this._router.navigate([""])
+      }
+      this.nick=localStorage.getItem("nick")
+      
+  
+      this.mazos[this.deckname]=this.lista.map(function(card:any){return card.name.toLowerCase() });
+      let tmp={mazos:this.mazos}
+      console.log(tmp);
+      // peticion updatear array mazo
+      this._userService.Updeck(tmp,this.nick).subscribe(
+        result=>this.alert=result.toString()
+      )
     }
-    this.nick=localStorage.getItem("nick")
     
-
-    this.mazos[this.deckname]=this.lista.map(function(card:any){return card.name.toLowerCase() });
-    let tmp={mazos:this.mazos}
-    console.log(tmp);
-    // peticion updatear array mazo
-    this._userService.Updeck(tmp,this.nick).subscribe(
-      result=>this.alert=result.toString()
-    )
   }
 
 }

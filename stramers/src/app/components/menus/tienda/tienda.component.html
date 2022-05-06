@@ -12,8 +12,11 @@
     </a>
     <!-- menu user -->
     <div class="info" >
-      Monedas: {{moneda}}  
+      Monedas: {{moneda}}
     </div>
+
+      <p>12:00 actualitza la tienda</p>
+
   </div>
   
   <!-- lista de todas las cartas 
@@ -23,11 +26,11 @@
 
   <table>
     <tr>
-      <td><a href="" ><img src="{{url+'get-image/'+comun1cards.img}}" *ngIf="comun1cards.img != 'null'" style="width: 300px;"></a></td>
-      <td><img src="{{url+'get-image/'+comun2cards.img}}" *ngIf="comun2cards.img != 'null'" style="width: 300px;"></td>
-      <td><img src="{{url+'get-image/'+raro1cards.img}}" *ngIf="raro1cards.img != 'null'" style="width: 300px;"></td>
-      <td><img src="{{url+'get-image/'+raro2cards.img}}" *ngIf="raro2cards.img != 'null'" style="width: 300px;"></td>
-      <td><img src="{{url+'get-image/'+epica1cards.img}}" *ngIf="epica1cards.img != 'null'" style="width: 300px;"></td>
+      <td><a (click)="buy(comun1cards)" ><img src="{{url+'get-image/'+comun1cards.img}}" *ngIf="comun1cards.img != 'null'" style="width: 300px;" alt="carta comun"></a></td>
+      <td><a (click)="buy(comun2cards)"><img src="{{url+'get-image/'+comun2cards.img}}" *ngIf="comun2cards.img != 'null'" style="width: 300px;" alt="carta comun"></a></td>
+      <td><a (click)="buy(raro1cards)"><img src="{{url+'get-image/'+raro1cards.img}}" *ngIf="raro1cards.img != 'null'" style="width: 300px;" alt="carta rare"></a></td>
+      <td><a (click)="buy(raro2cards)"><img src="{{url+'get-image/'+raro2cards.img}}" *ngIf="raro2cards.img != 'null'" style="width: 300px;" alt="carta rare"></a></td>
+      <td><a (click)="buy(epica1cards)"><img src="{{url+'get-image/'+epica1cards.img}}" *ngIf="epica1cards.img != 'null'" style="width: 300px;" alt="carta epic"></a></td>
     </tr>
     <tr>
       <td><h1>600</h1></td>
