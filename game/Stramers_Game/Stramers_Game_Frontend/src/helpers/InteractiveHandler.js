@@ -2,7 +2,8 @@ export default class InteractiveHandler{
     constructor(scene){
 
         scene.dealCards.on("pointerdown", () => {
-            scene.socket.emit("dealCards",scene.socket.id);
+            console.log(scene)
+            scene.socket.emit("dealCards",scene.room.roomId, scene.room.playerId);
             scene.dealCards.disableInteractive();
         })
 
@@ -28,7 +29,6 @@ export default class InteractiveHandler{
             if (gameObjects[0].type=== "Image" && gameObjects[0].data.list.name!== "cardBack") {
                 scene.cardPreview.setVisible(false)
             }
-
         })
         scene.input.on("drag", (pointer, gameObject, dragx, dragy)=>{
             gameObject.x = dragx;
