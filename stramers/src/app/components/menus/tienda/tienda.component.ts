@@ -26,6 +26,9 @@ export class TiendaComponent implements OnInit {
   public cards:any;
   public nick:any;
   public moneda:any;
+  public userCards:any;
+  public cardsnum:any;
+  public cardsNumAll:any;
   // categorias
   public comun:string;
   public raro:string;
@@ -39,6 +42,9 @@ export class TiendaComponent implements OnInit {
   public raro2cards:any;
   public comun1cards:any;
   public comun2cards:any;
+  
+  alert = '';
+
 
   constructor(
     private _cardService:CardService, private _userService:UsuariService,
@@ -49,6 +55,7 @@ export class TiendaComponent implements OnInit {
     this.raro="Raro"
     this.epica="Epica"
     this.legend="Legend"
+    this.cards=[];
   }
 
   ngOnInit(): void {
@@ -64,6 +71,8 @@ export class TiendaComponent implements OnInit {
     this._cardService.getCards()
     .subscribe(cards=>{
       this.cards=Object.values(cards)[0]; //obtenemos 3 arrays pero solo queremos la primera con les dades de la carta
+      this.cardsNumAll=Object.keys(Object.values(cards)[0]);
+      this.cardsNumAll=this.cardsNumAll.length;
     },
     error=>{
       console.log(error)
@@ -94,14 +103,46 @@ export class TiendaComponent implements OnInit {
     error=>{
       console.log(error)
     })
-  }
 
-  addcard(card:any){
-    console.log(card);
-    // if (!this.lista.includes(card) || this.count>=15){
-    //   this.lista.push(card);
+    //get user cards
+    this._userService.getCards(this.nick)
+    .subscribe(mazos=>{
+      this.userCards=Object.values(mazos)[0];
+      this.cardsnum=Object.keys(Object.values(mazos)[0]);
+      this.cardsnum=this.cardsnum.length;
+
+    },
+    error=>{
+      console.log(error)
+    })
+    // rotacio de las cartas por date
+    // const date1 = new Date('5/5/2022');
+    // const date2 = new Date();
+    // var diff =Math.abs(date1.getTime()-date2.getTime())
+    // var diffDays = Math.ceil(diff / (1000 * 3600 * 24)); 
+    // console.log(diffDays);
+    // if (this.cardsNumAll/2 <= diffDays){
+    //   diffDays= diffDays-this.cardsNumAll
     // }
+    // Between 0 and max
+    
+    const diff=Math.floor(Math.random() * (this.cardsNumAll/2 + 1));
+    console.log(diff);
   }
 
+  buy(card:any){
+    if (localStorage.getItem("nick")==null) { 
+        this._router.navigate([""])
+      }
+      this.nick=localStorage.getItem("nick")
+      
+      this.userCards[this.cardsnum]=card;
+      console.log(this.userCards);
+      // peticion updatear array mazo
+      this._userService.BuyCard(this.userCards,this.nick).subscribe(
+        result=>this.alert=result.toString()
+      )
+    }
+    
 }
 
