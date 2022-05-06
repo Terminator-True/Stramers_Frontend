@@ -70,9 +70,12 @@ export class TiendaComponent implements OnInit {
     //obtenim un array de todas las cartas
     this._cardService.getCards()
     .subscribe(cards=>{
-      this.cards=Object.values(cards)[0]; //obtenemos 3 arrays pero solo queremos la primera con les dades de la carta
+      this.cards=Object.values(cards)[0];
+      //numero total de las cartas
       this.cardsNumAll=Object.keys(Object.values(cards)[0]);
       this.cardsNumAll=this.cardsNumAll.length;
+      this.cardsNumAll=this.cardsNumAll
+      const diff=Math.floor(Math.random() * (this.cardsNumAll + 1));
     },
     error=>{
       console.log(error)
@@ -125,9 +128,7 @@ export class TiendaComponent implements OnInit {
     //   diffDays= diffDays-this.cardsNumAll
     // }
     // Between 0 and max
-    
-    const diff=Math.floor(Math.random() * (this.cardsNumAll/2 + 1));
-    console.log(diff);
+
   }
 
   buy(card:any){
