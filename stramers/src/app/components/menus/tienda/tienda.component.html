@@ -1,7 +1,7 @@
 <div class="body" >
   <div>
     <!-- flecha -->
-    <a href="/menu">
+    <a (click)="salir()" href="/menu">
       <svg width="18px" height="17px" viewBox="0 0 18 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <g id="prev" transform="translate(8.500000, 8.500000) scale(-1, 1) translate(-8.500000, -8.500000)">
             <polygon class="arrow" points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596"></polygon>
@@ -18,19 +18,19 @@
       <p>12:00 actualitza la tienda</p>
 
   </div>
-  
-  <!-- lista de todas las cartas 
+
+  <!-- lista de todas las cartas
   <ul *ngFor="let card of cards" class="list-group">
     <li class="list-group-item " > <img src="{{url+'get-image/'+card.img}}" *ngIf="card.img != 'null'" style="width: 100px;"> </li>
   </ul>-->
 
   <table>
     <tr>
-      <td><a (click)="buy(comun1cards)" ><img src="{{url+'get-image/'+comun1cards.img}}" *ngIf="comun1cards.img != 'null'" style="width: 300px;" alt="carta comun"></a></td>
-      <td><a (click)="buy(comun2cards)"><img src="{{url+'get-image/'+comun2cards.img}}" *ngIf="comun2cards.img != 'null'" style="width: 300px;" alt="carta comun"></a></td>
-      <td><a (click)="buy(raro1cards)"><img src="{{url+'get-image/'+raro1cards.img}}" *ngIf="raro1cards.img != 'null'" style="width: 300px;" alt="carta rare"></a></td>
-      <td><a (click)="buy(raro2cards)"><img src="{{url+'get-image/'+raro2cards.img}}" *ngIf="raro2cards.img != 'null'" style="width: 300px;" alt="carta rare"></a></td>
-      <td><a (click)="buy(epica1cards)"><img src="{{url+'get-image/'+epica1cards.img}}" *ngIf="epica1cards.img != 'null'" style="width: 300px;" alt="carta epic"></a></td>
+      <td><a (click)="buy(comun1cards)" ><img src="{{url+'get-image/'+comun1cards.img}}"  style="width: 300px;" alt="carta comun"></a></td>
+      <td><a (click)="buy(comun2cards)"><img src="{{url+'get-image/'+comun2cards.img}}"  style="width: 300px;" alt="carta comun"></a></td>
+      <td><a (click)="buy(raro1cards)"><img src="{{url+'get-image/'+raro1cards.img}}"  style="width: 300px;" alt="carta rare"></a></td>
+      <td><a (click)="buy(raro2cards)"><img src="{{url+'get-image/'+raro2cards.img}}"  style="width: 300px;" alt="carta rare"></a></td>
+      <td><a (click)="buy(epica1cards)"><img src="{{url+'get-image/'+epica1cards.img}}"  style="width: 300px;" alt="carta epic"></a></td>
     </tr>
     <tr>
       <td><h1>600</h1></td>

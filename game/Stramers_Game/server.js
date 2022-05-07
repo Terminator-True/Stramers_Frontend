@@ -7,8 +7,6 @@ let waiting = [];
 let rooms = {};
 let Nrooms = 0;
 let readyCheck=0;
-let gameState = "Initializing";
-let roomId = Nrooms%2==0 ? Nrooms:Nrooms-1
 
 const io = require("socket.io")(http, {
     cors: {
@@ -18,7 +16,7 @@ const io = require("socket.io")(http, {
 })
 
 io.on("connection", function(socket){
-
+    let roomId = Nrooms //Nrooms%2==0 ? Nrooms:Nrooms-1
     console.log("A user connected: "+socket.id)
     waiting.push(socket.id)
     
@@ -32,16 +30,17 @@ io.on("connection", function(socket){
 
     if (waiting.length>1) { 
         console.log(waiting)
+        io.to(socket.id).emit("firstTurn");
         let players={}
         players[waiting[0]] = {
                 inDeck: [],
                 inHand: [],
-                isPlayerA: true
+                isPlayerA: false
         }
         players[waiting[1]] = {
                 inDeck: [],
                 inHand: [],
-                isPlayerA: false
+                isPlayerA: true
         }
         rooms[roomId.toString()]=players
         players={}
@@ -52,8 +51,9 @@ io.on("connection", function(socket){
          * Parece que esto no funciona en el segundo usuario
          * no envía la accion match al cliente
          */
-        io.sockets.in(roomId.toString()).emit("match")
-
+         setTimeout(()=>{
+            io.sockets.in(roomId.toString()).emit("match")
+         },500)
     }
 
     /**
@@ -61,15 +61,16 @@ io.on("connection", function(socket){
      * éste devolverá el mazo principal(nombres de las cartas)
      */
     socket.on("dealDeck", function(roomId,socketId) {
-        console.log("dealdeck roomId: "+rooms)
+        console.log("dealdeck roomId: "+roomId)
         console.log("dealdeck socketId: "+socketId)
+        console.log(rooms)
         rooms[roomId][socketId].inDeck = shuffle(["elxokas","mdlr","garmy","programador","streamer"])
         if (Object.keys(rooms[roomId]).lenght < 2) return;
         io.sockets.in(roomId).emit("changeGameState", "Initializing")
     })
 
     socket.on("dealCards", function(roomId,socketId){
-        console.log("dealCard roomId: "+rooms)
+        console.log("dealCard roomId: "+roomId)
         console.log("dealCard socketId: "+socketId)
         for(let i=0; i<5; i++){
             if (rooms[roomId][socketId].inDeck===0) {
@@ -79,26 +80,23 @@ io.on("connection", function(socket){
         }
         io.sockets.in(roomId).emit("dealCards",roomId, socketId, rooms[roomId][socketId].inHand);
         readyCheck++;
-        if(readyCheck >= 2){
+        if(readyCheck === 2){
             readyCheck=0;
-            gameState="Ready";
             io.sockets.in(roomId).emit("changeGameState","Ready")
         }
     })
     socket.on("cardPlayed", function(cardName,roomId, socketId){
-        io.sockets.in(roomId).emit("cardPlayed", cardName, socketId);
+        console.log(cardName);
+        io.sockets.in(roomId).emit("cardPlayed", cardName,roomId, socketId);
         io.sockets.in(roomId).emit("changeTurn");
     })
 
-    socket.on("disconnecting", function(socketId){
-        console.log(socket.rooms)
-        socket.leave(socket.room);
-        
+    socket.on("disconnecting", function(){
+        delete rooms[socket.room]
+        console.log(socket.room)
+        socket.leave(socket.room);  
     })
-
-
 })
-
 
 http.listen(3000, function(){
     console.log("[+] server started")
