@@ -259,10 +259,12 @@ export class RuletaComponent implements OnInit {
     if (sessionStorage.getItem("moneda")) {
         this.salir()
     }
-    this._userService.getMoney(this.nick).subscribe(ok=>{
+    setTimeout(() => {
+      this._userService.getMoney(this.nick).subscribe(ok=>{
         var moneda = Object.values(ok)[0]
         sessionStorage.setItem("moneda",moneda)
     })
+    }, 500);
 
   }
   salir(){

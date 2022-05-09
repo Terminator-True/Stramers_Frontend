@@ -90,6 +90,7 @@ export class TiendaComponent implements OnInit {
     })
 
     setTimeout(() => {
+      console.log(this.cards)
       this.comun1cards=this.cards[0][0]
       this.comun2cards=this.cards[0][1]
 

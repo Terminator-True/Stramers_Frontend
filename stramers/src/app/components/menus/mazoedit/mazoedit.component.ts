@@ -49,8 +49,8 @@ export class MazoeditComponent implements OnInit {
     .subscribe(cards=>{
       this.cards=Object.values(cards)[0]; //obtenemos 3 arrays pero solo queremos la primera con les dades de la carta
     },
-    
-    //obtenim un array de todas las cartas TEST 
+
+    //obtenim un array de todas las cartas TEST
     // this._cardService.getCards()
     // .subscribe(cards=>{
     //   this.cards=Object.values(cards)[0]; //obtenemos 3 arrays pero solo queremos la primera con les dades de la carta
@@ -62,7 +62,7 @@ export class MazoeditComponent implements OnInit {
     // peticion de obtener todos los mazos del user
     this._userService.getDecks(this.nick)
     .subscribe(mazos=>{
-      this.mazos=Object.values(mazos)[0]; 
+      this.mazos=Object.values(mazos)[0];
       this.mazonum=Object.keys(Object.values(mazos)[0]);
       this.mazonum=this.mazonum.length;
       this.deckname="New Deck "+(this.mazonum+1);
@@ -76,11 +76,13 @@ export class MazoeditComponent implements OnInit {
     if (!this.lista.includes(card) && this.count<=15){
       this.lista.push(card);
       this.count+=1;
+      this.cards.splice(this.cards.indexOf(card),1)
     }
   }
   // elimina el objecto de la carta a la llista y la quita el nombre de la llista
   delcard(card:object){
     let index=this.lista.indexOf(card)
+    this.cards.push(card)
     this.lista.splice(index,1)
     console.log(card);
     this.count-=1;
@@ -89,12 +91,12 @@ export class MazoeditComponent implements OnInit {
   // get de todos los mazos que tiene el usuario, lo actualitzaos para añadir el nuevo mazo i enviamos el nuevo array assosiatiu de mazos
   updeck(){
     if(this.count==15){
-      if (localStorage.getItem("nick")==null) { 
+      if (localStorage.getItem("nick")==null) {
         this._router.navigate([""])
       }
       this.nick=localStorage.getItem("nick")
-      
-  
+
+
       this.mazos[this.deckname]=this.lista.map(function(card:any){return card.name.toLowerCase() });
       let tmp={mazos:this.mazos}
       console.log(tmp);
@@ -103,7 +105,7 @@ export class MazoeditComponent implements OnInit {
         result=>this.alert=result.toString()
       )
     }
-    
+
   }
 
 }
