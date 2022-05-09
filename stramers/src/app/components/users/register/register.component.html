@@ -1,22 +1,37 @@
-<div class="login-dark">
-  <form #form='ngForm' (ngSubmit)="onSubmit(form)" >
-    <h2 class="sr-only">Register Stramers</h2>
+<section class="vh-100" style="background-color: #9A616D;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-xl-10">
+        <div class="card" style="border-radius: 1rem;">
+          <div class="row g-0">
+            <div class="col-md-6 col-lg-5 d-none d-md-block">
+              <img src="http://localhost:3700/api/get-image-ico/Stramers.png"
+                alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
+            </div>
+            <div class="col-md-6 col-lg-7 d-flex align-items-center">
+              <div class="card-body p-4 p-lg-5 text-black">
+                
+                <form #form='ngForm' (ngSubmit)="onSubmit(form)" >
+                  <h2 class="sr-only">Register Stramers</h2>
 
-    <label for="nick">Nick:</label>
-    <input class="form-control" type="text" name="nick"  [(ngModel)]="iniciUsuari.nick" required /><br>
+                  <label for="nick">Nick:</label>
+                  <input class="form-control" type="text" id="nick" name="nick"  [(ngModel)]="iniciUsuari.nick" required/><br>
+                
+                  <label for="email">Email:</label>
+                  <input class="form-control" type="email" name="email" [(ngModel)]="iniciUsuari.email" required [email]="true"  /><br>
 
-    <label for="email">Email:</label>
-    <input class="form-control" type="email" name="email"  [(ngModel)]="iniciUsuari.email" required /><br>
+                  <label for="pasw">Password:</label>
+                  <input class="form-control" type="password" name="pasw"  [(ngModel)]="iniciUsuari.pasw" required minlength="9" pattern="/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{9,}$/" /><br>
 
-    <label for="pasw">Password:</label>
-    <input class="form-control" type="password" name="pasw"  [(ngModel)]="iniciUsuari.pasw" required /><br>
+                  <input class="btn btn-primary btn-block" type="submit" value="Register" [disabled]="!form.form.valid" ><br>
+                </form>
 
-    <input class="btn btn-primary btn-block" type="submit" value="Register" [disabled]="!form.form.valid" ><br>
-  </form>
-  <div  [ngStyle]="{'display': error_status}" class="alert alert-warning" role="alert"> 
-    <button type="button" class="close" (click)="tanca()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  {{alert}}
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+</section>

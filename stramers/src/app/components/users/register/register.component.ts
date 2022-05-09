@@ -4,6 +4,9 @@ import { Register } from 'src/app/models/register.usuari';
 
 import { UsuariService } from 'src/app/services/usuari.service';
 
+import { Validators,FormControl,FormGroup } from "@angular/forms";
+
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -15,7 +18,9 @@ export class RegisterComponent implements OnInit {
   alert = '';
   public pasw2:string;
   public error_status:string;
+  public nickForm:any;
 
+  public formAll: FormGroup = new FormGroup({});//declaracion de todo el form
 
   constructor(
     private _UsuariService:UsuariService
@@ -26,7 +31,19 @@ export class RegisterComponent implements OnInit {
 
    }
   ngOnInit(): void {
+    this.initFormValid()
   }
+  initFormValid():void{
+    this.formAll = new FormGroup(
+      {
+        nick: new FormControl('', [Validators.required]),
+        email: new FormControl('',[Validators.required,Validators.email]),
+        pasw: new FormControl('',[Validators.required,Validators.pattern("/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{9,}$/")])
+
+      }
+    )
+  }
+
   tanca(){
     this.error_status="none"
   }
