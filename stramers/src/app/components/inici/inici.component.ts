@@ -1,11 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-//Form
-import { Login } from 'src/app/models/inici.usuari';
-
-import { UsuariService } from 'src/app/services/usuari.service';
-
-import {Router} from "@angular/router"
-
 
 @Component({
   selector: 'app-inici',
@@ -15,31 +8,9 @@ import {Router} from "@angular/router"
 
 export class IniciComponent implements OnInit {
 
-  public iniciUsuari: Login;
-  public session_storage:any;
-  public game:any;
-  constructor(
-    private _UsuariService:UsuariService,
-    private _router: Router
-
-  ) {
-    this.iniciUsuari = new Login('','');
-
-   }
+  constructor() {  }
 
   ngOnInit(){
-
-  }
-
-  onSubmit(form:any){
-    this._UsuariService.Login(this.iniciUsuari).subscribe(user_data =>{
-      this.session_storage=user_data
-    })
-      setTimeout(() =>{
-        localStorage.setItem("email",this.session_storage.session.user.email)
-        localStorage.setItem("nick",this.session_storage.session.user.nick)
-        this._router.navigate(["menu"])
-      },500)
   }
 
 }

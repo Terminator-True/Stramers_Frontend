@@ -28,6 +28,9 @@ export class UsuariService{
         let headers =new HttpHeaders().set('Content-Type', 'application/json');
         return this._http.post(this.url+'login', params, {headers: headers});
     }
+    logout() {
+        // remove user from local storage and set current user to null
+    }
     getMoney(nick:string){
         return this._http.get(this.url+'/get-money/'+nick);
 

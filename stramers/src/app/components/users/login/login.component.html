@@ -1,0 +1,15 @@
+<div class="login-dark">
+    <form #form='ngForm' (ngSubmit)="onSubmit(form)" >
+        <h2 class="sr-only">Login Stramers</h2>
+
+        <label for="email">Email:</label>
+        <input class="form-control" type="email" name="email"  [(ngModel)]="iniciUsuari.email" required /><br>
+
+        <label for="pasw">Password:</label>
+        <input class="form-control" type="password" name="pasw"  [(ngModel)]="iniciUsuari.pasw" required /><br>
+
+        <input class="btn btn-primary btn-block" type="submit" value="Login" [disabled]="!form.form.valid" ><br>
+        <p href="#" class="forgot">¿Eres nuevo en Stramers?<a [routerLink]="['/register']" class="link" >Register</a></p>
+
+        </form>
+</div>

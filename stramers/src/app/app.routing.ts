@@ -3,9 +3,9 @@ import { ModuleWithProviders, NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
 //Imports de los componentes
-import { BasegameComponent } from "./components/basegame/basegame.component";
 import { IniciComponent } from "./components/inici/inici.component";
-import { RegisterComponent } from "./components/register/register.component";
+import { LoginComponent } from "./components/users/login/login.component";
+import { RegisterComponent } from "./components/users/register/register.component";
 import { MenuComponent } from "./components/menus/menu/menu.component";
 import { LobbyComponent } from "./components/menus/lobby/lobby.component";
 import { MazoComponent } from "./components/menus/mazo/mazo.component";
@@ -19,13 +19,13 @@ import { ErrorComponent } from "./components/error/error.component";
 const appRoutes: Routes = [
     {path: '', component: IniciComponent},
     {path: 'register', component: RegisterComponent},
+    {path: 'login', component: LoginComponent},
     {path: 'menu', component: MenuComponent},
     {path: 'lobby', component: LobbyComponent},
     {path: 'mazo', component: MazoComponent},
     {path: 'mazo/edit', component: MazoeditComponent},
     {path: 'tienda/cartas', component: TiendaComponent},
     {path: 'tienda/ruleta', component: RuletaComponent},
-    {path: 'game', component: BasegameComponent},
     {path: 'lmta', component: AdminComponent},
     {path: '**', component: ErrorComponent}
 ]

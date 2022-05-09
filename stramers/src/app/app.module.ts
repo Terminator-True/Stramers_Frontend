@@ -10,22 +10,21 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 //Imports componentes
 import { AppComponent } from './app.component';
-import { BasegameComponent } from './components/basegame/basegame.component';
 import { IniciComponent } from './components/inici/inici.component';
 import { LobbyComponent } from './components/menus/lobby/lobby.component';
 import { MazoComponent } from './components/menus/mazo/mazo.component';
 import { TiendaComponent } from './components/menus/tienda/tienda.component';
 import { ErrorComponent } from './components/error/error.component';
-import { RegisterComponent } from './components/register/register.component';
+import { RegisterComponent } from './components/users/register/register.component';
 import { MenuComponent } from './components/menus/menu/menu.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { RuletaComponent } from './components/menus/ruleta/ruleta.component';
 import { MazoeditComponent } from './components/menus/mazoedit/mazoedit.component';
+import { LoginComponent } from './components/users/login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BasegameComponent,
     IniciComponent,
     LobbyComponent,
     MazoComponent,
@@ -35,7 +34,8 @@ import { MazoeditComponent } from './components/menus/mazoedit/mazoedit.componen
     MenuComponent,
     AdminComponent,
     RuletaComponent,
-    MazoeditComponent
+    MazoeditComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
