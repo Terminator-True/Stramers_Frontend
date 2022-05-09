@@ -157,7 +157,7 @@ class Roulete extends Phaser.Scene{
             var moneda = sessionStorage.getItem("moneda")
             //Si la variable moneda al local storage es null retorna 0 si no
             // retorna el valor indicat
-            console.log(moneda)
+            //console.log(moneda)
             if (moneda==null ? null:parseInt(moneda) >= 1000) {
                 setTimeout(() => {
                     sessionStorage.setItem("moneda",(parseInt(typeof(moneda)=="string"? moneda:"null")-1000).toString())

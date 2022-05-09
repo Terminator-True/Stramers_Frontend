@@ -42,7 +42,7 @@ export class TiendaComponent implements OnInit {
   public raro2cards:any;
   public comun1cards:any;
   public comun2cards:any;
-  
+
   alert = '';
 
 
@@ -55,56 +55,27 @@ export class TiendaComponent implements OnInit {
     this.raro="Raro"
     this.epica="Epica"
     this.legend="Legend"
-    this.cards=[];
-  }
+
+    setInterval(()=>{
+      this.moneda=sessionStorage.getItem("moneda")
+    }, 1000);
+    }
 
   ngOnInit(): void {
     console.log(localStorage.getItem("nick")==null && localStorage.getItem("email")==null)
     if (localStorage.getItem("nick")==null) {
       this._router.navigate([""])
     }
+
+    this._cardService.getDailyCards().subscribe(cards=>{
+        this.cards=Object.values(cards)[0];
+        console.log(this.cards)
+    })
+
     this.nick=localStorage.getItem("nick")
-    this._userService.getMoney(this.nick).subscribe(moneda=>{
-      this.moneda=Object.values(moneda)[0];
-    })
-    //obtenim un array de todas las cartas
-    this._cardService.getCards()
-    .subscribe(cards=>{
-      this.cards=Object.values(cards)[0];
-      //numero total de las cartas
-      this.cardsNumAll=Object.keys(Object.values(cards)[0]);
-      this.cardsNumAll=this.cardsNumAll.length;
-      this.cardsNumAll=this.cardsNumAll
-      const diff=Math.floor(Math.random() * (this.cardsNumAll + 1));
-    },
-    error=>{
-      console.log(error)
-    })
-    //carta categori comun
-    this._cardService.getCardsByCateg(this.comun)
-    .subscribe(cards=>{
-      this.comun1cards=Object.values(cards)[0][0]; //obtenemos 3 arrays pero solo queremos la primera con les dades de la carta
-      this.comun2cards=Object.values(cards)[0][1];
-    },
-    error=>{
-      console.log(error)
-    })
-    //carta categori raro
-    this._cardService.getCardsByCateg(this.raro)
-    .subscribe(cards=>{
-      this.raro1cards=Object.values(cards)[0][0];
-      this.raro2cards=Object.values(cards)[0][1];
-    },
-    error=>{
-      console.log(error)
-    })
-    //carta categori epica
-    this._cardService.getCardsByCateg(this.epica)
-    .subscribe(cards=>{
-      this.epica1cards=Object.values(cards)[0][0];
-    },
-    error=>{
-      console.log(error)
+    this._userService.getMoney(this.nick).subscribe(ok=>{
+      var moneda = Object.values(ok)[0]
+      sessionStorage.setItem("moneda",moneda)
     })
 
     //get user cards
@@ -112,38 +83,78 @@ export class TiendaComponent implements OnInit {
     .subscribe(mazos=>{
       this.userCards=Object.values(mazos)[0];
       this.cardsnum=Object.keys(Object.values(mazos)[0]);
-      this.cardsnum=this.cardsnum.length;
-
+      this.cardsnum=this.cardsnum.length == null ? 0:this.cardsnum.length;
     },
     error=>{
       console.log(error)
     })
-    // rotacio de las cartas por date
-    // const date1 = new Date('5/5/2022');
-    // const date2 = new Date();
-    // var diff =Math.abs(date1.getTime()-date2.getTime())
-    // var diffDays = Math.ceil(diff / (1000 * 3600 * 24)); 
-    // console.log(diffDays);
-    // if (this.cardsNumAll/2 <= diffDays){
-    //   diffDays= diffDays-this.cardsNumAll
-    // }
-    // Between 0 and max
+
+    setTimeout(() => {
+      this.comun1cards=this.cards[0][0]
+      this.comun2cards=this.cards[0][1]
+
+      this.raro1cards=this.cards[1][0]
+      this.raro2cards=this.cards[1][1]
+
+      this.epica1cards=this.cards[2][0]
+
+
+
+    }, 1000);
 
   }
 
+
   buy(card:any){
-    if (localStorage.getItem("nick")==null) { 
-        this._router.navigate([""])
-      }
-      this.nick=localStorage.getItem("nick")
-      
-      this.userCards[this.cardsnum]=card;
-      console.log(this.userCards);
-      // peticion updatear array mazo
-      this._userService.BuyCard(this.userCards,this.nick).subscribe(
-        result=>this.alert=result.toString()
-      )
+    let coste=0;
+    switch (card.category) {
+      case "Comun":
+        coste=600;
+        break;
+      case "Raro":
+          coste=800;
+          break;
+      case "Epica":
+        coste=2000;
+        break;
     }
-    
+    var moneda = sessionStorage.getItem("moneda");
+
+    let names=this.userCards.map( (carta:any)=>{
+      return carta.name
+    })
+
+    if (!names.includes(card.name)) {
+      //Si la variable moneda al local storage es null retorna 0 si no
+      // retorna el valor indicat
+      if (moneda==null ? null:parseInt(moneda) >= coste) {
+          setTimeout(() => {
+              sessionStorage.setItem("moneda",(parseInt(typeof(moneda)=="string"? moneda:"null")-coste).toString())
+              this.userCards[this.cardsnum]=card;
+              var cartas = {cartas: this.userCards}
+              // peticion updatear array mazo
+              this._userService.BuyCard(cartas,this.nick).subscribe(
+                result=>this.alert=result.toString()
+              )
+          }, 500);
+      }
+    }else{
+      console.log("ja tens la carta")
+    }
+  }
+
+  salir(){
+        var moneda=sessionStorage.getItem("moneda")
+        this._userService.setMoney(this.nick,moneda == null ? "null": moneda).subscribe(ok=>{
+            if (ok) {
+                console.log(ok)
+                sessionStorage.clear()
+            }else{
+                console.log(ok)
+            }
+        })
+
+  }
+
 }
 

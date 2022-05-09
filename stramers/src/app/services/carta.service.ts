@@ -51,4 +51,7 @@ export class CardService{
         console.log(params)
         return this._http.put(this.url+'modifica/'+id, params, {headers: headers})
     }
+    getDailyCards(){
+      return this._http.get(this.url+'daily/');
+    }
 }
