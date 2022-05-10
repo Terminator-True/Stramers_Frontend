@@ -54,4 +54,7 @@ export class CardService{
     getDailyCards(){
       return this._http.get(this.url+'daily/');
     }
+    getRouletteCards(){
+      return this._http.get(this.url+'get-card-roulette/');
+    }
 }
