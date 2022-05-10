@@ -10,6 +10,9 @@ import Phaser from 'phaser';
 class Roulete extends Phaser.Scene{
 
     //Definicion de variables
+    public carta:any;
+    public cartas:any;
+    public cards:any;
     public boton_sig:any;
     public result:any;
     public boton:any;
@@ -20,21 +23,31 @@ class Roulete extends Phaser.Scene{
     public arrow:any;
     public resultado_entregado=true;
     public categorias=[
-        { id:0, a_i:0, a_f:0, nombre: 'raro'},
-        { id:1, a_i:0, a_f:0, nombre: 'comun'},
+        { id:0, a_i:0, a_f:0, nombre: 'raro_1'},
+        { id:1, a_i:0, a_f:0, nombre: 'comun_1'},
         { id:2, a_i:0, a_f:0, nombre: 'legend' }, //-27
         { id:3, a_i:0, a_f:0, nombre: 'retrigger'},
-        { id:4, a_i:0, a_f:0, nombre: 'comun'},
-        { id:5, a_i:0, a_f:0, nombre: 'raro'},
+        { id:4, a_i:0, a_f:0, nombre: 'comun_2'},
+        { id:5, a_i:0, a_f:0, nombre: 'raro_2'},
         { id:6, a_i:0, a_f:0, nombre: 'epica'},
     ];
     public intervalo_subdivision = 360/this.categorias.length;
-
     constructor(){
         super({key: 'Game'})
         for (let c=0; c < this.categorias.length; c++){
             this.categorias[c].a_i =  c*this.intervalo_subdivision;
             this.categorias[c].a_f = (c+1)*this.intervalo_subdivision;
+        }
+        var tmp = sessionStorage.getItem("Ruleta")
+        this.cards = JSON.parse(typeof(tmp)=="string"? tmp:"null")
+        console.log(this.cards)
+        this.cartas={
+          comun_1:this.cards[0][0],
+          comun_2:this.cards[0][1],
+          rara_1:this.cards[1][0],
+          rara_2:this.cards[1][1],
+          epica:this.cards[2][0],
+          legend:this.cards[3][0]
         }
     }
 
@@ -43,7 +56,17 @@ class Roulete extends Phaser.Scene{
 
     preload ()
     {
-        this.load.image('fondo', Global.url+'/get-image-roulete/wallpaper.jpg');
+        this.load.image('comun_1',Global.url+"/get-image/"+this.cartas.comun_1.img)
+        this.load.image('comun_2',Global.url+"/get-image/"+this.cartas.comun_2.img)
+
+        this.load.image('rara_1',Global.url+"/get-image/"+this.cartas.rara_1.img)
+        this.load.image('rara_2',Global.url+"/get-image/"+this.cartas.rara_2.img)
+        this.load.image('epic',Global.url+"/get-image/"+this.cartas.epica.img)
+        this.load.image('legend',Global.url+"/get-image/"+this.cartas.legend.img)
+
+
+
+
         this.load.image('arrow', Global.url+'/get-image-roulete/select_ruleta.svg');
         this.load.image('ruleta', Global.url+'/get-image-roulete/ruleta4.png');
         this.load.image('boton',Global.url+'/get-image-roulete/btn_tirar.svg');
@@ -90,7 +113,6 @@ class Roulete extends Phaser.Scene{
             if (!this.resultado_entregado) {
                 this.resultado_entregado=true
                 this.result=this.getResultado()
-                console.log(this.result)
                 switch (this.result) {
                     case "legend":
                         this.particles = this.add.particles('flare');
@@ -109,7 +131,11 @@ class Roulete extends Phaser.Scene{
 
                         this.boton_sig.visible=true
                         this.boton.visible=false
-                        //this.carta.visible=true
+                        this.boton_sig.setDepth(1)
+                        this.carta=this.add.image(600, 300, 'legend');
+                        this.carta.scaleX=0.15
+                        this.carta.scaleY=0.15
+
                         break;
                     case "epica":
                         this.particles = this.add.particles('flare');
@@ -127,21 +153,50 @@ class Roulete extends Phaser.Scene{
                         });
                         this.boton_sig.visible=true
                         this.boton.visible=false
-                        //this.carta.visible=true
+                        this.boton_sig.setDepth(1)
+
+                        this.carta=this.add.image(600, 300, 'epic');
+                        this.carta.scaleX=0.15
+                        this.carta.scaleY=0.15
+
                         break;
                     case "retrigger":
                         this.time.delayedCall(500, () => {this.tirar(true)});
                         break;
-                    case "comun":
-                        break;
-                    case "raro":
-                        break;
+                    case "comun_1":
+                      this.carta=this.add.image(600, 300, 'comun_1');
+                      this.carta.scaleX=0.15
+                      this.carta.scaleY=0.15
+                      this.boton_sig.visible=true
+                      this.boton_sig.setDepth(1)
 
-                    default:
                         break;
+                    case "raro_1":
+                      this.carta=this.add.image(600, 300, 'rara_1');
+                      this.carta.scaleX=0.15
+                      this.carta.scaleY=0.15
+                      this.boton_sig.visible=true
+                      this.boton_sig.setDepth(1)
+
+                        break;
+                    case "comun_2":
+                      this.carta=this.add.image(600, 300, 'comun_2');
+                      this.carta.scaleX=0.15
+                      this.carta.scaleY=0.15
+
+                      this.boton_sig.visible=true
+                      this.boton_sig.setDepth(1)
+
+                        break;
+                    case "raro_2":
+                      this.carta=this.add.image(600, 300, 'rara_2');
+                      this.carta.scaleX=0.15
+                      this.carta.scaleY=0.15
+                      this.boton_sig.visible=true
+                      this.boton_sig.setDepth(1)
+
+                      break;
                 }
-
-
             }
         }
         this.ruleta.angle += this.velocidad;
@@ -209,7 +264,7 @@ class Roulete extends Phaser.Scene{
     }
 
     siguiente() {
-        //this.carta.visible=false
+        this.carta.destroy()
         this.boton_sig.visible=false
         this.boton.visible=true
         this.particles.destroy()
@@ -250,11 +305,20 @@ export class RuletaComponent implements OnInit {
     if (localStorage.getItem("nick")==null) {
       this._router.navigate([""])
     }
+    setTimeout(() => {
+      this._cardService.getRouletteCards().subscribe(cards=>{
+        console.log(cards)
+        sessionStorage.setItem("Ruleta",JSON.stringify(cards))
+      })
+    }, 500);
+
     this.nick=localStorage.getItem("nick")
     let nickT = localStorage.getItem("nick")
 
+    setTimeout(() => {
+      this.phaserGame=new Phaser.Game(this.config);
+    }, 500);
 
-    this.phaserGame=new Phaser.Game(this.config);
     this.nick = nickT==null ? "null":nickT;
     if (sessionStorage.getItem("moneda")) {
         this.salir()
@@ -265,7 +329,6 @@ export class RuletaComponent implements OnInit {
         sessionStorage.setItem("moneda",moneda)
     })
     }, 500);
-
   }
   salir(){
         var moneda=sessionStorage.getItem("moneda")
@@ -277,7 +340,6 @@ export class RuletaComponent implements OnInit {
                 console.log(ok)
             }
         })
-
   }
 
 }

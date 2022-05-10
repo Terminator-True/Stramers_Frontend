@@ -6,12 +6,14 @@ import { UsuariService } from 'src/app/services/usuari.service';
 
 import { Validators,FormControl,FormGroup } from "@angular/forms";
 
+import {Router} from "@angular/router"
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
+// VALIDAR EN TS, REDIRECCION SI ES REGISTRADO, VALIDAR GMAILS/NICKS YA GUARDADOS
 export class RegisterComponent implements OnInit {
 
   public iniciUsuari: Register;
@@ -23,7 +25,9 @@ export class RegisterComponent implements OnInit {
   public formAll: FormGroup = new FormGroup({});//declaracion de todo el form
 
   constructor(
-    private _UsuariService:UsuariService
+    private _UsuariService:UsuariService,
+    private _router: Router
+
   ) {
     this.pasw2="";
     this.iniciUsuari = new Register('','','');
@@ -38,8 +42,7 @@ export class RegisterComponent implements OnInit {
       {
         nick: new FormControl('', [Validators.required]),
         email: new FormControl('',[Validators.required,Validators.email]),
-        pasw: new FormControl('',[Validators.required,Validators.pattern("/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{9,}$/")])
-
+        pasw: new FormControl('',[Validators.required,Validators.pattern("^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$")])
       }
     )
   }
@@ -53,5 +56,6 @@ export class RegisterComponent implements OnInit {
     )
     console.log(this.iniciUsuari);
     this.alert= "Registrado correctament";
+    this._router.navigate(["login"])
   }
 }
