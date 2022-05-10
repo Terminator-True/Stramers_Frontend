@@ -22,20 +22,13 @@ import {Router} from "@angular/router"
 export class TiendaComponent implements OnInit {
 
   public url:any;
-  public projects:any;
   public cards:any;
   public nick:any;
   public moneda:any;
   public userCards:any;
   public cardsnum:any;
-  public cardsNumAll:any;
-  // categorias
-  public comun:string;
-  public raro:string;
-  public epica:string;
-  public legend:string;
+  public obtenida:any;
 
-  public categcards:any;
   // cartas de las tiendas
   public epica1cards:any;
   public raro1cards:any;
@@ -45,16 +38,11 @@ export class TiendaComponent implements OnInit {
 
   alert = '';
 
-
   constructor(
     private _cardService:CardService, private _userService:UsuariService,
     private _router: Router
 ) {
     this.url=Global.url
-    this.comun="Comun"
-    this.raro="Raro"
-    this.epica="Epica"
-    this.legend="Legend"
 
     setInterval(()=>{
       this.moneda=sessionStorage.getItem("moneda")
@@ -98,9 +86,6 @@ export class TiendaComponent implements OnInit {
       this.raro2cards=this.cards[1][1]
 
       this.epica1cards=this.cards[2][0]
-
-
-
     }, 1000);
 
   }
@@ -140,6 +125,7 @@ export class TiendaComponent implements OnInit {
           }, 500);
       }
     }else{
+
       console.log("ja tens la carta")
     }
   }

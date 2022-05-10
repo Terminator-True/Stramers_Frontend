@@ -36,3 +36,20 @@
 .relative{
     position: relative;
 }
+
+.carta{
+    color:white;
+    cursor: pointer;
+}
+.comun{
+    background: linear-gradient(to right, #777777,#acacac );
+}
+.raro{
+    background: linear-gradient(to right, #105ba0,#3f6fad );
+}
+.epica{
+    background:linear-gradient(to right,rgb(97, 17, 97),rgb(163, 51, 163));
+}
+.legend{
+    background: linear-gradient(to right, #a86008, #ffba56);
+}

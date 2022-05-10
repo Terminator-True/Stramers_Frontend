@@ -47,3 +47,14 @@ td h1{
     text-align: center;
     color: white;
 }
+
+.carta{
+    width: 300px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.obtenida{
+    filter: grayscale(100%);
+    opacity: 0.5;
+    cursor: not-allowed;
+}

@@ -18,8 +18,12 @@
 
 <div class="lateral">
   <div class="ribbon" > <p>Normal</p></div>
+
   <div class="select l-bg-orange-dark">
-    {{mazoName}}
+    <h3 class="" > {{mazoName}} </h3> <br>
+    <span *ngFor="let card of session_storage">
+      <span class="selectCard" > {{ card }} </span><br>
+    </span>
   </div>
 
   <!-- designed by me... enjoy! -->
