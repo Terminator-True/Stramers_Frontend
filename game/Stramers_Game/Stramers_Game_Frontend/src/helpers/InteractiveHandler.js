@@ -1,17 +1,17 @@
 export default class InteractiveHandler{
     constructor(scene){
 
-        scene.dealCards.on("pointerdown", () => {
-            scene.socket.emit("dealCards",scene.room.roomId, scene.room.playerId);
-            scene.dealCards.disableInteractive();
+        scene.changeTrun.on("pointerdown", () => {
+            scene.changeTrun.disableInteractive();
+            scene.socket.emit("changeTurn",scene.room.roomId)
         })
 
-        scene.dealCards.on("pointerover", ()=>{
-            scene.dealCards.setColor("#ff69b4");
+        scene.changeTrun.on("pointerover", ()=>{
+            scene.changeTrun.setColor("#ff69b4");
         })
 
-        scene.dealCards.on("pointerout", (event, gameObjects)=>{
-            scene.dealCards.setColor("#00ffff");
+        scene.changeTrun.on("pointerout", (event, gameObjects)=>{
+            scene.changeTrun.setColor("#00ffff");
 
         })
         scene.input.on("pointerover", (event, gameObjects)=>{

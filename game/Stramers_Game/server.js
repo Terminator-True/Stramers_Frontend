@@ -13,7 +13,7 @@ const io = require("socket.io")(http, {
         origin: "http://localhost:8080",
         methods: ["GET","POST"]
     }
-})
+}) 
 
 io.on("connection", function(socket){
     let roomId = Nrooms //Nrooms%2==0 ? Nrooms:Nrooms-1
@@ -47,10 +47,6 @@ io.on("connection", function(socket){
         //console.log(waiting[1])
         waiting.splice(0,2)
         Nrooms++;
-        /**
-         * Parece que esto no funciona en el segundo usuario
-         * no envía la accion match al cliente
-         */
          setTimeout(()=>{
             io.sockets.in(roomId.toString()).emit("match")
          },500)
@@ -86,10 +82,14 @@ io.on("connection", function(socket){
         }
     })
     socket.on("cardPlayed", function(cardName,roomId, socketId){
-        console.log(cardName);
         io.sockets.in(roomId).emit("cardPlayed", cardName,roomId, socketId);
+    })
+
+    socket.on("changeTurn", function(roomId){
         io.sockets.in(roomId).emit("changeTurn");
     })
+
+
 
     socket.on("disconnecting", function(){
         delete rooms[socket.room]

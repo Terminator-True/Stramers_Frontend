@@ -14,6 +14,7 @@ export default class SocketHandler{
 
         scene.socket.on("match", ()=>{
             scene.socket.emit("dealDeck", scene.room.roomId, scene.room.playerId)
+            scene.socket.emit("dealCards",scene.room.roomId, scene.room.playerId)
         })
 
         scene.socket.on("firstTurn", ()=>{
@@ -23,9 +24,14 @@ export default class SocketHandler{
             scene.GameHandler.changeGameState(gameState);
             if (gameState === "Initializing") {
                 scene.DeckHandler.dealCard(1550, 960, "cardBack", "playerCard")
-                scene.DeckHandler.dealCard(1550,135, "cardBack","opponentCard");
-                scene.dealCards.setInteractive();
-                scene.dealCards.setColor("#00ffff")
+                scene.DeckHandler.dealCard(1550,135, "cardBack","opponentCard")
+                scene.changeTrun.setInteractive()
+                scene.changeTrun.setColor("#00ffff")
+                console.log(scene.GameHandler.player)
+                scene.GameHandler.playerLife=scene.add.text(285,940,scene.GameHandler.player.life.toString()).setFontSize(24)
+                //scene.GameHandler.playerLife.setDepht(1)
+                scene.GameHandler.opponentLife=scene.add.text(285,120,scene.GameHandler.opponent.life.toString()).setFontSize(24)
+                //scene.GameHandler.opponentLife.setDepht(1)
             }
         })
 

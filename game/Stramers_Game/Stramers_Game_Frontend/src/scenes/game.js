@@ -25,7 +25,11 @@ export default class Game extends Phaser.Scene{
     }
     preload(){
         //console.log(this.cartas["ALEXELCAPO-SAN"])
-        
+        /**
+         * Corazon para la vida del jugador y del oponente
+         */
+         this.load.image("corazon","src/assets/corazon.png") 
+
         /**
          * dorsos de las cartas 
          * @luna player
@@ -99,7 +103,6 @@ export default class Game extends Phaser.Scene{
 
     }
     update() {
-
     }
 
 }

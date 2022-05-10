@@ -6,6 +6,18 @@ export default class GameHandler{
         this.opponentDeck = [];
         this.playerHand = [];
         this.opponentHand = [];
+        this.playerLife;
+        this.opponentLife;
+        this.player={
+            life:20,
+            manaMax: 10,
+            manaI:0
+        };
+        this.opponent={
+            life:20,
+            manaMax: 10,
+            manaI:0
+        }
         /**
          * @Todo 
          * -Que las cartas hagan el daño en cuanto hagan click al pasar turno.
@@ -22,11 +34,26 @@ export default class GameHandler{
         this.changeTurn = () =>{
             this.isMyTurn = !this.isMyTurn;
             console.log("isMyturn:"+this.isMyTurn)
+            if (this.isMyTurn) {
+                scene.changeTrun.setInteractive();
+            }
         }
 
         this.changeGameState = (gameState) =>{
             this.gameState = gameState
             console.log("Estado: "+this.gameState)
+
+        }
+        this.reciveDaño = (player,cantidad)=>{
+            if (player) {
+                this.player.life-=cantidad
+                this.playerLife.destroy()
+                this.playerLife=scene.add.text(285,120,this.GameHandler.player.life.toString()).setFontSize(24)
+            }else{
+                this.opponent.life-=cantidad
+                this.opponentLife.destroy()
+                this.opponentLife=scene.add.text(285,120,this.opponent.life.toString()).setFontSize(24)
+            }
         }
     }
 }

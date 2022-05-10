@@ -19,7 +19,9 @@ export default class UIHandler{
             scene.oponentDeckArea.setStrokeStyle(3,0x00ffff)
         }
         this.buildGameText = () =>{
-            scene.dealCards = scene.add.text(1500,540,"Pasa Turno").setFontSize(24)
+            scene.changeTrun = scene.add.text(1500,540,"Pasa Turno").setFontSize(24)
+            scene.add.image(300,130,"corazon").setScale(0.20,0.20)
+            scene.add.image(300,950,"corazon").setScale(0.20,0.20)
         }
         this.buildUI = ()=>{
             scene.opponentZone=this.buildZones(1000,425,"opponent");
