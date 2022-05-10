@@ -53,3 +53,17 @@
 .legend{
     background: linear-gradient(to right, #a86008, #ffba56);
 }
+
+.form-control{
+    width: 50%;
+}
+
+.filter{
+    background-color: #777777;
+    color: black;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+}
