@@ -17,3 +17,17 @@
 a{
   text-decoration: none;
 }
+
+.l-bg-orange-dark {
+  background: linear-gradient(to right, #a86008, #ffba56) !important;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+}
+
+.l-bg-cherry {
+  background: linear-gradient(to right, #493240, #f09) !important;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+}
