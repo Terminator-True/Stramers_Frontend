@@ -73,7 +73,7 @@ export class MazoeditComponent implements OnInit {
   }
   // añade un objecto de la carta a la llista y muesra el nombre a la llista de crear mazo
   addcard(card:any){
-    if (!this.lista.includes(card) && this.count<=15){
+    if (!this.lista.includes(card) && this.count<=14){
       this.lista.push(card);
       this.count+=1;
       this.cards.splice(this.cards.indexOf(card),1)
