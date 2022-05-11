@@ -4,6 +4,31 @@ import Mdlr from "./cards/mdlr"
 import Garmy from "./cards/garmy"
 import Programador from "./cards/programador"
 import Streamer from "./cards/streamer"
+import Alexelcapo_san from "./cards/alexelcapo_san"
+import Andiamo from "./cards/andiamo"
+import Andorra from "./cards/andorra"
+import Auronplay from "./cards/auronplay"
+import Barbeq from "./cards/barbeq"
+import Big_chungus from "./cards/big_chungus"
+import Camera_cafe_100 from "./cards/camera_cafe_100"
+import Chusomontero from "./cards/chusomontero"
+import Dalasreview from "./cards/dalasreview"
+import Dross from "./cards/dross"
+import Elmillor from "./cards/elmillor"
+import Espectador from "./cards/espectador"
+import Esportmaniacos from "./cards/esportmaniacos"
+import Asmr from "./cards/asmr"
+import Callate from "./cards/callate"
+import Facturas from "./cards/facturas"
+import GolemNFT from "./cards/golemNFT"
+import Horcus from "./cards/horcus"
+import Hot_tub_streamer from "./cards/hot_tub_streamer"
+import Ibai from "./cards/ibai"
+import Illojuan from "./cards/illojuan"
+import Impuestos from "./cards/impuestos"
+import Jordi_wild from "./cards/jordi_wild"
+import Knekro from "./cards/knekro"
+
 export default class DeckHandler{
     constructor(scene){
         this.dealCard = (x, y, name, type) => {
@@ -14,6 +39,31 @@ export default class DeckHandler{
                 garmy: new Garmy(scene),
                 programador: new Programador(scene),
                 streamer: new Streamer(scene),
+                alexelcapo_san: new Alexelcapo_san(scene),
+                andiamo: new Andiamo(scene),
+                andorra: new Andorra(scene),
+                auronplay: new Auronplay(scene),
+                barbeq: new Barbeq(scene),
+                big_chungus: new Big_chungus(scene),
+                camera_cafe_100: new Camera_cafe_100(scene),
+                chusomontero: new Chusomontero(scene),
+                dalasreview:new Dalasreview(scene),
+                dross:new Dross(scene),
+                elmillor:new Elmillor(scene),
+                espectador:new Espectador(scene),
+                esportmaniacos:new Esportmaniacos(scene),
+                callate:new Callate(scene),
+                asmr:new Asmr(scene),
+                facturas:new Facturas(scene),
+                golemNFT:new GolemNFT(scene),
+                horcus:new Horcus(scene),
+                hot_tub_streamer:new Hot_tub_streamer(scene),
+                ibai:new Ibai(scene),
+                illojuan:new Illojuan(scene),
+                impuestos:new Impuestos(scene),
+                jordi_wild:new Jordi_wild(scene),
+                knekro:new Knekro(scene),
+                
             }
             let newCard = cards[name];
             //console.log(newCard)

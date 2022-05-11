@@ -7,6 +7,9 @@ export default class Garmy extends Card{
         this.playerCardSprite = "garmy";
         this.opponentCardSprite = "garmy";
         this.vida=3;
+        this.lifeA=3;
+        this.lifeM=3;
+        this.dmgA=3;
         this.dmg=3;
         this.coste=3;
     }
