@@ -12,8 +12,11 @@ export default class card{
                 "type": type,
                 "sprite":sprite,
                 "life":this.vida,
+                "lifeA":this.lifeA,
+                "lifeM":this.lifeM,
                 "dmg":this.dmg,
-                "cost":this.coste
+                "dmgA":this.dmgA,
+                "cost":this.coste,
             })
             if (type ==="playerCard") {
                 scene.input.setDraggable(card);

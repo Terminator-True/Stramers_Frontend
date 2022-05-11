@@ -27,11 +27,16 @@ export default class SocketHandler{
                 scene.DeckHandler.dealCard(1550,135, "cardBack","opponentCard")
                 scene.changeTrun.setInteractive()
                 scene.changeTrun.setColor("#00ffff")
-                console.log(scene.GameHandler.player)
                 scene.GameHandler.playerLife=scene.add.text(285,940,scene.GameHandler.player.life.toString()).setFontSize(24)
-                //scene.GameHandler.playerLife.setDepht(1)
+
                 scene.GameHandler.opponentLife=scene.add.text(285,120,scene.GameHandler.opponent.life.toString()).setFontSize(24)
-                //scene.GameHandler.opponentLife.setDepht(1)
+
+                //scene.GameHandler.playerMana.setText(scene.GameHandler.player.manaA.toString()+"/"+scene.GameHandler.player.manaMax.toString())
+
+                //scene.GameHandler.playerMana=scene.add.text(500,940,scene.GameHandler.player.manaA.toString()+"/"+scene.GameHandler.player.manaMax.toString()).setFontSize(24)
+                //scene.GameHandler.opponentMana.setText(scene.GameHandler.opponent.manaA.toString()+"/"+scene.GameHandler.opponent.manaMax.toString())
+
+                //scene.GameHandler.opponentMana=scene.add.text(500,120,scene.GameHandler.opponent.manaA.toString()+"/"+scene.GameHandler.opponent.manaMax.toString()).setFontSize(24)
             }
         })
 
@@ -57,7 +62,12 @@ export default class SocketHandler{
             if (roomId === scene.room.roomId) {
                 if (socketId !== scene.room.playerId) {
                     scene.GameHandler.opponentHand.shift().destroy();
+
                     let gameObject=scene.DeckHandler.dealCard((scene.opponentZone.x-350)+(scene.opponentZone.data.values.cards*170), scene.opponentZone.y, cardName, "opponentCard");
+                    
+                    scene.GameHandler.opponent.manaA=scene.GameHandler.opponent.manaA-gameObject.data.list.cost
+                    scene.GameHandler.opponentMana.text=scene.GameHandler.opponent.manaA.toString()+"/"+ scene.GameHandler.opponent.manaMax.toString()
+
                     scene.opponentZone.data.values.cards_list[scene.opponentZone.data.values.cards]=gameObject;
                     scene.add.text(gameObject.x-20,gameObject.y-145,scene.opponentZone.data.values.cards_list[scene.opponentZone.data.values.cards].data.list.dmg+"/"+scene.opponentZone.data.values.cards_list[scene.opponentZone.data.values.cards].data.list.life).setFontSize(24)
                     scene.opponentZone.data.values.cards++;

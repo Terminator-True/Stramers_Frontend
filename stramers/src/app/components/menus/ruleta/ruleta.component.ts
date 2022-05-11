@@ -305,12 +305,6 @@ export class RuletaComponent implements OnInit {
     if (localStorage.getItem("nick")==null) {
       this._router.navigate([""])
     }
-    setTimeout(() => {
-      this._cardService.getRouletteCards().subscribe(cards=>{
-        console.log(cards)
-        sessionStorage.setItem("Ruleta",JSON.stringify(cards))
-      })
-    }, 500);
 
     this.nick=localStorage.getItem("nick")
     let nickT = localStorage.getItem("nick")
@@ -328,6 +322,13 @@ export class RuletaComponent implements OnInit {
         var moneda = Object.values(ok)[0]
         sessionStorage.setItem("moneda",moneda)
     })
+    }, 500);
+
+    setTimeout(() => {
+      this._cardService.getRouletteCards().subscribe(cards=>{
+        console.log(cards)
+        sessionStorage.setItem("Ruleta",JSON.stringify(cards))
+      })
     }, 500);
   }
   salir(){

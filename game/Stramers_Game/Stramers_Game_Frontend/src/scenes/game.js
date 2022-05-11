@@ -12,23 +12,27 @@ export default class Game extends Phaser.Scene{
             key: 'Game'
         })
         this.cartas=[]
-        fetch("http://localhost:3700/api/cartas")
+        /*fetch("http://localhost:3700/api/cartas")
             .then(response=>response.json())
-            .then(data => this.assignate(data))
+            .then(data => this.assignate(data))*/
     }
     assignate(data){
         var cartas = data.cards
         for(let key in cartas){
             this.cartas.push(cartas[key].name.toLowerCase())
         }
-
     }
     preload(){
         //console.log(this.cartas["ALEXELCAPO-SAN"])
+
+        this.load.bitmapFont('text', 'src/assets/atari-smooth.png', 'src/assets/atari-smooth.xml');
+
         /**
          * Corazon para la vida del jugador y del oponente
          */
          this.load.image("corazon","src/assets/corazon.png") 
+         this.load.image("mana","src/assets/Mana.png") 
+
 
         /**
          * dorsos de las cartas 
@@ -103,6 +107,7 @@ export default class Game extends Phaser.Scene{
 
     }
     update() {
+        
     }
 
 }

@@ -51,7 +51,6 @@ io.on("connection", function(socket){
             io.sockets.in(roomId.toString()).emit("match")
          },500)
     }
-
     /**
      * @inDeck se hará una petición al backend de usuarios y 
      * éste devolverá el mazo principal(nombres de las cartas)

@@ -12,7 +12,6 @@ export default class InteractiveHandler{
 
         scene.changeTrun.on("pointerout", (event, gameObjects)=>{
             scene.changeTrun.setColor("#00ffff");
-
         })
         scene.input.on("pointerover", (event, gameObjects)=>{
 
@@ -50,17 +49,17 @@ export default class InteractiveHandler{
          *                                                      ejemplo de como coger el nombre de una carta que está en la array)
          */
         scene.input.on("drop",(pointer,gameObject,dropZone)=>{
-            console.log(scene.GameHandler.gameState)
-            console.log(scene.GameHandler.isMyTurn)
-            if(scene.GameHandler.isMyTurn && scene.GameHandler.gameState==="Ready" && dropZone.data.values.type==="player" && scene.playerZone.data.values.cards<5){
+            if(scene.GameHandler.isMyTurn && scene.GameHandler.gameState==="Ready" && dropZone.data.values.type==="player" && scene.playerZone.data.values.cards<5 && scene.GameHandler.player.manaA-gameObject.data.list.cost>=0){
+                scene.GameHandler.player.manaA=scene.GameHandler.player.manaA-gameObject.data.list.cost
+                scene.GameHandler.playerMana.text= scene.GameHandler.player.manaA.toString()+"/"+ scene.GameHandler.player.manaMax.toString()
+
                 scene.playerZone.data.values.cards_list[scene.playerZone.data.values.cards]=gameObject;
-                console.log(scene.playerZone.data.values.cards_list[scene.playerZone.data.values.cards].data.list.name);
                 gameObject.x = (dropZone.x-350)+(dropZone.data.values.cards*170);
                 gameObject.y = dropZone.y;
+
                 scene.add.text(gameObject.x-20,gameObject.y+120,scene.playerZone.data.values.cards_list[scene.playerZone.data.values.cards].data.list.dmg+"/"+scene.playerZone.data.values.cards_list[scene.playerZone.data.values.cards].data.list.life).setFontSize(24)
                 scene.playerZone.data.values.cards++;
                 scene.input.setDraggable(gameObject, false);
-                console.log(scene.room)
                 scene.socket.emit("cardPlayed",gameObject.data.values.name, scene.room.roomId, scene.room.playerId);
             }else{
                 gameObject.x = gameObject.input.dragStartX

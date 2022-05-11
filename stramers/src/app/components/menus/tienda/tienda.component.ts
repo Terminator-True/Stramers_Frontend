@@ -30,20 +30,18 @@ export class TiendaComponent implements OnInit {
   public obtenida:any;
 
   // cartas de las tiendas
-  public epica1cards:any;
-  public raro1cards:any;
-  public raro2cards:any;
-  public comun1cards:any;
-  public comun2cards:any;
+  public cartasTienda:any;
+  public cardsname:any;
+
 
   alert = '';
 
   constructor(
     private _cardService:CardService, private _userService:UsuariService,
     private _router: Router
-) {
+  ) {
     this.url=Global.url
-
+    this.obtenida=false;
     setInterval(()=>{
       this.moneda=sessionStorage.getItem("moneda")
     }, 1000);
@@ -77,15 +75,12 @@ export class TiendaComponent implements OnInit {
       console.log(error)
     })
 
+    this.cardsname
     setTimeout(() => {
-      console.log(this.cards)
-      this.comun1cards=this.cards[0][0]
-      this.comun2cards=this.cards[0][1]
-
-      this.raro1cards=this.cards[1][0]
-      this.raro2cards=this.cards[1][1]
-
-      this.epica1cards=this.cards[2][0]
+      this.cartasTienda=[this.cards[0][0],this.cards[0][1],this.cards[1][0],this.cards[1][1],this.cards[2][0]]
+      this.cardsname=this.userCards.map((carta:any)=>{
+        return carta.name
+      })
     }, 1000);
 
   }

@@ -8,15 +8,17 @@ export default class GameHandler{
         this.opponentHand = [];
         this.playerLife;
         this.opponentLife;
+        this.playerMana;
+        this.opponentMana;
         this.player={
             life:20,
-            manaMax: 10,
-            manaI:0
+            manaMax: 0,
+            manaA:0
         };
         this.opponent={
             life:20,
-            manaMax: 10,
-            manaI:0
+            manaMax: 0,
+            manaA:0
         }
         /**
          * @Todo 
@@ -31,12 +33,38 @@ export default class GameHandler{
          * Apunte: no hace falta intercambiar info mediante el socket, el cálculo se hará para cada jugador, debido a que la infromación de los dos en pantalla
          * siempre es igual para los dos jugadores solo que cambiando las zonas de lugar, el resultado en ambos casos será el mismo.
          */
+
+        /**
+         * Arreglar mana: 
+         *  -No se enseña correctamente el del oponente
+         *  -Bug: a veces sale -1/1 
+         *  -Recolocar los numeros, a veces se supoerponen a la mano del oponente
+         *  -Los numeros del aliado también, colocarlos más a la izquierda
+         */
         this.changeTurn = () =>{
             this.isMyTurn = !this.isMyTurn;
             console.log("isMyturn:"+this.isMyTurn)
             if (this.isMyTurn) {
+                this.player.manaMax++;
+                this.player.manaA=this.player.manaMax;
+                if (this.player.manaMax===1) {
+                    console.log("si")
+                    this.playerMana=scene.add.bitmapText(500,940,"text",this.player.manaA.toString()+"/"+this.player.manaMax.toString()).setFontSize(24)                    
+                }else{
+                    this.playerMana.text=this.player.manaA.toString()+"/"+this.player.manaMax.toString()
+                }
                 scene.changeTrun.setInteractive();
+            }else{
+                this.opponent.manaMax++;
+                this.opponent.manaA=this.opponent.manaMax;
+                if (this.opponent.manaMax===1) {
+                    console.log("si")
+                    this.opponentMana=scene.add.bitmapText(500,120,"text",this.opponent.manaA.toString()+"/"+this.opponent.manaMax.toString()).setFontSize(24)                    
+                }else{
+                    this.opponentMana.text=this.opponent.manaA.toString()+"/"+this.opponent.manaMax.toString()
+                }
             }
+            
         }
 
         this.changeGameState = (gameState) =>{
@@ -44,7 +72,7 @@ export default class GameHandler{
             console.log("Estado: "+this.gameState)
 
         }
-        this.reciveDaño = (player,cantidad)=>{
+        this.recibeDaño = (player,cantidad)=>{
             if (player) {
                 this.player.life-=cantidad
                 this.playerLife.destroy()

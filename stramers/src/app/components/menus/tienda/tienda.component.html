@@ -26,12 +26,9 @@
 
   <table>
     <tr>
-      <td><a (click)="buy(comun1cards)" ><img src="{{url+'get-image/'+comun1cards.img}}" class="carta obtenida" alt="carta comun"></a></td>
-      <td><a (click)="buy(comun2cards)"><img src="{{url+'get-image/'+comun2cards.img}}"  class="carta" alt="carta comun"></a></td>
-      <td><a (click)="buy(raro1cards)"><img src="{{url+'get-image/'+raro1cards.img}}"  class="carta" alt="carta rare"></a></td>
-      <td><a (click)="buy(raro2cards)"><img src="{{url+'get-image/'+raro2cards.img}}"  class="carta" alt="carta rare"></a></td>
-      <td><a (click)="buy(epica1cards)"><img src="{{url+'get-image/'+epica1cards.img}}" class="carta" alt="carta epic"></a></td>
-    </tr>
+      <td *ngFor="let card of cartasTienda"><a (click)="buy(card)" >
+        <img src="{{url+'get-image/'+card.img}}" [ngClass]="cardsname.includes(card.name) ? 'carta obtenida':'carta'" alt="carta comun">
+      </a></td></tr>
     <tr>
       <td><h1>600</h1></td>
       <td><h1>600</h1></td>

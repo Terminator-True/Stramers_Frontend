@@ -10,6 +10,4 @@ export default class Elxokas extends Card{
         this.dmg=4;
         this.coste=4;
     }
-
-
 }
