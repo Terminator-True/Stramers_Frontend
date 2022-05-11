@@ -38,16 +38,9 @@
   box-sizing: border-box;
 }
 
-/* body {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}*/
-
 .wrapper {
   display: flex;
-  /* justify-content: center; */
+  margin-top: 5px;
 }
 
 .cta {

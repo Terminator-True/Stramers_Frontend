@@ -27,6 +27,10 @@ export class MazoeditComponent implements OnInit {
   public mazos:any={};
   public count:number;
   public mazonum:any;
+  // filter
+  public abc:boolean;
+  public cag:boolean;
+  public cost:boolean;
 
   constructor(
     private _cardService:CardService, private _userService:UsuariService, private _router: Router
@@ -36,7 +40,10 @@ export class MazoeditComponent implements OnInit {
     this.lista=[];
     this.deckname="New Deck";
     this.count=0;
-
+    // filter
+    this.abc=true;
+    this.cag=true;
+    this.cost=true;
   }
 
   ngOnInit(): void {
@@ -108,4 +115,83 @@ export class MazoeditComponent implements OnInit {
 
   }
 
+  filterAbc(){
+    if(this.abc){
+      this.abc=false;
+      this.cards.sort(function(x:any, y:any) {
+        if (x.name < y.name) {
+          return -1;
+        }
+        if (x.name > y.name) {
+          return 1;
+        }
+        return 0;
+      });
+    }else{
+      this.abc=true;
+      this.cards.sort(function(x:any, y:any) {
+        if (x.name > y.name) {
+          return -1;
+        }
+        if (x.name < y.name) {
+          return 1;
+        }
+        return 0;
+      });
+    }
+    
+  }
+
+  filterCag(){
+    if(this.cag){
+      this.cag=false;
+      this.cards.sort(function(x:any, y:any) {
+        if (x.category < y.category) {
+          return -1;
+        }
+        if (x.category > y.category) {
+          return 1;
+        }
+        return 0;
+      });
+    }else{
+    this.cag=true;
+      this.cards.sort(function(x:any, y:any) {
+        if (x.category > y.category) {
+          return -1;
+        }
+        if (x.category < y.category) {
+          return 1;
+        }
+        return 0;
+      });
+    }
+  }
+
+  filterCosts(){
+    if(this.cost){
+      this.cost=false;
+      this.cards.sort(function(x:any, y:any) {
+        if (x.coste < y.coste) {
+          return -1;
+        }
+        if (x.coste > y.coste) {
+          return 1;
+        }
+        return 0;
+      });
+    }else{
+      this.cost=true;
+      this.cards.sort(function(x:any, y:any) {
+        if (x.coste > y.coste) {
+          return -1;
+        }
+        if (x.coste < y.coste) {
+          return 1;
+        }
+        return 0;
+      });
+    }
+    
+  }
 }
