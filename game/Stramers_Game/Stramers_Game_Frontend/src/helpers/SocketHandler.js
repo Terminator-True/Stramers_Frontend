@@ -8,8 +8,9 @@ export default class SocketHandler{
             scene.socket.emit("getInRoom")
         })
 
-        scene.socket.on("room", (roomId)=>{
-                scene.room={roomId:roomId,playerId:scene.socket.id};
+        scene.socket.on("room", (roomId,playerA)=>{
+                scene.room={roomId:roomId,playerId:scene.socket.id,playerA:playerA};
+                console.log(scene.room)
         })
 
         scene.socket.on("match", ()=>{
@@ -30,13 +31,6 @@ export default class SocketHandler{
                 scene.GameHandler.playerLife=scene.add.text(285,940,scene.GameHandler.player.life.toString()).setFontSize(24)
 
                 scene.GameHandler.opponentLife=scene.add.text(285,120,scene.GameHandler.opponent.life.toString()).setFontSize(24)
-
-                //scene.GameHandler.playerMana.setText(scene.GameHandler.player.manaA.toString()+"/"+scene.GameHandler.player.manaMax.toString())
-
-                //scene.GameHandler.playerMana=scene.add.text(500,940,scene.GameHandler.player.manaA.toString()+"/"+scene.GameHandler.player.manaMax.toString()).setFontSize(24)
-                //scene.GameHandler.opponentMana.setText(scene.GameHandler.opponent.manaA.toString()+"/"+scene.GameHandler.opponent.manaMax.toString())
-
-                //scene.GameHandler.opponentMana=scene.add.text(500,120,scene.GameHandler.opponent.manaA.toString()+"/"+scene.GameHandler.opponent.manaMax.toString()).setFontSize(24)
             }
         })
 
@@ -64,7 +58,6 @@ export default class SocketHandler{
                     scene.GameHandler.opponentHand.shift().destroy();
 
                     let gameObject=scene.DeckHandler.dealCard((scene.opponentZone.x-350)+(scene.opponentZone.data.values.cards*170), scene.opponentZone.y, cardName, "opponentCard");
-                    
                     scene.GameHandler.opponent.manaA=scene.GameHandler.opponent.manaA-gameObject.data.list.cost
                     scene.GameHandler.opponentMana.text=scene.GameHandler.opponent.manaA.toString()+"/"+ scene.GameHandler.opponent.manaMax.toString()
 

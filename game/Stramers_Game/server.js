@@ -48,7 +48,7 @@ io.on("connection", function(socket){
         waiting.splice(0,2)
         Nrooms++;
          setTimeout(()=>{
-            io.sockets.in(roomId.toString()).emit("match")
+            io.sockets.in(roomId.toString(),rooms[roomId.toString()][socket.id].isPlayerA).emit("match")
          },500)
     }
     /**

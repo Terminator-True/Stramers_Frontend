@@ -8,8 +8,9 @@ export default class GameHandler{
         this.opponentHand = [];
         this.playerLife;
         this.opponentLife;
-        this.playerMana;
-        this.opponentMana;
+        this.playerMana=scene.add.bitmapText(500,940,"text","").setFontSize(24)                    
+        this.opponentMana=scene.add.bitmapText(500,120,"text","").setFontSize(24) 
+        this.turn=0;
         this.player={
             life:20,
             manaMax: 0,
@@ -17,9 +18,10 @@ export default class GameHandler{
         };
         this.opponent={
             life:20,
-            manaMax: 0,
-            manaA:0
+            manaMax: 1,
+            manaA:1
         }
+        this.opponentMana.text=this.opponent.manaA.toString()+"/"+"1"
         /**
          * @Todo 
          * -Que las cartas hagan el daño en cuanto hagan click al pasar turno.
@@ -42,35 +44,28 @@ export default class GameHandler{
          *  -Los numeros del aliado también, colocarlos más a la izquierda
          */
         this.changeTurn = () =>{
+            this.turn++;
             this.isMyTurn = !this.isMyTurn;
             console.log("isMyturn:"+this.isMyTurn)
             if (this.isMyTurn) {
                 this.player.manaMax++;
                 this.player.manaA=this.player.manaMax;
-                if (this.player.manaMax===1) {
-                    console.log("si")
-                    this.playerMana=scene.add.bitmapText(500,940,"text",this.player.manaA.toString()+"/"+this.player.manaMax.toString()).setFontSize(24)                    
-                }else{
-                    this.playerMana.text=this.player.manaA.toString()+"/"+this.player.manaMax.toString()
-                }
+                this.playerMana.text=this.player.manaA.toString()+"/"+this.player.manaMax.toString()
+
                 scene.changeTrun.setInteractive();
             }else{
-                this.opponent.manaMax++;
-                this.opponent.manaA=this.opponent.manaMax;
-                if (this.opponent.manaMax===1) {
-                    console.log("si")
-                    this.opponentMana=scene.add.bitmapText(500,120,"text",this.opponent.manaA.toString()+"/"+this.opponent.manaMax.toString()).setFontSize(24)                    
-                }else{
-                    this.opponentMana.text=this.opponent.manaA.toString()+"/"+this.opponent.manaMax.toString()
+                if (!this.turn==1) {
+                    this.opponent.manaMax++;
                 }
+                this.opponent.manaA=this.opponent.manaMax;
+                this.opponentMana.text=this.opponent.manaA.toString()+"/"+this.opponent.manaMax.toString()
+
             }
-            
         }
 
         this.changeGameState = (gameState) =>{
             this.gameState = gameState
-            console.log("Estado: "+this.gameState)
-
+            console.log("Estado: "+this.gameState)          
         }
         this.recibeDaño = (player,cantidad)=>{
             if (player) {
