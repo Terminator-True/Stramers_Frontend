@@ -42,7 +42,7 @@ export default class Game extends Phaser.Scene{
         this.load.image("dorso_luna","src/assets/Dorso_luna.png")
         this.load.image("dorso_sol","src/assets/Dorso_Sol.png")
         //Cartas
-        this.load.image("alexelcapo-san","src/assets/cartas/alexelcapo-san.png") 
+        this.load.image("alexelcapo_san","src/assets/cartas/alexelcapo-san.png") 
         this.load.image("andiamo","src/assets/cartas/andiamo.png") 
         this.load.image("andorra","src/assets/cartas/andorra.png") 
         this.load.image("asmr","src/assets/cartas/asmr.png") 

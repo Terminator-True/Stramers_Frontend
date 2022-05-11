@@ -76,3 +76,8 @@ div svg {
   margin-bottom: 0;
   width: 900px;
  }
+
+.fixedR{
+  position: fixed;
+  right: 0px;
+}

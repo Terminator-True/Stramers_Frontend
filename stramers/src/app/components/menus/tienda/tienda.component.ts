@@ -119,6 +119,9 @@ export class TiendaComponent implements OnInit {
               )
           }, 500);
       }
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
     }else{
 
       console.log("ja tens la carta")
