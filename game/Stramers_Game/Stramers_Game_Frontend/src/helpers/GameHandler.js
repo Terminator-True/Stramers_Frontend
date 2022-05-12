@@ -7,8 +7,11 @@ export default class GameHandler{
         this.playerHand = [];
         this.opponentHand = [];
 
-        this.playerLife=scene.add.bitmapText(285,940,"text","").setFontSize(24);
-        this.opponentLife=scene.add.bitmapText(285,120,"text","").setFontSize(24);
+        this.playerLife=scene.add.bitmapText(275,940,"text","").setFontSize(24);
+        this.opponentLife=scene.add.bitmapText(275,120,"text","").setFontSize(24);
+
+        this.playerLife.setDepth(1);
+        this.opponentLife.setDepth(1);
 
         this.playerMana=scene.add.bitmapText(500,940,"text","").setFontSize(24)                    
         this.opponentMana=scene.add.bitmapText(500,120,"text","").setFontSize(24) 
@@ -38,24 +41,16 @@ export default class GameHandler{
          * siempre es igual para los dos jugadores solo que cambiando las zonas de lugar, el resultado en ambos casos será el mismo.
          */
 
-        /**
-         * Arreglar mana: 
-         *  -No se enseña correctamente el del oponente
-         *  -Bug: a veces sale -1/1 
-         *  -Recolocar los numeros, a veces se supoerponen a la mano del oponente
-         *  -Los numeros del aliado también, colocarlos más a la izquierda
-         */
         this.changeTurn = () =>{
             this.turn++;
-            console.log(this.turn)
             this.isMyTurn = !this.isMyTurn;
             console.log("isMyturn:"+this.isMyTurn)
             if (this.isMyTurn) {
                 this.player.manaMax++;
                 this.player.manaA=this.player.manaMax;
                 this.playerMana.text=this.player.manaA.toString()+"/"+this.player.manaMax.toString()
-
                 scene.changeTrun.setInteractive();
+
             }else{
                 if (!scene.room.playerA && this.turn>=2) {
                     this.opponent.manaMax++;
@@ -65,21 +60,91 @@ export default class GameHandler{
                 this.opponent.manaA=this.opponent.manaMax;
                 this.opponentMana.text=this.opponent.manaA.toString()+"/"+this.opponent.manaMax.toString()
             }
+            if (this.turn>1) {
+                if (!scene.room.playerA && this.turn>=4 || scene.room.playerA && this.turn>=5 ) {
+                    let terminated=false;
+                    let i=0;
+                    let final;
+                    while (!terminated) {
+                        terminated = i===final
+                        final = scene.playerZone.data.values.cards < scene.opponentZone.data.values.cards ? scene.opponentZone.data.values.cards:scene.playerZone.data.values.cards
+                        if (scene.playerZone.data.values.cards_list[i] && scene.opponentZone.data.values.cards_list[i]) {
+                            let dmgP = scene.playerZone.data.values.cards_list[i].data.list.dmgA
+                            let hpP = scene.playerZone.data.values.cards_list[i].data.list.lifeA
+
+                            let dmgO = scene.opponentZone.data.values.cards_list[i].data.list.dmgA
+                            let hpO = scene.opponentZone.data.values.cards_list[i].data.list.lifeA
+
+                            console.log(dmgP+"/"+hpP+"vs"+dmgO+"/"+hpO)
+
+                            if (hpO-dmgP>0 && hpP-dmgO>0) {
+                                scene.playerZone.data.values.card_text[i].text=hpO.toString()+"/"+(hpO-dmgP).toString()
+                                scene.opponentZone.data.values.card_text[i].text=hpP.toString()+"/"+(hpP-dmgO).toString()
+
+                            }else if(hpP-dmgO<=0){
+                                if (hpO-dmgP<=0) {
+                                    scene.opponentZone.data.values.cards_list[i].destroy()
+                                    scene.opponentZone.data.values.card_text[i].destroy()
+                                }
+                                scene.playerZone.data.values.cards_list[i].destroy()
+                                scene.playerZone.data.values.card_text[i].destroy()
+                            }else if(hpO-dmgP<=0){
+                                if (hpP-dmgO<=0) {
+                                    scene.playerZone.data.values.cards_list[i].destroy()
+                                    scene.playerZone.data.values.card_text[i].destroy()
+                                }
+                                scene.opponentZone.data.values.cards_list[i].destroy()
+                                scene.opponentZone.data.values.card_text[i].destroy()
+                                
+                            }
+
+
+                        }else if(scene.playerZone.data.values.cards_list[i]){
+                            let dmg=scene.playerZone.data.values.cards_list[i].data.list.dmgA
+                            let player=false
+                            this.recibeDañoPlayer(player,dmg)
+                        }else if(scene.opponentZone.data.values.cards_list[i]){
+                            let player=true
+                            let dmg=scene.opponentZone.data.values.cards_list[i].data.list.dmgA
+                            this.recibeDañoPlayer(player=true,dmg)
+                        }
+                        i++
+                    }
+
+                    let finalP = scene.playerZone.data.values.cards_list.length-1
+                    for (let j = 0; j < finalP; j++) {
+                        var carta = cardArray[j]
+                         if(carta.visible===true){
+                            scene.playerZone.data.values.cards_list[j].x-=170*j
+                            scene.playerZone.data.values.cards_list[j].x-=170*j
+                         }
+                    }
+                    cardArray.map((carta)=>{
+                        if (carta.visible===true) {
+                            return carta
+                        }
+                    })
+                    console.log(cardArray)
+                    scene.playerZone.data.values.cards_list=cardArray
+                }    
+
+            }
+
+
         }
 
         this.changeGameState = (gameState) =>{
             this.gameState = gameState
             console.log("Estado: "+this.gameState)          
         }
-        this.recibeDaño = (player,cantidad)=>{
+
+        this.recibeDañoPlayer = (player,cantidad)=>{
             if (player) {
                 this.player.life-=cantidad
-                this.playerLife.destroy()
-                this.playerLife=scene.add.text(285,120,this.GameHandler.player.life.toString()).setFontSize(24)
+                this.playerLife.text=this.player.life.toString()
             }else{
                 this.opponent.life-=cantidad
-                this.opponentLife.destroy()
-                this.opponentLife=scene.add.text(285,120,this.opponent.life.toString()).setFontSize(24)
+                this.opponentLife.text=this.opponent.life.toString()
             }
         }
     }
