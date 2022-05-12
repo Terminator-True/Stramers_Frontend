@@ -6,8 +6,10 @@ export default class GameHandler{
         this.opponentDeck = [];
         this.playerHand = [];
         this.opponentHand = [];
-        this.playerLife;
-        this.opponentLife;
+
+        this.playerLife=scene.add.bitmapText(285,940,"text","").setFontSize(24);
+        this.opponentLife=scene.add.bitmapText(285,120,"text","").setFontSize(24);
+
         this.playerMana=scene.add.bitmapText(500,940,"text","").setFontSize(24)                    
         this.opponentMana=scene.add.bitmapText(500,120,"text","").setFontSize(24) 
         this.turn=0;
@@ -45,6 +47,7 @@ export default class GameHandler{
          */
         this.changeTurn = () =>{
             this.turn++;
+            console.log(this.turn)
             this.isMyTurn = !this.isMyTurn;
             console.log("isMyturn:"+this.isMyTurn)
             if (this.isMyTurn) {
@@ -54,12 +57,13 @@ export default class GameHandler{
 
                 scene.changeTrun.setInteractive();
             }else{
-                if (!this.turn==1) {
+                if (!scene.room.playerA && this.turn>=2) {
+                    this.opponent.manaMax++;
+                }else if(scene.room.playerA && this.turn>=3){
                     this.opponent.manaMax++;
                 }
                 this.opponent.manaA=this.opponent.manaMax;
                 this.opponentMana.text=this.opponent.manaA.toString()+"/"+this.opponent.manaMax.toString()
-
             }
         }
 

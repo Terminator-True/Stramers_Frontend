@@ -22,7 +22,6 @@ export default class UIHandler{
             scene.changeTrun = scene.add.text(1500,540,"Pasa Turno").setFontSize(24)
             scene.add.image(300,130,"corazon").setScale(0.20,0.20)
             scene.add.image(300,950,"corazon").setScale(0.20,0.20)
-            scene.add.image(300,950,"corazon").setScale(0.20,0.20)
 
             scene.add.image(450,130,"mana").setScale(0.20,0.20)
             scene.add.image(450,950,"mana").setScale(0.20,0.20)

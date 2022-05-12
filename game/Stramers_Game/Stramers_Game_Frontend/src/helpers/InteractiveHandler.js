@@ -13,6 +13,7 @@ export default class InteractiveHandler{
         scene.changeTrun.on("pointerout", (event, gameObjects)=>{
             scene.changeTrun.setColor("#00ffff");
         })
+        
         scene.input.on("pointerover", (event, gameObjects)=>{
 
             let pointer = scene.input.activePointer;
@@ -56,8 +57,8 @@ export default class InteractiveHandler{
                 scene.playerZone.data.values.cards_list[scene.playerZone.data.values.cards]=gameObject;
                 gameObject.x = (dropZone.x-350)+(dropZone.data.values.cards*170);
                 gameObject.y = dropZone.y;
+                scene.playerZone.data.values.card_text[scene.playerZone.data.values.cards]=scene.add.bitmapText(gameObject.x-40,gameObject.y+120,"text",scene.playerZone.data.values.cards_list[scene.playerZone.data.values.cards].data.list.dmg+"/"+scene.playerZone.data.values.cards_list[scene.playerZone.data.values.cards].data.list.life).setFontSize(24) 
 
-                scene.add.text(gameObject.x-20,gameObject.y+120,scene.playerZone.data.values.cards_list[scene.playerZone.data.values.cards].data.list.dmg+"/"+scene.playerZone.data.values.cards_list[scene.playerZone.data.values.cards].data.list.life).setFontSize(24)
                 scene.playerZone.data.values.cards++;
                 scene.input.setDraggable(gameObject, false);
                 scene.socket.emit("cardPlayed",gameObject.data.values.name, scene.room.roomId, scene.room.playerId);

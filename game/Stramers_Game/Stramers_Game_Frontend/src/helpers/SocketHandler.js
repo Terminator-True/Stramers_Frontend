@@ -8,9 +8,9 @@ export default class SocketHandler{
             scene.socket.emit("getInRoom")
         })
 
-        scene.socket.on("room", (roomId,playerA)=>{
-                scene.room={roomId:roomId,playerId:scene.socket.id,playerA:playerA};
-                console.log(scene.room)
+        scene.socket.on("room", (roomId)=>{
+            scene.room={roomId:roomId,playerId:scene.socket.id,playerA:null};
+                
         })
 
         scene.socket.on("match", ()=>{
@@ -19,18 +19,22 @@ export default class SocketHandler{
         })
 
         scene.socket.on("firstTurn", ()=>{
+            setTimeout(() => {
+                scene.room.playerA=true;
+            }, 500);
             scene.GameHandler.changeTurn();
         })
         scene.socket.on("changeGameState",(gameState)=>{
-            scene.GameHandler.changeGameState(gameState);
+            scene.GameHandler.changeGameState(gameState);            
             if (gameState === "Initializing") {
                 scene.DeckHandler.dealCard(1550, 960, "cardBack", "playerCard")
                 scene.DeckHandler.dealCard(1550,135, "cardBack","opponentCard")
                 scene.changeTrun.setInteractive()
                 scene.changeTrun.setColor("#00ffff")
-                scene.GameHandler.playerLife=scene.add.text(285,940,scene.GameHandler.player.life.toString()).setFontSize(24)
+                console.log(scene.GameHandler.playerLife)
+                scene.GameHandler.playerLife.text=scene.GameHandler.player.life.toString()
 
-                scene.GameHandler.opponentLife=scene.add.text(285,120,scene.GameHandler.opponent.life.toString()).setFontSize(24)
+                scene.GameHandler.opponentLife.text=scene.GameHandler.opponent.life.toString()
             }
         })
 
@@ -62,7 +66,7 @@ export default class SocketHandler{
                     scene.GameHandler.opponentMana.text=scene.GameHandler.opponent.manaA.toString()+"/"+ scene.GameHandler.opponent.manaMax.toString()
 
                     scene.opponentZone.data.values.cards_list[scene.opponentZone.data.values.cards]=gameObject;
-                    scene.add.text(gameObject.x-20,gameObject.y-145,scene.opponentZone.data.values.cards_list[scene.opponentZone.data.values.cards].data.list.dmg+"/"+scene.opponentZone.data.values.cards_list[scene.opponentZone.data.values.cards].data.list.life).setFontSize(24)
+                    scene.opponentZone.data.values.card_text[scene.opponentZone.data.values.cards]=scene.add.bitmapText(gameObject.x-40,gameObject.y-145,"text",scene.opponentZone.data.values.cards_list[scene.opponentZone.data.values.cards].data.list.dmg+"/"+scene.opponentZone.data.values.cards_list[scene.opponentZone.data.values.cards].data.list.life).setFontSize(24) 
                     scene.opponentZone.data.values.cards++;
                 }
             }

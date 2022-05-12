@@ -44,11 +44,11 @@ io.on("connection", function(socket){
         }
         rooms[roomId.toString()]=players
         players={}
-        //console.log(waiting[1])
         waiting.splice(0,2)
+        //console.log(waiting[1])
         Nrooms++;
          setTimeout(()=>{
-            io.sockets.in(roomId.toString(),rooms[roomId.toString()][socket.id].isPlayerA).emit("match")
+            io.sockets.in(roomId.toString()).emit("match")
          },500)
     }
     /**
@@ -77,7 +77,9 @@ io.on("connection", function(socket){
         readyCheck++;
         if(readyCheck === 2){
             readyCheck=0;
-            io.sockets.in(roomId).emit("changeGameState","Ready")
+            setTimeout(() => {
+                io.sockets.in(roomId).emit("changeGameState","Ready")
+            }, 500);
         }
     })
     socket.on("cardPlayed", function(cardName,roomId, socketId){

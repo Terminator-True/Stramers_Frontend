@@ -28,7 +28,27 @@ import Illojuan from "./cards/illojuan"
 import Impuestos from "./cards/impuestos"
 import Jordi_wild from "./cards/jordi_wild"
 import Knekro from "./cards/knekro"
-
+import Lag from "./cards/lag"
+import Lmdshow from "./cards/lmdshow"
+import Mixwell from "./cards/mixwell"
+import Mr_jagger from "./cards/mr_jagger"
+import Paracetamor from "./cards/paracetamor"
+import Patentado from "./cards/patentado"
+import Pionera_del_clan_pambisito from "./cards/pionera_del_clan_pambisito"
+import Piromancia from "./cards/piromancia"
+import Polimorf from "./cards/polimorf"
+import Podcast from "./cards/podcast"
+import Politica from "./cards/politica"
+import Raid from "./cards/raid"
+import Roedor from "./cards/roedor"
+import Shylily from "./cards/shylilly"
+import Suckway from "./cards/suckway"
+import Thegrefg from "./cards/thegrefg"
+import Tonacho from "./cards/tonacho"
+import Tonacho_terrorista from "./cards/tonacho_terrorista"
+import Twitch from "./cards/twitch"
+import Willyrex from "./cards/willyrex"
+import Otaku from "./cards/otaku"
 export default class DeckHandler{
     constructor(scene){
         this.dealCard = (x, y, name, type) => {
@@ -63,6 +83,27 @@ export default class DeckHandler{
                 impuestos:new Impuestos(scene),
                 jordi_wild:new Jordi_wild(scene),
                 knekro:new Knekro(scene),
+                lag:new Lag(scene),
+                lmdshow:new Lmdshow(scene),
+                mixwell:new Mixwell(scene),
+                mr_jagger:new Mr_jagger(scene),
+                paracetamor:new Paracetamor(scene),
+                patentado:new Patentado(scene),
+                pionera_del_clan_pambisito:new Pionera_del_clan_pambisito(scene),
+                piromancia:new Piromancia(scene),
+                polimorf:new Polimorf(scene),
+                podcast:new Podcast(scene),
+                politica:new Politica(scene),
+                raid:new Raid(scene),
+                rodeor:new Roedor(scene),
+                shylily:new Shylily(scene),
+                suckway:new Suckway(scene),
+                thegrefg:new Thegrefg(scene),
+                tonacho:new Tonacho(scene),
+                tonacho_terrorista:new Tonacho_terrorista(scene),
+                twitch:new Twitch(scene),
+                willyrex:new Willyrex(scene),
+                otaku: new Otaku(scene),
                 
             }
             let newCard = cards[name];
