@@ -1,3 +1,4 @@
+<!-- boton de ir atras -->
 <div class="body">
   <div>
     <a href="/menu">
@@ -10,23 +11,25 @@
       </svg>
     </a>
   </div>
-
-  <span *ngFor="let mazo of mazos">
-    <button class="l-bg-orange-dark mazo" (click)="select(mazo)" > {{ mazo }} </button>
-  </span>
-</div>
-
-<div class="lateral fixedR">
-  <div class="ribbon" > <p>Normal</p></div>
-
-  <div class="select l-bg-orange-dark">
-    <h3 class="" > {{mazoName}} </h3> <br>
-    <span *ngFor="let card of session_storage">
-      <span class="selectCard" > {{ card }} </span><br>
+  <!-- lista de los mazos del user -->
+  <div class="container m-2 mazoMedia">
+    <span class="m-2" *ngFor="let mazo of mazos">
+      <button class="l-bg-orange-dark mazo m-2" (click)="select(mazo)" >{{mazo}}</button>
     </span>
   </div>
 
-  <!-- designed by me... enjoy! -->
+</div>
+
+<!-- mazo seleccionado -->
+<div class="fixedR mt-5 selectMedia">
+  <div class="select l-bg-orange-dark">
+    <h3 class="" > {{mazoName}} </h3> <br>
+    <span *ngFor="let card of session_storage">
+      <span class="m-5" > {{ card }} </span><br>
+    </span>
+  </div>
+
+  <!-- boton de buscar partida -->
   <div class="wrapper">
     <a class="cta" href="http://localhost:8080">
       <span>Jugar</span>
@@ -41,4 +44,5 @@
       </span> 
     </a>
   </div>
+
 </div>

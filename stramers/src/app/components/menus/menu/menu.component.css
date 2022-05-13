@@ -20,13 +20,13 @@ nav {
     text-decoration: none;
     font-size: 46px;
     display: block;
-    line-height: 1000px;
-    width: 400px;
+    line-height:1490%;
+    width: 100%;
     padding: 0 35px;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 5%;
     position: relative;
-    font-weight: 300;
+    font-weight: 100%;
     color: #fff;
     font-family: 'Open Sans';
   }
@@ -59,3 +59,12 @@ nav {
 
   /* tiene una barra diagonal
   https://codepen.io/dibuchis/pen/aWzdew?editors=1100 */
+
+
+
+@media (max-width: 970px) {
+  .ul li a {
+      width: 80%;
+  }
+}
+
