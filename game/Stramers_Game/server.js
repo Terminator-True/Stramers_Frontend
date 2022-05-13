@@ -67,7 +67,7 @@ io.on("connection", function(socket){
     socket.on("dealCards", function(roomId,socketId){
         console.log("dealCard roomId: "+roomId)
         console.log("dealCard socketId: "+socketId)
-        for(let i=0; i<5; i++){
+        for(let i=0; i<3; i++){
             if (rooms[roomId][socketId].inDeck===0) {
                 rooms[roomId][socketId].inDeck = shuffle(["elxokas","mdlr","garmy","programador","streamer"])
             }
@@ -82,7 +82,18 @@ io.on("connection", function(socket){
             }, 500);
         }
     })
+
+    socket.on("dealCard", function(roomId,socketId){
+        console.log("dealCard roomId: "+roomId)
+        console.log("dealCard socketId: "+socketId)
+        rooms[roomId][socketId].inHand.push(rooms[roomId][socketId].inDeck.shift());
+        io.sockets.in(roomId).emit("dealCard",roomId, socketId, rooms[roomId][socketId].inHand);
+    })
     socket.on("cardPlayed", function(cardName,roomId, socketId){
+        let indexCard=rooms[roomId][socketId].inHand.indexOf(cardName)
+        console.log(rooms[roomId][socketId].inHand)
+        console.log(rooms[roomId][socketId].inHand.splice(indexCard,1))
+
         io.sockets.in(roomId).emit("cardPlayed", cardName,roomId, socketId);
     })
 

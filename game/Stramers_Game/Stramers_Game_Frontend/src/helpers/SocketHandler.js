@@ -24,6 +24,7 @@ export default class SocketHandler{
             }, 500);
             scene.GameHandler.changeTurn();
         })
+        
         scene.socket.on("changeGameState",(gameState)=>{
             scene.GameHandler.changeGameState(gameState);            
             if (gameState === "Initializing") {
@@ -55,7 +56,23 @@ export default class SocketHandler{
                 }
             }
         })
-
+        scene.socket.on("dealCard", (roomId,socketId, cards) =>{
+            if (scene.room.roomId === roomId) {    
+                if (socketId === scene.room.playerId) {
+                    for (let i = 0; i < scene.GameHandler.playerHand.length; i++) {
+                        scene.GameHandler.playerHand[i].destroy();  
+                    }
+                    scene.GameHandler.playerHand.splice()
+                    for (let i in cards) {
+                        let card = scene.GameHandler.playerHand.push(scene.DeckHandler.dealCard(658+(i*170), 960, cards[i], "playerCard"))
+                    }
+                }else{
+                    for(let i in cards){
+                        let card = scene.GameHandler.opponentHand.push(scene.DeckHandler.dealCard(658+(i*170), 135, "cardBack", "opponentCard"))
+                    }
+                }
+            }
+        })
         scene.socket.on("cardPlayed", (cardName, roomId,socketId)=>{
             if (roomId === scene.room.roomId) {
                 if (socketId !== scene.room.playerId) {

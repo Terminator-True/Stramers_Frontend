@@ -51,6 +51,9 @@ export default class InteractiveHandler{
          */
         scene.input.on("drop",(pointer,gameObject,dropZone)=>{
             if(scene.GameHandler.isMyTurn && scene.GameHandler.gameState==="Ready" && dropZone.data.values.type==="player" && scene.playerZone.data.values.cards<5 && scene.GameHandler.player.manaA-gameObject.data.list.cost>=0){
+                let card = scene.GameHandler.playerHand.indexOf(gameObject)
+                scene.GameHandler.playerHand.splice(card,1)
+                console.log(scene.GameHandler.playerHand)
                 scene.GameHandler.player.manaA=scene.GameHandler.player.manaA-gameObject.data.list.cost
                 scene.GameHandler.playerMana.text= scene.GameHandler.player.manaA.toString()+"/"+ scene.GameHandler.player.manaMax.toString()
 
