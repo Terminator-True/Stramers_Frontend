@@ -127,12 +127,12 @@ path.two {
 }
 
 .mazo{
-    margin-left: 10px;
+    /* margin-left: 10px; */
     width: 200px;
     height: 300px;
     border: 1px solid;
     text-align: center;
-    padding-top: 30px;
+    /* padding-top: 30px; */
     color: black;
   }
 
@@ -175,6 +175,28 @@ path.two {
     padding-top: 5%;
 }
 
-.selectCard{
-    margin: 25%;
+@media (max-width: 1470px) {
+    .mazoMedia {
+        width: 75%;
+    }
 }
+
+@media (max-width: 800px) {
+    .mazoMedia {
+        width: 20%;
+    }
+}
+
+@media (max-width: 580px) {
+    .mazoMedia {
+        position: absolute;
+        top: 65%;
+        width: 20%;
+    }
+    .selectMedia{
+        top:5%;
+    }
+}
+
+
+
