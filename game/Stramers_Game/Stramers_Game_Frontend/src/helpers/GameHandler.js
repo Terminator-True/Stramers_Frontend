@@ -6,10 +6,16 @@ export default class GameHandler{
         this.opponentDeck = [];
         this.playerHand = [];
         this.opponentHand = [];
-        this.playerLife;
-        this.opponentLife;
-        this.playerMana;
-        this.opponentMana;
+
+        this.playerLife=scene.add.bitmapText(275,940,"text","").setFontSize(24);
+        this.opponentLife=scene.add.bitmapText(275,120,"text","").setFontSize(24);
+
+        this.playerLife.setDepth(1);
+        this.opponentLife.setDepth(1);
+
+        this.playerMana=scene.add.bitmapText(500,940,"text","").setFontSize(24)                    
+        this.opponentMana=scene.add.bitmapText(500,120,"text","").setFontSize(24) 
+        this.turn=0;
         this.player={
             life:20,
             manaMax: 0,
@@ -17,9 +23,10 @@ export default class GameHandler{
         };
         this.opponent={
             life:20,
-            manaMax: 0,
-            manaA:0
+            manaMax: 1,
+            manaA:1
         }
+        this.opponentMana.text=this.opponent.manaA.toString()+"/"+"1"
         /**
          * @Todo 
          * -Que las cartas hagan el daño en cuanto hagan click al pasar turno.
@@ -34,53 +41,137 @@ export default class GameHandler{
          * siempre es igual para los dos jugadores solo que cambiando las zonas de lugar, el resultado en ambos casos será el mismo.
          */
 
-        /**
-         * Arreglar mana: 
-         *  -No se enseña correctamente el del oponente
-         *  -Bug: a veces sale -1/1 
-         *  -Recolocar los numeros, a veces se supoerponen a la mano del oponente
-         *  -Los numeros del aliado también, colocarlos más a la izquierda
-         */
         this.changeTurn = () =>{
+            this.turn++;
             this.isMyTurn = !this.isMyTurn;
             console.log("isMyturn:"+this.isMyTurn)
             if (this.isMyTurn) {
                 this.player.manaMax++;
                 this.player.manaA=this.player.manaMax;
-                if (this.player.manaMax===1) {
-                    console.log("si")
-                    this.playerMana=scene.add.bitmapText(500,940,"text",this.player.manaA.toString()+"/"+this.player.manaMax.toString()).setFontSize(24)                    
-                }else{
-                    this.playerMana.text=this.player.manaA.toString()+"/"+this.player.manaMax.toString()
-                }
+                this.playerMana.text=this.player.manaA.toString()+"/"+this.player.manaMax.toString()
                 scene.changeTrun.setInteractive();
+
+
             }else{
-                this.opponent.manaMax++;
-                this.opponent.manaA=this.opponent.manaMax;
-                if (this.opponent.manaMax===1) {
-                    console.log("si")
-                    this.opponentMana=scene.add.bitmapText(500,120,"text",this.opponent.manaA.toString()+"/"+this.opponent.manaMax.toString()).setFontSize(24)                    
-                }else{
-                    this.opponentMana.text=this.opponent.manaA.toString()+"/"+this.opponent.manaMax.toString()
+                if (!scene.room.playerA && this.turn>=2) {
+                    this.opponent.manaMax++;
+                }else if(scene.room.playerA && this.turn>=3){
+                    this.opponent.manaMax++;
                 }
+                this.opponent.manaA=this.opponent.manaMax;
+                this.opponentMana.text=this.opponent.manaA.toString()+"/"+this.opponent.manaMax.toString()
             }
-            
+            if (this.turn>1) {
+                if (!scene.room.playerA && this.turn>=2 || scene.room.playerA && this.turn>=3 ) {
+                    console.log("Roba carta")
+                    scene.socket.emit("dealCard",scene.room.roomId,scene.room.playerId)
+
+                }
+                if (!scene.room.playerA && this.turn>=4 || scene.room.playerA && this.turn>=5 ) {
+                    let terminated=false;
+                    let i=0;
+                    let final=scene.playerZone.data.values.cards < scene.opponentZone.data.values.cards ? scene.opponentZone.data.values.cards:scene.playerZone.data.values.cards;
+                    var destroyedP=0;
+                    var destroyedO=0;
+
+                    while (!terminated) {
+                        terminated = i>final
+                        if (scene.playerZone.data.values.cards_list[i] && scene.opponentZone.data.values.cards_list[i]) {
+                            let dmgP = scene.playerZone.data.values.cards_list[i].data.list.dmgA
+                            let hpP = scene.playerZone.data.values.cards_list[i].data.list.lifeA
+
+                            let dmgO = scene.opponentZone.data.values.cards_list[i].data.list.dmgA
+                            let hpO = scene.opponentZone.data.values.cards_list[i].data.list.lifeA
+
+                            console.log(dmgP+"/"+hpP+"vs"+dmgO+"/"+hpO)
+
+                            if (hpO-dmgP>0 || hpP-dmgO>0) {
+                                if (hpO-dmgP>0) {
+                                    scene.opponentZone.data.values.card_text[i].text=dmgO.toString()+"/"+(hpO-dmgP).toString()
+                                }
+                                if (hpP-dmgO>0) {
+                                    scene.playerZone.data.values.card_text[i].text=dmgP.toString()+"/"+(hpP-dmgO).toString()
+                                }
+
+                            }else if(hpP-dmgO<=0){
+                                if (hpO-dmgP<=0) {
+                                    destroyedO++;
+                                    scene.opponentZone.data.values.cards--;
+                                    scene.opponentZone.data.values.cards_list[i].destroy()
+                                    scene.opponentZone.data.values.card_text[i].destroy()
+                                    scene.opponentZone.data.values.cards_list.splice(i,i+1)
+                                    scene.opponentZone.data.values.card_text.splice(i,i+1)
+                                }
+                                destroyedP++;
+                                scene.playerZone.data.values.cards--;
+                                scene.playerZone.data.values.cards_list[i].destroy()
+                                scene.playerZone.data.values.card_text[i].destroy()
+                                let card = scene.playerZone.data.values.cards_list.splice(i,i+1)
+                                let text_card =scene.playerZone.data.values.card_text.splice(i,i+1)
+
+                                i--;
+
+                            }else if(hpO-dmgP<=0){
+                                if (hpP-dmgO<=0) {
+                                    destroyedP++;
+                                    scene.playerZone.data.values.cards--;
+                                    scene.playerZone.data.values.cards_list[i].destroy()
+                                    scene.playerZone.data.values.card_text[i].destroy()
+                                    scene.playerZone.data.values.cards_list.splice(i,i+1)
+                                    scene.playerZone.data.values.card_text.splice(i,i+1)
+                                }
+                                destroyedO++;
+                                scene.opponentZone.data.values.cards--;
+                                scene.opponentZone.data.values.cards_list[i].destroy()
+                                scene.opponentZone.data.values.card_text[i].destroy()
+                                scene.opponentZone.data.values.cards_list.splice(i,i+1) 
+                                scene.opponentZone.data.values.card_text.splice(i,i+1)
+                                i--;
+                            }
+
+                        }else if(scene.playerZone.data.values.cards_list[i]){
+                            let dmg=scene.playerZone.data.values.cards_list[i].data.list.dmgA
+                            let player=false
+                            this.recibeDañoPlayer(player,dmg)
+                        }else if(scene.opponentZone.data.values.cards_list[i]){
+                            let player=true
+                            let dmg=scene.opponentZone.data.values.cards_list[i].data.list.dmgA
+                            this.recibeDañoPlayer(player,dmg)
+                        }
+                        
+                        i++
+                    }
+                    terminated=false;
+                    i=0;
+                    final = scene.playerZone.data.values.cards < scene.opponentZone.data.values.cards ? scene.opponentZone.data.values.cards:scene.playerZone.data.values.cards
+                    while (!terminated) {
+                        terminated = i===final;
+                        if (scene.playerZone.data.values.cards_list[i]) {
+                            scene.playerZone.data.values.cards_list[i].x-=(170*destroyedP)
+                            scene.playerZone.data.values.card_text[i].x-=(170*destroyedP)
+                        }
+                        if (scene.opponentZone.data.values.cards_list[i]) {
+                            scene.opponentZone.data.values.cards_list[i].x-=(170*destroyedO)
+                            scene.opponentZone.data.values.card_text[i].x-=(170*destroyedO)
+                        }
+                        i++;
+                    }
+                }    
+            }
         }
 
         this.changeGameState = (gameState) =>{
             this.gameState = gameState
-            console.log("Estado: "+this.gameState)
-
+            console.log("Estado: "+this.gameState)          
         }
-        this.recibeDaño = (player,cantidad)=>{
+
+        this.recibeDañoPlayer = (player,cantidad)=>{
             if (player) {
                 this.player.life-=cantidad
-                this.playerLife.destroy()
-                this.playerLife=scene.add.text(285,120,this.GameHandler.player.life.toString()).setFontSize(24)
+                this.playerLife.text=this.player.life.toString()
             }else{
                 this.opponent.life-=cantidad
-                this.opponentLife.destroy()
-                this.opponentLife=scene.add.text(285,120,this.opponent.life.toString()).setFontSize(24)
+                this.opponentLife.text=this.opponent.life.toString()
             }
         }
     }

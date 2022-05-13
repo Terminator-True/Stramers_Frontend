@@ -6,6 +6,7 @@ export default class ZoneHandler{
                 "cards":0,
                 "type": type,
                 "cards_list":[],
+                "card_text":[]
             });
             return dropZone;    
         }
