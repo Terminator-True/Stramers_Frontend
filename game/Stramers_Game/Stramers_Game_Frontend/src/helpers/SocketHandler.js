@@ -1,3 +1,4 @@
+import InteractiveHandler from "./InteractiveHandler";
 import io from "socket.io-client"
 export default class SocketHandler{
     constructor(scene){
@@ -14,8 +15,22 @@ export default class SocketHandler{
         })
 
         scene.socket.on("match", ()=>{
-            scene.socket.emit("dealDeck", scene.room.roomId, scene.room.playerId)
-            scene.socket.emit("dealCards",scene.room.roomId, scene.room.playerId)
+            setTimeout(() => {
+                scene.UIHandler.buildUI();
+            }, 500);
+            scene.circ.destroy()
+            scene.buscant.destroy()
+            scene.GameHandler.opponentMana.text= scene.GameHandler.opponent.manaA.toString()+"/"+"1"
+            let mazo = localStorage.getItem("mazo")
+            setTimeout(() => {
+                scene.InteractiveHandler = new InteractiveHandler(scene);
+            }, 750);
+            setTimeout(() => {
+                scene.socket.emit("dealDeck", scene.room.roomId, scene.room.playerId,mazo.split(","))                
+            }, 1000);
+            setTimeout(() => {
+                scene.socket.emit("dealCards",scene.room.roomId, scene.room.playerId)
+            }, 1250);
         })
 
         scene.socket.on("firstTurn", ()=>{
@@ -47,6 +62,7 @@ export default class SocketHandler{
             if (scene.room.roomId === roomId) {    
                 if ( socketId === scene.room.playerId) {
                     for (let i in cards) {
+                        console.log(cards[i])
                         let card = scene.GameHandler.playerHand.push(scene.DeckHandler.dealCard(658+(i*170), 960, cards[i], "playerCard"))
                     }
                 }else{
@@ -59,16 +75,29 @@ export default class SocketHandler{
         scene.socket.on("dealCard", (roomId,socketId, cards) =>{
             if (scene.room.roomId === roomId) {    
                 if (socketId === scene.room.playerId) {
-                    for (let i = 0; i < scene.GameHandler.playerHand.length; i++) {
-                        scene.GameHandler.playerHand[i].destroy();  
-                    }
-                    scene.GameHandler.playerHand.splice()
-                    for (let i in cards) {
-                        let card = scene.GameHandler.playerHand.push(scene.DeckHandler.dealCard(658+(i*170), 960, cards[i], "playerCard"))
+                    if (scene.GameHandler.playerHand.length<=5) {
+                        for (let i = 0; i < scene.GameHandler.playerHand.length; i++) {
+                            scene.GameHandler.playerHand[i].destroy();
+                        }
+                        scene.GameHandler.playerHand.splice()
+                        for (let i in cards) {
+                            console.log(cards[i])
+                            let card = scene.GameHandler.playerHand.push(scene.DeckHandler.dealCard(658+(i*170), 960, cards[i], "playerCard"))
+                        }
+                    }else{
+                        /**
+                         * Idea: animacion de carta destruyendose
+                         */
                     }
                 }else{
-                    for(let i in cards){
-                        let card = scene.GameHandler.opponentHand.push(scene.DeckHandler.dealCard(658+(i*170), 135, "cardBack", "opponentCard"))
+                    if (scene.GameHandler.opponentHand.length<=5) {
+                        for (let i = 0; i < scene.GameHandler.opponentHand.length; i++) {
+                            scene.GameHandler.opponentHand[i].destroy();
+                        }
+                        scene.GameHandler.opponentHand.splice()
+                        for(let i in cards){
+                            let card = scene.GameHandler.opponentHand.push(scene.DeckHandler.dealCard(658+(i*170), 135, "cardBack", "opponentCard"))
+                        }
                     }
                 }
             }

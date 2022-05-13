@@ -55,22 +55,18 @@ io.on("connection", function(socket){
      * @inDeck se hará una petición al backend de usuarios y 
      * éste devolverá el mazo principal(nombres de las cartas)
      */
-    socket.on("dealDeck", function(roomId,socketId) {
+    socket.on("dealDeck", function(roomId,socketId,mazo) {
         console.log("dealdeck roomId: "+roomId)
         console.log("dealdeck socketId: "+socketId)
-        console.log(rooms)
-        rooms[roomId][socketId].inDeck = shuffle(["elxokas","mdlr","garmy","programador","streamer"])
+        console.log(mazo)
+        rooms[roomId][socketId].inDeck = shuffle(mazo)
         if (Object.keys(rooms[roomId]).lenght < 2) return;
         io.sockets.in(roomId).emit("changeGameState", "Initializing")
+        console.log(rooms)
     })
 
     socket.on("dealCards", function(roomId,socketId){
-        console.log("dealCard roomId: "+roomId)
-        console.log("dealCard socketId: "+socketId)
         for(let i=0; i<3; i++){
-            if (rooms[roomId][socketId].inDeck===0) {
-                rooms[roomId][socketId].inDeck = shuffle(["elxokas","mdlr","garmy","programador","streamer"])
-            }
             rooms[roomId][socketId].inHand.push(rooms[roomId][socketId].inDeck.shift());
         }
         io.sockets.in(roomId).emit("dealCards",roomId, socketId, rooms[roomId][socketId].inHand);
@@ -84,8 +80,6 @@ io.on("connection", function(socket){
     })
 
     socket.on("dealCard", function(roomId,socketId){
-        console.log("dealCard roomId: "+roomId)
-        console.log("dealCard socketId: "+socketId)
         rooms[roomId][socketId].inHand.push(rooms[roomId][socketId].inDeck.shift());
         io.sockets.in(roomId).emit("dealCard",roomId, socketId, rooms[roomId][socketId].inHand);
     })
