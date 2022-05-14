@@ -311,7 +311,7 @@ export class RuletaComponent implements OnInit {
 
     setTimeout(() => {
       this.phaserGame=new Phaser.Game(this.config);
-    }, 500);
+    }, 750);
 
     this.nick = nickT==null ? "null":nickT;
     if (sessionStorage.getItem("moneda")) {
@@ -333,6 +333,7 @@ export class RuletaComponent implements OnInit {
   }
   salir(){
         var moneda=sessionStorage.getItem("moneda")
+        sessionStorage.clear()
         this._userService.setMoney(this.nick,moneda == null ? "null": moneda).subscribe(ok=>{
             if (ok) {
                 console.log(ok)

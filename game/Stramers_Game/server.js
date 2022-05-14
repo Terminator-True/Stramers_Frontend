@@ -56,9 +56,6 @@ io.on("connection", function(socket){
      * éste devolverá el mazo principal(nombres de las cartas)
      */
     socket.on("dealDeck", function(roomId,socketId,mazo) {
-        console.log("dealdeck roomId: "+roomId)
-        console.log("dealdeck socketId: "+socketId)
-        console.log(mazo)
         rooms[roomId][socketId].inDeck = shuffle(mazo)
         if (Object.keys(rooms[roomId]).lenght < 2) return;
         io.sockets.in(roomId).emit("changeGameState", "Initializing")
@@ -85,9 +82,7 @@ io.on("connection", function(socket){
     })
     socket.on("cardPlayed", function(cardName,roomId, socketId){
         let indexCard=rooms[roomId][socketId].inHand.indexOf(cardName)
-        console.log(rooms[roomId][socketId].inHand)
-        console.log(rooms[roomId][socketId].inHand.splice(indexCard,1))
-
+        rooms[roomId][socketId].inHand.splice(indexCard,1)
         io.sockets.in(roomId).emit("cardPlayed", cardName,roomId, socketId);
     })
 
@@ -99,7 +94,6 @@ io.on("connection", function(socket){
 
     socket.on("disconnecting", function(){
         delete rooms[socket.room]
-        console.log(socket.room)
         socket.leave(socket.room);  
     })
 })
