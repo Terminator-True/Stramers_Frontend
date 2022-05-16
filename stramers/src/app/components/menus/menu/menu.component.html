@@ -1,8 +1,16 @@
-<nav class="container">
+<div class="container menu">
 	<ul>
+		<div class="dropdown conf">
+			<a class="btn btn-secondary dropdown-toggle dropbtn" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<img src="./config.png" alt="Config">
+			  </a>		
+			<div class="dropdown-menu dropdown-content" aria-labelledby="dropdownMenuLink">
+				<a class="dropdown-item" href="/edituser">Editar user</a>
+				<a class="dropdown-item" (click)="rmlocal()" href="/">Logout</a>
+			</div>
+		</div>
 		<li class="vs"><a href="/lobby">VS</a></li>
 		<li class="mazo" ><a href="/mazo">Mazo</a></li>
 		<li class="tienda" ><a href="/tienda/ruleta">Tienda</a></li>
-		<!-- <li><a href="#">logout</a></li> -->
 	</ul>
-</nav>
+</div>

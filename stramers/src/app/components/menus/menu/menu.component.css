@@ -1,3 +1,7 @@
+.menu{
+  height: 100%;
+  width: 100%;
+}
 nav {
     background-color: #2c3e50;
   }
@@ -6,6 +10,7 @@ nav {
     margin: 0;
     padding: 0;
     font-size: 0;
+
     position: relative;
     z-index: 1;
     text-align: center;
@@ -20,8 +25,7 @@ nav {
     text-decoration: none;
     font-size: 46px;
     display: block;
-    line-height:1490%;
-    width: 100%;
+    line-height: 1490%;
     padding: 0 35px;
     text-transform: uppercase;
     letter-spacing: 5%;
@@ -56,15 +60,70 @@ nav {
     opacity: 1;
   }
   
+.conf{
+  float: left;
+  width: 100px;
+  height: 100px;
+  font-size: 46px;
+  text-decoration: none;
+  color: #fff;
+
+}
 
   /* tiene una barra diagonal
   https://codepen.io/dibuchis/pen/aWzdew?editors=1100 */
 
-
-
 @media (max-width: 970px) {
-  .ul li a {
-      width: 80%;
+  ul li a{
+    line-height: 1490%;
+
   }
 }
 
+
+/* ---------------------------------- Style The Dropdown Button --------------------------- */
+.dropbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+  background-color: #3e8e41;
+}

@@ -6,6 +6,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { IniciComponent } from "./components/inici/inici.component";
 import { LoginComponent } from "./components/users/login/login.component";
 import { RegisterComponent } from "./components/users/register/register.component";
+import { EdituserComponent } from "./components/users/edituser/edituser.component";
 import { MenuComponent } from "./components/menus/menu/menu.component";
 import { LobbyComponent } from "./components/menus/lobby/lobby.component";
 import { MazoComponent } from "./components/menus/mazo/mazo.component";
@@ -20,6 +21,7 @@ const appRoutes: Routes = [
     {path: '', component: IniciComponent},
     {path: 'register', component: RegisterComponent},
     {path: 'login', component: LoginComponent},
+    {path: 'edituser', component: EdituserComponent},
     {path: 'menu', component: MenuComponent},
     {path: 'lobby', component: LobbyComponent},
     {path: 'mazo', component: MazoComponent},

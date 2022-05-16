@@ -21,6 +21,7 @@ import { AdminComponent } from './components/admin/admin.component';
 import { RuletaComponent } from './components/menus/ruleta/ruleta.component';
 import { MazoeditComponent } from './components/menus/mazoedit/mazoedit.component';
 import { LoginComponent } from './components/users/login/login.component';
+import { EdituserComponent } from './components/users/edituser/edituser.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { LoginComponent } from './components/users/login/login.component';
     AdminComponent,
     RuletaComponent,
     MazoeditComponent,
-    LoginComponent
+    LoginComponent,
+    EdituserComponent
   ],
   imports: [
     BrowserModule,

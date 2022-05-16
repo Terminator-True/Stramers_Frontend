@@ -18,4 +18,8 @@ export class MenuComponent implements OnInit {
     }
   }
 
+  rmlocal(){
+    localStorage.clear();
+    sessionStorage.clear();
+  }
 }
