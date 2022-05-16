@@ -120,7 +120,6 @@ export default class SocketHandler{
 
         scene.socket.on("disconnecting",()=>{
             scene.socket.emit("disconnecting", scene.socket.id)
-
         })
     }
 }

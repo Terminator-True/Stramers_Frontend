@@ -11,6 +11,7 @@ export default class Game extends Phaser.Scene{
         super({
             key: 'Game'
         })
+        
         this.cartas=[]
         /*fetch("http://localhost:3700/api/cartas")
             .then(response=>response.json())
