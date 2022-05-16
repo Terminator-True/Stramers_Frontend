@@ -114,7 +114,7 @@ export class TiendaComponent implements OnInit {
               this.userCards[this.cardsnum]=card;
               var cartas = {cartas: this.userCards}
               // peticion updatear array mazo
-              this._userService.BuyCard(cartas,this.nick).subscribe(
+              this._userService.SetCard(cartas,this.nick).subscribe(
                 result=>this.alert=result.toString()
               )
           }, 500);

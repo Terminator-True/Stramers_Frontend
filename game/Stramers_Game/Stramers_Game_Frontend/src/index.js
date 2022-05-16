@@ -8,6 +8,12 @@ const config = {
         width:"100%",
         height:"90%"
     },
+    physics: {
+        default: 'matter',
+        matter: {
+            debug: false
+        }
+    },
     scene: [
         Game
     ]

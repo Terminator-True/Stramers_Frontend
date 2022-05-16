@@ -11,6 +11,7 @@ export default class Game extends Phaser.Scene{
         super({
             key: 'Game'
         })
+        
         this.cartas=[]
         /*fetch("http://localhost:3700/api/cartas")
             .then(response=>response.json())
@@ -23,7 +24,62 @@ export default class Game extends Phaser.Scene{
         }
     }
     preload(){
-        //console.log(this.cartas["ALEXELCAPO-SAN"])
+        var progressBar = this.add.graphics();
+            var width = this.cameras.main.width;
+            var height = this.cameras.main.height;
+
+            var loadingText = this.make.text({
+                x: width / 2,
+                y: height / 2 - 50,
+                text: 'Loading...',
+                style: {
+                    font: '20px monospace',
+                    fill: '#ffffff'
+                }
+            });
+            loadingText.setOrigin(0.5, 0.5);
+            
+            var percentText = this.make.text({
+                x: width / 2,
+                y: height / 2 - 5,
+                text: '0%',
+                style: {
+                    font: '18px monospace',
+                    fill: '#ffffff'
+                }
+            });
+            percentText.setOrigin(0.5, 0.5);
+            
+            var assetText = this.make.text({
+                x: width / 2,
+                y: height / 2 + 50,
+                text: '',
+                style: {
+                    font: '18px monospace',
+                    fill: '#ffffff'
+                }
+            });
+            assetText.setOrigin(0.5, 0.5);
+            
+            this.load.on('progress', function (value) {
+                percentText.setText(parseInt(value * 100) + '%');
+                progressBar.clear();
+                progressBar.fillStyle(0xffffff, 1);
+                progressBar.fillRect(845, 475, 300 * value, 30);
+            });
+            
+            this.load.on('fileprogress', function (file) {
+                assetText.setText('Loading asset: ' + file.key);
+            });
+            this.load.on('complete', function () {
+                progressBar.destroy();
+                loadingText.destroy();
+                percentText.destroy();
+                assetText.destroy();
+            });
+        /**
+         * -------------------------------
+         */
 
         this.load.bitmapFont('text', 'src/assets/atari-smooth.png', 'src/assets/atari-smooth.xml');
 
@@ -96,15 +152,31 @@ export default class Game extends Phaser.Scene{
         this.load.image("willyrex","src/assets/cartas/willyrex.png")
     }
     create(){
+        this.matter.world.setBounds().disableGravity();
+        this.circ = this.matter.add.image(200, 50, 'mana');
+
+        //  Change the body to a Circle with a radius of 48px
+        this.circ.setBody({
+            type: 'circle',
+            radius: 180,
+        });
+    
+        //  Just make the body move around and bounce
+        this.circ.setVelocity(6, 3);
+        this.circ.setAngularVelocity(0.01);
+        this.circ.setBounce(1);
+        this.circ.setFriction(0, 0, 0);
+        
+        var width = this.cameras.main.width;
+        var height = this.cameras.main.height;
+
+        this.buscant = this.add.bitmapText(width/2-250,height/2-50,"text","Buscando Partida...").setFontSize(24);
 
         this.CardHandler = new CardHandler();
         this.DeckHandler = new DeckHandler(this)
         this.GameHandler = new GameHandler(this)
         this.SocketHandler = new SocketHandler(this);
         this.UIHandler = new UIHandler(this);
-        this.UIHandler.buildUI();
-        this.InteractiveHandler = new InteractiveHandler(this);
-
     }
     update() {
         

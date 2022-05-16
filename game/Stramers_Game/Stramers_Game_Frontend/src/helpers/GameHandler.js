@@ -26,9 +26,8 @@ export default class GameHandler{
             manaMax: 1,
             manaA:1
         }
-        this.opponentMana.text=this.opponent.manaA.toString()+"/"+"1"
         /**
-         * @Todo 
+         * @Done 
          * -Que las cartas hagan el daño en cuanto hagan click al pasar turno.
          * -Detectar que carta muere, y al morir que elimine de la array de la zona la carta
          * además que reste -1 a la cantidad de cartas que hay en la zona para que se puedan poner más.
@@ -49,7 +48,6 @@ export default class GameHandler{
                 this.player.manaMax++;
                 this.player.manaA=this.player.manaMax;
                 this.playerMana.text=this.player.manaA.toString()+"/"+this.player.manaMax.toString()
-                scene.changeTrun.setInteractive();
 
 
             }else{
@@ -62,17 +60,19 @@ export default class GameHandler{
                 this.opponentMana.text=this.opponent.manaA.toString()+"/"+this.opponent.manaMax.toString()
             }
             if (this.turn>1) {
+                scene.changeTrun.setInteractive();
                 if (!scene.room.playerA && this.turn>=2 || scene.room.playerA && this.turn>=3 ) {
-                    console.log("Roba carta")
-                    scene.socket.emit("dealCard",scene.room.roomId,scene.room.playerId)
+                    if (this.isMyTurn) {
+                        scene.socket.emit("dealCard",scene.room.roomId,scene.room.playerId)                        
+                    }
 
                 }
                 if (!scene.room.playerA && this.turn>=4 || scene.room.playerA && this.turn>=5 ) {
                     let terminated=false;
                     let i=0;
                     let final=scene.playerZone.data.values.cards < scene.opponentZone.data.values.cards ? scene.opponentZone.data.values.cards:scene.playerZone.data.values.cards;
-                    var destroyedP=0;
-                    var destroyedO=0;
+                    let destroyedP=0;
+                    let destroyedO=0;
 
                     while (!terminated) {
                         terminated = i>final
@@ -87,9 +87,11 @@ export default class GameHandler{
 
                             if (hpO-dmgP>0 || hpP-dmgO>0) {
                                 if (hpO-dmgP>0) {
+                                    scene.opponentZone.data.values.cards_list[i].data.list.lifeA-=dmgP
                                     scene.opponentZone.data.values.card_text[i].text=dmgO.toString()+"/"+(hpO-dmgP).toString()
                                 }
                                 if (hpP-dmgO>0) {
+                                    scene.playerZone.data.values.cards_list[i].data.list.lifeA-=dmgO
                                     scene.playerZone.data.values.card_text[i].text=dmgP.toString()+"/"+(hpP-dmgO).toString()
                                 }
 
@@ -144,8 +146,9 @@ export default class GameHandler{
                     terminated=false;
                     i=0;
                     final = scene.playerZone.data.values.cards < scene.opponentZone.data.values.cards ? scene.opponentZone.data.values.cards:scene.playerZone.data.values.cards
+                    //recoloca
                     while (!terminated) {
-                        terminated = i===final;
+                        terminated = i>final;
                         if (scene.playerZone.data.values.cards_list[i]) {
                             scene.playerZone.data.values.cards_list[i].x-=(170*destroyedP)
                             scene.playerZone.data.values.card_text[i].x-=(170*destroyedP)

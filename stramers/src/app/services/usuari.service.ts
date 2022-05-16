@@ -56,7 +56,7 @@ export class UsuariService{
         return this._http.get(this.url+'get-decks/'+nick);
     }
 
-    BuyCard(cards:Object,nick:string){
+    SetCard(cards:Object,nick:string){
         let params = JSON.stringify(cards);
         console.log(cards)
         let headers =new HttpHeaders().set('Content-Type', 'application/json');

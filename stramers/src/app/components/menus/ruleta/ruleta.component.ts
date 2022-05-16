@@ -44,8 +44,8 @@ class Roulete extends Phaser.Scene{
         this.cartas={
           comun_1:this.cards[0][0],
           comun_2:this.cards[0][1],
-          rara_1:this.cards[1][0],
-          rara_2:this.cards[1][1],
+          raro_1:this.cards[1][0],
+          raro_2:this.cards[1][1],
           epica:this.cards[2][0],
           legend:this.cards[3][0]
         }
@@ -59,8 +59,8 @@ class Roulete extends Phaser.Scene{
         this.load.image('comun_1',Global.url+"/get-image/"+this.cartas.comun_1.img)
         this.load.image('comun_2',Global.url+"/get-image/"+this.cartas.comun_2.img)
 
-        this.load.image('rara_1',Global.url+"/get-image/"+this.cartas.rara_1.img)
-        this.load.image('rara_2',Global.url+"/get-image/"+this.cartas.rara_2.img)
+        this.load.image('raro_1',Global.url+"/get-image/"+this.cartas.raro_1.img)
+        this.load.image('raro_2',Global.url+"/get-image/"+this.cartas.raro_2.img)
         this.load.image('epic',Global.url+"/get-image/"+this.cartas.epica.img)
         this.load.image('legend',Global.url+"/get-image/"+this.cartas.legend.img)
 
@@ -172,7 +172,7 @@ class Roulete extends Phaser.Scene{
 
                         break;
                     case "raro_1":
-                      this.carta=this.add.image(600, 300, 'rara_1');
+                      this.carta=this.add.image(600, 300, 'raro_1');
                       this.carta.scaleX=0.15
                       this.carta.scaleY=0.15
                       this.boton_sig.visible=true
@@ -189,7 +189,7 @@ class Roulete extends Phaser.Scene{
 
                         break;
                     case "raro_2":
-                      this.carta=this.add.image(600, 300, 'rara_2');
+                      this.carta=this.add.image(600, 300, 'raro_2');
                       this.carta.scaleX=0.15
                       this.carta.scaleY=0.15
                       this.boton_sig.visible=true
@@ -267,7 +267,10 @@ class Roulete extends Phaser.Scene{
         this.carta.destroy()
         this.boton_sig.visible=false
         this.boton.visible=true
-        this.particles.destroy()
+        if (this.particles) {
+          this.particles.destroy()
+        }
+        sessionStorage.setItem("carta",JSON.stringify(this.cartas[this.result]))
     }
 }
 
@@ -282,6 +285,9 @@ export class RuletaComponent implements OnInit {
   public url:any;
   public nick:any;
   public moneda:any;
+  public carta:any;
+  public userCards:any;
+  public cardsnum:any;
 
   constructor(
     private _cardService:CardService, private _userService:UsuariService,
@@ -298,20 +304,36 @@ export class RuletaComponent implements OnInit {
   };
     setInterval(()=>{
         this.moneda=sessionStorage.getItem("moneda")
+        let carta = sessionStorage.getItem("carta")
+        this.carta=JSON.parse(carta===null ? "null":carta)
+        console.log(this.carta)
+        sessionStorage.removeItem("carta")
+        if (this.carta && this.carta!=="null") {
+          this.guardaCarta()
+        }
     }, 1000);
+
    }
 
   ngOnInit(): void {
     if (localStorage.getItem("nick")==null) {
       this._router.navigate([""])
     }
-
     this.nick=localStorage.getItem("nick")
     let nickT = localStorage.getItem("nick")
+        this._userService.getCards(this.nick)
+    .subscribe(mazos=>{
+      this.cardsnum=Object.keys(Object.values(mazos)[0]);
+      this.cardsnum=this.cardsnum.length == null ? 0:this.cardsnum.length;
+      this.userCards=Object.values(mazos)[0];
+    },
+    error=>{
+      console.log(error)
+    })
 
     setTimeout(() => {
       this.phaserGame=new Phaser.Game(this.config);
-    }, 500);
+    }, 750);
 
     this.nick = nickT==null ? "null":nickT;
     if (sessionStorage.getItem("moneda")) {
@@ -331,8 +353,42 @@ export class RuletaComponent implements OnInit {
       })
     }, 500);
   }
+  guardaCarta(){
+    let names=this.userCards.map( (carta:any)=>{
+      return carta.name
+    })
+    if (!names.includes(this.carta.name)) {
+      this.userCards[this.cardsnum]=this.carta;
+      var cartas = {cartas: this.userCards}
+      this._userService.SetCard(cartas,this.nick).subscribe(
+        result=>console.log(result)
+      )
+    }else{
+      let coste=0;
+      switch (this.carta.category) {
+        case "Comun":
+          coste=600;
+          break;
+        case "Raro":
+            coste=800;
+            break;
+        case "Epica":
+          coste=1000;
+          break;
+        case "Legend":
+          coste=4000;
+          break;
+      }
+      setTimeout(() => {
+        var moneda = sessionStorage.getItem("moneda")
+        var tmp = parseInt(moneda == null ? "0": moneda)+coste
+        sessionStorage.setItem("moneda",tmp.toString())
+      }, 500);
+    }
+  }
   salir(){
         var moneda=sessionStorage.getItem("moneda")
+        sessionStorage.clear()
         this._userService.setMoney(this.nick,moneda == null ? "null": moneda).subscribe(ok=>{
             if (ok) {
                 console.log(ok)

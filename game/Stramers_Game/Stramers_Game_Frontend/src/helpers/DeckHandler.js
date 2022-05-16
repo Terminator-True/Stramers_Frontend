@@ -49,6 +49,8 @@ import Tonacho_terrorista from "./cards/tonacho_terrorista"
 import Twitch from "./cards/twitch"
 import Willyrex from "./cards/willyrex"
 import Otaku from "./cards/otaku"
+import Lucille from "./cards/lucille"
+import Momoladinastia from "./cards/momoladinastia"
 export default class DeckHandler{
     constructor(scene){
         this.dealCard = (x, y, name, type) => {
@@ -64,10 +66,10 @@ export default class DeckHandler{
                 andorra: new Andorra(scene),
                 auronplay: new Auronplay(scene),
                 barbeq: new Barbeq(scene),
-                big_chungus: new Big_chungus(scene),
+                bigchungus: new Big_chungus(scene),
                 camera_cafe_100: new Camera_cafe_100(scene),
                 chusomontero: new Chusomontero(scene),
-                dalasreview:new Dalasreview(scene),
+                dalas:new Dalasreview(scene),
                 dross:new Dross(scene),
                 elmillor:new Elmillor(scene),
                 espectador:new Espectador(scene),
@@ -104,7 +106,8 @@ export default class DeckHandler{
                 twitch:new Twitch(scene),
                 willyrex:new Willyrex(scene),
                 otaku: new Otaku(scene),
-                
+                lucille: new Lucille(scene),
+                momoladinastia: new Momoladinastia(scene),
             }
             let newCard = cards[name];
             //console.log(newCard)
