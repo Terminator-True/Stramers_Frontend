@@ -8,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 
 export class IniciComponent implements OnInit {
 
+  public nick:any;
+
   constructor() {  }
 
   ngOnInit(){
+    this.nick=localStorage.getItem("nick")
   }
 
 }
