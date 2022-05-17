@@ -9,13 +9,12 @@
     </svg>
   </a>
 </div>
+<div class="mazos">
 
 <a href="/mazo/edit">
   <button class="mazo l-bg-cherry">
     Crear Mazo
   </button>
-</a> 
-
-<span *ngFor="let mazo of mazos">
-  <button class="mazo l-bg-orange-dark" > {{ mazo }} </button>
-</span>
+</a>
+  <button class="mazo" *ngFor="let mazo of mazos" > <span>{{ mazo }}</span><img class="mazo" src="http://localhost:3700/api/get-image-ico/Mazo.png"></button>
+</div>
