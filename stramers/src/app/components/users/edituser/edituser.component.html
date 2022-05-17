@@ -9,18 +9,46 @@
               </div>
               <div class="col-md-6 col-lg-7 d-flex align-items-center">
                 <div class="card-body p-4 p-lg-5 text-black">
+
+                  <div *ngIf="this.edituser;else editpass">
                     <form #form='ngForm' (ngSubmit)="onSubmit(form)" >
-                        <h2 class="sr-only">Editar User</h2>
+                      <h2 class="sr-only">Editar User</h2>
 
-                        <label for="email">Email:</label>
-                        <input class="form-control" type="email" name="email"  [(ngModel)]="iniciUsuari.email" required [email]="true" pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$" /><br>
+                      <label for="nick">Nick:</label>
+                      <input class="form-control" type="text" id="nick" name="nick" [(ngModel)]="iniciUsuari.nick" placeholder="{{ nick }}" required/><br>      
 
-                        <label for="pasw">Password:</label>
-                        <input class="form-control" type="password" name="pasw"  [(ngModel)]="iniciUsuari.pasw" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$" /><br>
+                      <label for="email">Email:</label>
+                      <input class="form-control" type="email" name="email"  [(ngModel)]="iniciUsuari.email" placeholder='{{ email }}' required [email]="true" pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$" /><br>
 
-                        <input class="btn btn-primary btn-block" type="submit" value="Editar" [disabled]="!form.form.valid" ><br>
-                        <input class="btn btn-primary btn-block" type="submit" value="Cancelar">
+                      <hr>
+
+                      <label for="pasw">Confirm Password:</label>
+                      <input class="form-control" type="password" name="pasw"  [(ngModel)]="iniciUsuari.pasw" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$" /><br>
+
+                      <input class="btn btn-primary btn-block" type="submit" value="Editar" [disabled]="!form.form.valid">
+                      <a href="/menu" class="btn btn-primary btn-block" type="submit">Cancelar</a>
                     </form>
+                    <button class="btn" (click)="change()">Cambiar password</button>
+                  </div>
+                    
+                  <ng-template #editpass>
+                    <form #form='ngForm' (ngSubmit)="onSubmit(form)">
+                      <label for="pasw">Password Antiguo:</label>
+                      <input class="form-control" type="password" name="pasw"  [(ngModel)]="changepass.pasw" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$" /><br>
+
+                      <hr>
+
+                      <label for="pasw">Password Nuevo:</label>
+                      <input class="form-control" type="password" name="pasw1"  [(ngModel)]="changepass.pasw1" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$" /><br>
+
+                      <label for="pasw">Confirm Password:</label>
+                      <input class="form-control" type="password" name="pasw2" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$" /><br>
+
+                      <input class="btn btn-primary btn-block" type="submit" value="Editar" [disabled]="!form.form.valid">
+                      <a href="/menu" class="btn btn-primary btn-block" type="submit">Cancelar</a>
+                    </form>
+                    <button class="btn" (click)="change()">Editar user</button>
+                  </ng-template>
 
                 </div>
             </div>

@@ -28,6 +28,11 @@ export class UsuariService{
         let headers =new HttpHeaders().set('Content-Type', 'application/json');
         return this._http.post(this.url+'login', params, {headers: headers});
     }
+    updateUser(nick:string,register:Register){
+        let params = JSON.stringify(register);
+        let headers =new HttpHeaders().set('Content-Type', 'application/json');
+        return this._http.put(this.url+'updateCards/'+nick, params, {headers: headers});
+    }
     logout() {
         // remove user from local storage and set current user to null
     }

@@ -11,6 +11,7 @@ import { MenuComponent } from "./components/menus/menu/menu.component";
 import { LobbyComponent } from "./components/menus/lobby/lobby.component";
 import { MazoComponent } from "./components/menus/mazo/mazo.component";
 import { MazoeditComponent } from "./components/menus/mazoedit/mazoedit.component";
+import { MazoupdateComponent } from "./components/menus/mazoupdate/mazoupdate.component";
 import { TiendaComponent } from "./components/menus/tienda/tienda.component";
 import { RuletaComponent } from "./components/menus/ruleta/ruleta.component";
 import { AdminComponent } from "./components/admin/admin.component";
@@ -26,6 +27,7 @@ const appRoutes: Routes = [
     {path: 'lobby', component: LobbyComponent},
     {path: 'mazo', component: MazoComponent},
     {path: 'mazo/edit', component: MazoeditComponent},
+    {path: 'mazo/update', component: MazoupdateComponent},
     {path: 'tienda/cartas', component: TiendaComponent},
     {path: 'tienda/ruleta', component: RuletaComponent},
     {path: 'lmta', component: AdminComponent},
