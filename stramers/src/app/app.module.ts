@@ -22,6 +22,7 @@ import { RuletaComponent } from './components/menus/ruleta/ruleta.component';
 import { MazoeditComponent } from './components/menus/mazoedit/mazoedit.component';
 import { LoginComponent } from './components/users/login/login.component';
 import { EdituserComponent } from './components/users/edituser/edituser.component';
+import { MazoupdateComponent } from './components/menus/mazoupdate/mazoupdate.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { EdituserComponent } from './components/users/edituser/edituser.componen
     RuletaComponent,
     MazoeditComponent,
     LoginComponent,
-    EdituserComponent
+    EdituserComponent,
+    MazoupdateComponent
   ],
   imports: [
     BrowserModule,

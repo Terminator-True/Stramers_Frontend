@@ -14,9 +14,16 @@ export class MazoComponent implements OnInit {
   public nick:any;
   public mazos:any;
 
+  key: string = 'Name';
+  public myItem: string;
+
+
   constructor(
      private _router: Router, private _userService:UsuariService,
-    ) { }
+    ) { 
+      this.myItem="asdasdadasd";
+
+    }
 
   ngOnInit(): void {
     if (localStorage.getItem("nick")==null) {
@@ -33,6 +40,17 @@ export class MazoComponent implements OnInit {
     error=>{
       console.log(error)
     })
-  }  
+  }
+
+  change(mazo:any){
+    localStorage.setItem(this.key, 'Angular');
+
+    console.log(mazo);
+    // setTimeout(() =>{
+    //   localStorage.getItem("mazoupdate",mazo)
+    // },500)
+
+    // this._router.navigate(["/mazo/update"])
+  }
 
 }
