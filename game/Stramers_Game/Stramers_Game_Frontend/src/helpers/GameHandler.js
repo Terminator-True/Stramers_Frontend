@@ -60,9 +60,9 @@ export default class GameHandler{
                 this.opponentMana.text=this.opponent.manaA.toString()+"/"+this.opponent.manaMax.toString()
             }
             if (this.turn>1) {
-                scene.changeTrun.setInteractive();
                 if (!scene.room.playerA && this.turn>=2 || scene.room.playerA && this.turn>=3 ) {
                     if (this.isMyTurn) {
+                        scene.changeTrun.setInteractive();
                         scene.socket.emit("dealCard",scene.room.roomId,scene.room.playerId)                        
                     }
 
@@ -75,7 +75,7 @@ export default class GameHandler{
                     let destroyedO=0;
 
                     while (!terminated) {
-                        terminated = i>final
+                        terminated = i===final
                         if (scene.playerZone.data.values.cards_list[i] && scene.opponentZone.data.values.cards_list[i]) {
                             let dmgP = scene.playerZone.data.values.cards_list[i].data.list.dmgA
                             let hpP = scene.playerZone.data.values.cards_list[i].data.list.lifeA
@@ -89,11 +89,17 @@ export default class GameHandler{
                                 if (hpO-dmgP>0) {
                                     scene.opponentZone.data.values.cards_list[i].data.list.lifeA-=dmgP
                                     scene.opponentZone.data.values.card_text[i].text=dmgO.toString()+"/"+(hpO-dmgP).toString()
+                                    console.log(dmgP+"/"+hpP+"vs"+dmgO+"/"+hpO)
+
                                 }
+
                                 if (hpP-dmgO>0) {
                                     scene.playerZone.data.values.cards_list[i].data.list.lifeA-=dmgO
                                     scene.playerZone.data.values.card_text[i].text=dmgP.toString()+"/"+(hpP-dmgO).toString()
+                                    console.log(dmgP+"/"+hpP+"vs"+dmgO+"/"+hpO)
+
                                 }
+
 
                             }else if(hpP-dmgO<=0){
                                 if (hpO-dmgP<=0) {
@@ -108,9 +114,8 @@ export default class GameHandler{
                                 scene.playerZone.data.values.cards--;
                                 scene.playerZone.data.values.cards_list[i].destroy()
                                 scene.playerZone.data.values.card_text[i].destroy()
-                                let card = scene.playerZone.data.values.cards_list.splice(i,i+1)
-                                let text_card =scene.playerZone.data.values.card_text.splice(i,i+1)
-
+                                scene.playerZone.data.values.cards_list.splice(i,i+1)
+                                scene.playerZone.data.values.card_text.splice(i,i+1)
                                 i--;
 
                             }else if(hpO-dmgP<=0){

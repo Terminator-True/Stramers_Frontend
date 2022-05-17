@@ -11,17 +11,26 @@ export default class Game extends Phaser.Scene{
         super({
             key: 'Game'
         })
-        
-        this.cartas=[]
-        /*fetch("http://localhost:3700/api/cartas")
+        const queryString = window.location.search;
+
+        const urlParams = new URLSearchParams(queryString);
+
+        const nick = urlParams.get('nick')
+        console.log(nick)
+        fetch("http://localhost:3700/api/get-getDefaultDeck/"+nick)
             .then(response=>response.json())
-            .then(data => this.assignate(data))*/
+            .then(data => { 
+                setTimeout(() => {
+                    this.aggregate(data.mazo)
+                }, 500);
+            })
+
+
     }
-    assignate(data){
-        var cartas = data.cards
-        for(let key in cartas){
-            this.cartas.push(cartas[key].name.toLowerCase())
-        }
+    aggregate(data){
+        this.deck=data
+        console.log(this.deck)
+
     }
     preload(){
         var progressBar = this.add.graphics();

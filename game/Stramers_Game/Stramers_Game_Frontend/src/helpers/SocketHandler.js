@@ -21,12 +21,12 @@ export default class SocketHandler{
             scene.circ.destroy()
             scene.buscant.destroy()
             scene.GameHandler.opponentMana.text= scene.GameHandler.opponent.manaA.toString()+"/"+"1"
-            let mazo = localStorage.getItem("mazo")
+            let mazo = scene.deck
             setTimeout(() => {
                 scene.InteractiveHandler = new InteractiveHandler(scene);
             }, 750);
             setTimeout(() => {
-                scene.socket.emit("dealDeck", scene.room.roomId, scene.room.playerId,mazo.split(","))                
+                scene.socket.emit("dealDeck", scene.room.roomId, scene.room.playerId,mazo)                
             }, 1000);
             setTimeout(() => {
                 scene.socket.emit("dealCards",scene.room.roomId, scene.room.playerId)
@@ -75,14 +75,17 @@ export default class SocketHandler{
         scene.socket.on("dealCard", (roomId,socketId, cards) =>{
             if (scene.room.roomId === roomId) {    
                 if (socketId === scene.room.playerId) {
-                    if (scene.GameHandler.playerHand.length<=5) {
+                    if (scene.GameHandler.playerHand.length<5) {
                         for (let i = 0; i < scene.GameHandler.playerHand.length; i++) {
                             scene.GameHandler.playerHand[i].destroy();
                         }
-                        scene.GameHandler.playerHand.splice()
+                        console.log(scene.GameHandler.playerHand)
+                        scene.GameHandler.playerHand=[]
+                        console.log(scene.GameHandler.playerHand)
+                        console.log(cards)
                         for (let i in cards) {
-                            console.log(cards[i])
-                            let card = scene.GameHandler.playerHand.push(scene.DeckHandler.dealCard(658+(i*170), 960, cards[i], "playerCard"))
+                            console.log(i)
+                            scene.GameHandler.playerHand.push(scene.DeckHandler.dealCard(658+(i*170), 960, cards[i], "playerCard"))
                         }
                     }else{
                         /**
@@ -92,7 +95,9 @@ export default class SocketHandler{
                 }else{
                     if (scene.GameHandler.opponentHand.length<=5) {
                         for (let i = 0; i < scene.GameHandler.opponentHand.length; i++) {
-                            scene.GameHandler.opponentHand[i].destroy();
+                            setTimeout(() => {
+                                scene.GameHandler.opponentHand[i].destroy();
+                            }, 500);
                         }
                         scene.GameHandler.opponentHand.splice()
                         for(let i in cards){
@@ -106,7 +111,7 @@ export default class SocketHandler{
             if (roomId === scene.room.roomId) {
                 if (socketId !== scene.room.playerId) {
                     scene.GameHandler.opponentHand.shift().destroy();
-
+                    
                     let gameObject=scene.DeckHandler.dealCard((scene.opponentZone.x-350)+(scene.opponentZone.data.values.cards*170), scene.opponentZone.y, cardName, "opponentCard");
                     scene.GameHandler.opponent.manaA=scene.GameHandler.opponent.manaA-gameObject.data.list.cost
                     scene.GameHandler.opponentMana.text=scene.GameHandler.opponent.manaA.toString()+"/"+ scene.GameHandler.opponent.manaMax.toString()
