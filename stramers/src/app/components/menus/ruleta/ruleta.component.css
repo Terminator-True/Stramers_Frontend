@@ -43,24 +43,29 @@
     border-radius: 15px;
 }
 
-.leyenda{
-    width: 150px;
-    padding: 10px;
-    margin-left: 5px;
-}
-
 .legend{
     background-color: rgb(252, 143, 0);
+    padding: 10px;
 }
 .epic{
     background-color:rgb(211, 86, 228);
+    padding: 10px;
 }
 .rare{
     background-color: rgb(0, 195, 255);
+    padding: 10px;
 }
 .comun{
     background-color: rgb(202, 202, 202);
+    padding: 10px;
 }
 .triger{
     background-color: rgb(131, 245, 56);
+    padding: 10px;
 }
+
+div.absolute {
+    position: absolute;
+    bottom: 10px;
+    width: 16%;
+  } 

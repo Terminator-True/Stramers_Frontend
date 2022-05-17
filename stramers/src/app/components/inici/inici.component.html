@@ -1,23 +1,61 @@
-<div class="collapse" id="navbarToggleExternalContent">
-    <div class="bg-dark p-4">
-      <h5 class="text-white h4">Collapsed content</h5>
-      <span class="text-muted">Toggleable via the navbar brand.</span>
+<!-- Navegacio Menu -->
+<nav class="navbar navbar-dark bg-dark">
+  <div class="container-fluid">
+      <div> 
+        <a href=""> <img src="http://localhost:3700/api/get-image-ico/Stramers.png" style="width:70px"> </a> 
+      </div>
+      
+      <div class="d-flex w-auto" *ngIf="nick==null else elseblock" >
+        <a class="nav-link m-2 login" href="login">Login</a>
+        <a class="nav-link m-2 regis" href="register">Juega ahora</a>    
+      </div> 
+      <ng-template #elseblock>
+        <div>
+          <a class="nav-link m-2 login" href="menu">Login</a>
+        </div>
+      </ng-template>
+  </div>
+</nav>
+
+<!-- CAROUSEL -->
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="https://cdn.discordapp.com/attachments/491919506927517698/976059481668612126/2022-05-17_11-43-39.gif" class="d-block w-50" alt="Ruleta">
+      <div class="position-absolute top-50 translate-middle sliderR">
+        <h1 class="slidertitle">Tira a la Ruleta</h1>
+        <hr class="slidertitle">
+        <p class="slidertext">Gira la ruleta para obtener legendarias</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="https://cdn.discordapp.com/attachments/491919506927517698/976061050690629722/mazo.gif" class="d-block w-50" alt="Crear Mazos">
+      <div class="position-absolute top-50 sliderR translate-middle">
+        <h1 class="slidertitle">Crea tus Mazos</h1>
+        <hr class="slidertitle">
+        <p class="slidertext">Podras crear tus mazos libremente</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="..." class="d-block w-100" alt="Gamplay">
+      <div class="position-absolute top-50 sliderR translate-middle" >
+        <h1 class="slidertitle">Compite contra otros</h1>
+        <hr class="slidertitle">
+        <p class="slidertext">prueba de lo que eres capaz</p>
+      </div>
     </div>
   </div>
-  <nav class="navbar navbar-dark bg-dark">
-    <div class="container-fluid">
-        <div> 
-          <a href=""> <img src="http://localhost:3700/api/get-image-ico/Stramers.png" style="width:70px"> </a> 
-        </div>
-        
-        <div class="d-flex w-auto" *ngIf="nick==null else elseblock" >
-          <a class="nav-link m-2 login" href="login">Login</a>
-          <a class="nav-link m-2 regis" href="register">Juega ahora</a>    
-        </div> 
-        <ng-template #elseblock>
-          <div>
-            <a class="nav-link m-2 login" href="menu">Login</a>
-          </div>
-        </ng-template>
-    </div>
-  </nav>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>

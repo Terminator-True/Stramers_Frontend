@@ -11,3 +11,20 @@
     border: 0px solid;
     border-radius: 15px;
 }
+
+.carousel{
+    margin-top: 30px;
+    /* width: 50%; */
+}
+
+.slidertitle{
+    color: #ffba56;
+}
+
+.sliderR{
+    left: 70%;
+    text-align: center;
+}
+.slidertext{
+    color: white;
+}
