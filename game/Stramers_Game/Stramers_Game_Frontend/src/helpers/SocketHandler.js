@@ -76,15 +76,11 @@ export default class SocketHandler{
             if (scene.room.roomId === roomId) {    
                 if (socketId === scene.room.playerId) {
                     if (scene.GameHandler.playerHand.length<5) {
-                        for (let i = 0; i < scene.GameHandler.playerHand.length; i++) {
-                            scene.GameHandler.playerHand[i].destroy();
+                        for (let i in scene.GameHandler.playerHand) {
+                            scene.GameHandler.playerHand[i].destroy()
                         }
-                        console.log(scene.GameHandler.playerHand)
                         scene.GameHandler.playerHand=[]
-                        console.log(scene.GameHandler.playerHand)
-                        console.log(cards)
                         for (let i in cards) {
-                            console.log(i)
                             scene.GameHandler.playerHand.push(scene.DeckHandler.dealCard(658+(i*170), 960, cards[i], "playerCard"))
                         }
                     }else{
@@ -93,13 +89,11 @@ export default class SocketHandler{
                          */
                     }
                 }else{
-                    if (scene.GameHandler.opponentHand.length<=5) {
+                    if (scene.GameHandler.opponentHand.length<5) {
                         for (let i = 0; i < scene.GameHandler.opponentHand.length; i++) {
-                            setTimeout(() => {
-                                scene.GameHandler.opponentHand[i].destroy();
-                            }, 500);
+                            scene.GameHandler.opponentHand[i].destroy();
                         }
-                        scene.GameHandler.opponentHand.splice()
+                        scene.GameHandler.opponentHand=[]
                         for(let i in cards){
                             let card = scene.GameHandler.opponentHand.push(scene.DeckHandler.dealCard(658+(i*170), 135, "cardBack", "opponentCard"))
                         }

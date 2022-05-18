@@ -9,10 +9,10 @@ import Andiamo from "./cards/andiamo"
 import Andorra from "./cards/andorra"
 import Auronplay from "./cards/auronplay"
 import Barbeq from "./cards/barbeq"
-import Big_chungus from "./cards/big_chungus"
+import Bigchungus from "./cards/bigchungus"
 import Camera_cafe_100 from "./cards/camera_cafe_100"
 import Chusomontero from "./cards/chusomontero"
-import Dalasreview from "./cards/dalasreview"
+import Dalas from "./cards/dalas"
 import Dross from "./cards/dross"
 import Elmillor from "./cards/elmillor"
 import Espectador from "./cards/espectador"
@@ -66,10 +66,10 @@ export default class DeckHandler{
                 andorra: new Andorra(scene),
                 auronplay: new Auronplay(scene),
                 barbeq: new Barbeq(scene),
-                bigchungus: new Big_chungus(scene),
+                bigchungus: new Bigchungus(scene),
                 camera_cafe_100: new Camera_cafe_100(scene),
                 chusomontero: new Chusomontero(scene),
-                dalas:new Dalasreview(scene),
+                dalas:new Dalas(scene),
                 dross:new Dross(scene),
                 elmillor:new Elmillor(scene),
                 espectador:new Espectador(scene),

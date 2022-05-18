@@ -73,7 +73,8 @@ export default class GameHandler{
                     let final=scene.playerZone.data.values.cards < scene.opponentZone.data.values.cards ? scene.opponentZone.data.values.cards:scene.playerZone.data.values.cards;
                     let destroyedP=0;
                     let destroyedO=0;
-
+                    let playerZone=scene.playerZone.data.values.cards_list
+                    let opponentZone=scene.opponentZone.data.values.cards_list
                     while (!terminated) {
                         terminated = i===final
                         if (scene.playerZone.data.values.cards_list[i] && scene.opponentZone.data.values.cards_list[i]) {
@@ -150,17 +151,38 @@ export default class GameHandler{
                     }
                     terminated=false;
                     i=0;
-                    final = scene.playerZone.data.values.cards < scene.opponentZone.data.values.cards ? scene.opponentZone.data.values.cards:scene.playerZone.data.values.cards
+                    final = playerZone.lenght < opponentZone.lenght ? opponentZone.lenght:playerZone.lenght
+                    let positionsP=0;
+                    let positionsO=0;
+
                     //recoloca
                     while (!terminated) {
-                        terminated = i>final;
+                        terminated = i==final;
+
+                       /* if (scene.playerZone.data.values.cards_list[i] && playerZone.indexOf(scene.playerZone.data.values.cards_list[i])>-1) {
+                            scene.playerZone.data.values.cards_list[i].x-=(170*positionsP)
+                            scene.playerZone.data.values.card_text[i].x-=(170*positionsP)
+                            let positionsP=0;
+                        }else{
+                            positionsP++
+                        }
+
+                        if (scene.opponentZone.data.values.cards_list[i] && opponentZone.indexOf(scene.opponentZone.data.values.cards_list[i])>-1) {
+                            scene.opponentZone.data.values.cards_list[i].x-=(170*positionsO)
+                            scene.opponentZone.data.values.card_text[i].x-=(170*positionsO)
+                            let positionsO=0;
+                        }else{
+                            positionsO++
+                        }*/
                         if (scene.playerZone.data.values.cards_list[i]) {
-                            scene.playerZone.data.values.cards_list[i].x-=(170*destroyedP)
-                            scene.playerZone.data.values.card_text[i].x-=(170*destroyedP)
+                            let positions = destroyedP>i ? destroyedP-i:destroyedP
+                            scene.playerZone.data.values.cards_list[i].x-=(170*positions)
+                            scene.playerZone.data.values.card_text[i].x-=(170*positions)
                         }
                         if (scene.opponentZone.data.values.cards_list[i]) {
-                            scene.opponentZone.data.values.cards_list[i].x-=(170*destroyedO)
-                            scene.opponentZone.data.values.card_text[i].x-=(170*destroyedO)
+                            let positions = destroyedO>i ? destroyedO-i:destroyedO
+                            scene.opponentZone.data.values.cards_list[i].x-=(170*positions)
+                            scene.opponentZone.data.values.card_text[i].x-=(170*positions)
                         }
                         i++;
                     }
