@@ -24,13 +24,14 @@ export class MazoComponent implements OnInit {
       this.myItem="asdasdadasd";
 
     }
-
+  /**
+   * peticion de obtener todos los mazos
+   */
   ngOnInit(): void {
     if (localStorage.getItem("nick")==null) {
       this._router.navigate([""])
     }
     this.nick=localStorage.getItem("nick")
-    // peticion de obtener todos los mazos
     this._userService.getDecks(this.nick)
     .subscribe(mazos=>{
       this.mazos=Object.keys(Object.values(mazos)[0]);
@@ -41,7 +42,10 @@ export class MazoComponent implements OnInit {
       console.log(error)
     })
   }
-
+  /**
+   * extraer el nom del mazo 
+   * extraer el nom del mazo y redirecciona al updatear mazos
+   */
   change(mazo:any){
     localStorage.setItem(this.key, 'Angular');
 

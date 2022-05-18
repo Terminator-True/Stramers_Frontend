@@ -29,9 +29,13 @@ export class LoginComponent implements OnInit {
    }
 
   ngOnInit(){
-
   }
-
+  /**
+   * formulari per logearte y si es correcta guarda el nick y email al localstorage redireccionan al menu
+   * @param form:
+   * @var email
+   * @var passw
+   */
   onSubmit(form:any){
     this._UsuariService.Login(this.iniciUsuari).subscribe(user_data =>{
       this.session_storage=user_data

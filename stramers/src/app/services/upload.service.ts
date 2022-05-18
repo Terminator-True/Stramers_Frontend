@@ -7,7 +7,13 @@ export class UploadService{
     constructor(){
         this.url = Global.url;
     }
-    //hacemos una peticio AJAX para subir un arxiu al servidor 
+    /**
+     * hacemos una peticio AJAX para subir un arxiu al servidor
+     * @param url
+     * @param params
+     * @param files
+     * @param name
+     */
     makeFileRequest(url: string, params: Array<string>, files: Array <File>, name:string){
         return new Promise(function(resolve,reject){
             var formData:any=new FormData();

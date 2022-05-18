@@ -13,7 +13,6 @@ import {Router} from "@angular/router"
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-// VALIDAR EN TS, REDIRECCION SI ES REGISTRADO, VALIDAR GMAILS/NICKS YA GUARDADOS
 export class RegisterComponent implements OnInit {
 
   public iniciUsuari: Register;
@@ -34,9 +33,15 @@ export class RegisterComponent implements OnInit {
     this.error_status="none";
 
    }
+  /**
+   * llama la funcion de validar formulari
+   */
   ngOnInit(): void {
     this.initFormValid()
   }
+  /**
+   * valida el formulari
+   */
   initFormValid():void{
     this.formAll = new FormGroup(
       {
@@ -50,6 +55,13 @@ export class RegisterComponent implements OnInit {
   tanca(){
     this.error_status="none"
   }
+  /**
+   * formulari per registrarse y te redirecciona al login
+   * @param form:
+   * @var nick
+   * @var email
+   * @var passw
+   */
   onSubmit(form:any){
     this._UsuariService.Registrar(this.iniciUsuari).subscribe(
       result=>this.alert=result.toString()
