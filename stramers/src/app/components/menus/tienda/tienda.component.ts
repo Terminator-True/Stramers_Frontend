@@ -47,6 +47,9 @@ export class TiendaComponent implements OnInit {
     }, 1000);
     }
 
+  /**
+   * 
+   */
   ngOnInit(): void {
     console.log(localStorage.getItem("nick")==null && localStorage.getItem("email")==null)
     if (localStorage.getItem("nick")==null) {
@@ -85,7 +88,9 @@ export class TiendaComponent implements OnInit {
 
   }
 
-
+  /**
+   * Cost per rareza
+   */
   buy(card:any){
     let coste=0;
     switch (card.category) {
@@ -128,17 +133,19 @@ export class TiendaComponent implements OnInit {
     }
   }
 
+  /**
+   * 
+   */
   salir(){
-        var moneda=sessionStorage.getItem("moneda")
-        this._userService.setMoney(this.nick,moneda == null ? "null": moneda).subscribe(ok=>{
-            if (ok) {
-                console.log(ok)
-                sessionStorage.clear()
-            }else{
-                console.log(ok)
-            }
-        })
-
+    var moneda=sessionStorage.getItem("moneda")
+    this._userService.setMoney(this.nick,moneda == null ? "null": moneda).subscribe(ok=>{
+        if (ok) {
+            console.log(ok)
+            sessionStorage.clear()
+        }else{
+            console.log(ok)
+        }
+    })
   }
 
 }

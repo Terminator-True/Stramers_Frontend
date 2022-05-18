@@ -28,11 +28,28 @@ export class AdminComponent implements OnInit {
   }
   ngOnInit() {
   }
+  /**
+   * recive una array con informacion de la img dentro de la primera array esta
+   * array "File"
+   * @param fileInput
+   */
   fileChangeEvent(fileInput: any){
-    // obtenemos un array de ficheros para hacer upload de mas de un fichero
-    // pero para nosotros solo hacemos uno
     this.filesToUpload = <Array<File>>fileInput.target.files;
   }
+  /**
+   * Recive toda la informacion de una carta para añadirla
+   * a la base de datos
+   * @param form:
+   * @var name
+   * @var category la rareza
+   * @var type hechizo o unidad
+   * @var coste
+   * @var dmg
+   * @var vida
+   * @var text es una descripcion de si tiene pasiba
+   * @var obtenible para las cartas que no puedan tener los users
+   * @var img
+   */
   onSubmit(form:any){
     this._CardService.saveCard(this.cartas).subscribe(
       response => {
@@ -48,10 +65,9 @@ export class AdminComponent implements OnInit {
           });
         }
         this.guardat= "guardat correctament ";
-        //form.reset();
       },
       error => {
-        //console.log(error);
+        console.log(error);
       }
     );  
   }

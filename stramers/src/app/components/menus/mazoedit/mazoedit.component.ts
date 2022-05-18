@@ -46,8 +46,10 @@ export class MazoeditComponent implements OnInit {
     this.cost=true;
   }
 
+  /**
+   * obtenim un array de todas las cartas del user
+   */
   ngOnInit(): void {
-    //obtenim un array de todas las cartas del user
     if (localStorage.getItem("nick")==null) {
       this._router.navigate([""])
     }
@@ -56,7 +58,6 @@ export class MazoeditComponent implements OnInit {
     .subscribe(cards=>{
       this.cards=Object.values(cards)[0]; //obtenemos 3 arrays pero solo queremos la primera con les dades de la carta
     },
-
     //obtenim un array de todas las cartas TEST
     // this._cardService.getCards()
     // .subscribe(cards=>{
@@ -78,7 +79,10 @@ export class MazoeditComponent implements OnInit {
       console.log(error)
     })
   }
-  // añade un objecto de la carta a la llista y muesra el nombre a la llista de crear mazo
+  /**
+   * añade un objecto de la carta a la llista y muesra el nombre a la llista de crear mazo
+   * @param card 
+   */
   addcard(card:any){
     if (!this.lista.includes(card) && this.count<=14){
       this.lista.push(card);
@@ -86,7 +90,10 @@ export class MazoeditComponent implements OnInit {
       this.cards.splice(this.cards.indexOf(card),1)
     }
   }
-  // elimina el objecto de la carta a la llista y la quita el nombre de la llista
+  /**
+   * elimina el objecto de la carta a la llista y la quita el nombre de la llista
+   * @param card
+   */
   delcard(card:object){
     let index=this.lista.indexOf(card)
     this.cards.push(card)
@@ -95,14 +102,15 @@ export class MazoeditComponent implements OnInit {
     this.count-=1;
   }
 
-  // get de todos los mazos que tiene el usuario, lo actualitzaos para añadir el nuevo mazo i enviamos el nuevo array assosiatiu de mazos
+  /**
+   * get de todos los mazos que tiene el usuario, lo actualitzaos para añadir el nuevo mazo i enviamos el nuevo array assosiatiu de mazos
+   */
   updeck(){
     if(this.count==15){
       if (localStorage.getItem("nick")==null) {
         this._router.navigate([""])
       }
       this.nick=localStorage.getItem("nick")
-
 
       this.mazos[this.deckname]=this.lista.map(function(card:any){return card.name.toLowerCase() });
       let tmp={mazos:this.mazos}
@@ -114,7 +122,9 @@ export class MazoeditComponent implements OnInit {
     }
 
   }
-
+  /**
+   * filtra afabeticament
+   */
   filterAbc(){
     if(this.abc){
       this.abc=false;
@@ -141,7 +151,9 @@ export class MazoeditComponent implements OnInit {
     }
     
   }
-
+  /**
+   * filtra per categoria
+   */
   filterCag(){
     if(this.cag){
       this.cag=false;
@@ -167,7 +179,9 @@ export class MazoeditComponent implements OnInit {
       });
     }
   }
-
+  /**
+   * filtra per cost
+   */
   filterCosts(){
     if(this.cost){
       this.cost=false;

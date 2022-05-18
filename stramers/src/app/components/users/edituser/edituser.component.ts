@@ -30,6 +30,9 @@ export class EdituserComponent implements OnInit {
     this.changepass = new ChangePass('','');
   }
 
+  /**
+   * obtenim el nick y el email per mostrarlos al form
+   */
   ngOnInit(): void {
     if (localStorage.getItem("nick")==null) {
       this._router.navigate([""])
@@ -38,6 +41,16 @@ export class EdituserComponent implements OnInit {
     this.email=localStorage.getItem("email")
   }
 
+  /**
+   * formularis per editar user
+   * @param form
+   * @var nick
+   * @var email
+   * @var passw password de confirmacio
+   * o
+   * @var passw antic password de confirmacio
+   * @var passw1 nou password
+   */
   onSubmit(form:any){
     this._UsuariService.updateUser(this.nick,this.iniciUsuari).subscribe(
       result=>this.alert=result.toString()
@@ -47,6 +60,9 @@ export class EdituserComponent implements OnInit {
     this._router.navigate(["menu"])
   }
 
+  /**
+   * cambiar de form de editar nick y email a password y viceversa
+   */
   change(){
     if(this.edituser){
       console.log(this.edituser)
