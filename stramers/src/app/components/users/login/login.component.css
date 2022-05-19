@@ -2,7 +2,7 @@
     height: 1000px;;
     background:linear-gradient(30deg, crimson,sienna, royalblue, indianred, purple);
   }
-  
+
   .login-dark form {
     max-width:320px;
     width:90%;
@@ -16,14 +16,14 @@
     color:#fff;
     box-shadow:3px 3px 4px rgba(0,0,0,0.2);
   }
-  
+
   .login-dark .illustration {
     text-align:center;
     padding:15px 0 20px;
     font-size:100px;
     color:#2980ef;
   }
-  
+
   .login-dark form .form-control {
     background:none;
     border:none;
@@ -33,7 +33,7 @@
     outline:none;
     color:inherit;
   }
-  
+
   .login-dark form .btn-primary {
     background:#214a80;
     border:none;
@@ -44,12 +44,12 @@
     text-shadow:none;
     outline:none;
   }
-  
+
   .login-dark form .btn-primary:hover, .login-dark form .btn-primary:active {
     background:#214a80;
     outline:none;
   }
-  
+
   .login-dark form .forgot {
     display:block;
     text-align:center;
@@ -58,14 +58,41 @@
     opacity:0.9;
     text-decoration:none;
   }
-  
+
   .login-dark form .forgot:hover, .login-dark form .forgot:active {
     opacity:1;
     text-decoration:none;
   }
-  
+
   .login-dark form .btn-primary:active {
     transform:translateY(1px);
   }
-  
-  
+
+
+
+  .alert {
+    margin: 10px;
+    padding: 20px;
+    background-color: #f44336; /* Red */
+    color: white;
+    margin-bottom: 15px;
+  }
+
+  /* The close button */
+  .closebtn {
+    text-decoration:none ;
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  /* When moving the mouse over the close button */
+  .closebtn:hover {
+    color: black;
+  }
+

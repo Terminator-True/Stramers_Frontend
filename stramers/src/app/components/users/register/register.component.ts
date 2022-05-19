@@ -16,7 +16,7 @@ import {Router} from "@angular/router"
 export class RegisterComponent implements OnInit {
 
   public iniciUsuari: Register;
-  alert = '';
+  public alert:any;
   public pasw2:string;
   public error_status:string;
   public nickForm:any;
@@ -64,10 +64,16 @@ export class RegisterComponent implements OnInit {
    */
   onSubmit(form:any){
     this._UsuariService.Registrar(this.iniciUsuari).subscribe(
-      result=>this.alert=result.toString()
+      result=>{
+        if (result) {
+          this._router.navigate(["login"])
+        }
+      },
+      error=>{
+        console.log(error.error.message)
+        this.alert=error.error.message
+        this.error_status=""
+      }
     )
-    console.log(this.iniciUsuari);
-    this.alert= "Registrado correctament";
-    this._router.navigate(["login"])
   }
 }

@@ -6,6 +6,9 @@ import { routing,appRoutingProviders } from './app.routing';
 //impost form
 import { FormsModule } from '@angular/forms';
 
+import { ReactiveFormsModule } from '@angular/forms';
+
+
 //Modulos necesarios para ahcer peticiones http
 import { HttpClientModule } from '@angular/common/http';
 //Imports componentes
@@ -45,7 +48,8 @@ import { MazoupdateComponent } from './components/menus/mazoupdate/mazoupdate.co
     BrowserModule,
     routing,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [
     appRoutingProviders

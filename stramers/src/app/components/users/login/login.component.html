@@ -19,6 +19,12 @@
                         <input class="form-control" type="password" name="pasw"  [(ngModel)]="iniciUsuari.pasw" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$" /><br>
 
                         <input class="btn btn-primary btn-block" type="submit" value="Login" [disabled]="!form.form.valid" ><br>
+                        <div  [ngStyle]="{'display': error_status}" class="alert alert-success" role="alert">
+                          {{alert}}
+                          <a type="button" class="closebtn" (click)="tanca()">
+                            <span aria-hidden="true">&times;</span>
+                          </a>
+                          </div>
                         <p href="#" class="forgot">¿Eres nuevo en Stramers?<a [routerLink]="['/register']" class="link" >Register</a></p>
 
                     </form>
