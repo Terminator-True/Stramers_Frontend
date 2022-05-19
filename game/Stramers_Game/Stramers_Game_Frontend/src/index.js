@@ -4,7 +4,7 @@ import Game from './scenes/game';
 const config = {
     type: Phaser.AUTO,
     scale:{
-        mode:Phaser.Scale.FIT,
+        mode:Phaser.Scale.AUTO,
         width:"100%",
         height:"100%"
     },

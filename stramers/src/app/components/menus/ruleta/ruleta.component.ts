@@ -296,10 +296,13 @@ export class RuletaComponent implements OnInit {
     this.url=Global.url
     this.config={
       type: Phaser.CANVAS,
-      width: 1200,
-      height: 800,
       backgroundColor: '#2c3e50',
       parent: "gameContainer",
+      scale:{
+        mode:Phaser.Scale.FIT,
+        width:"100%",
+        height:"150%"
+      },
       scene: [Roulete]
   };
     setInterval(()=>{

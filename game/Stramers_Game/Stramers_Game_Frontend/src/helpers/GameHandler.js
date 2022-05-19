@@ -151,13 +151,14 @@ export default class GameHandler{
                     }
                     terminated=false;
                     i=0;
-                    final = playerZone.lenght < opponentZone.lenght ? opponentZone.lenght:playerZone.lenght
+                    final = scene.playerZone.data.values.cards < scene.opponentZone.data.values.cards ? scene.opponentZone.data.values.cards:scene.playerZone.data.values.cards;
+                    
                     let positionsP=0;
                     let positionsO=0;
 
                     //recoloca
                     while (!terminated) {
-                        terminated = i==final;
+                        terminated = i===final;
 
                        /* if (scene.playerZone.data.values.cards_list[i] && playerZone.indexOf(scene.playerZone.data.values.cards_list[i])>-1) {
                             scene.playerZone.data.values.cards_list[i].x-=(170*positionsP)
@@ -176,13 +177,13 @@ export default class GameHandler{
                         }*/
                         if (scene.playerZone.data.values.cards_list[i]) {
                             let positions = destroyedP>i ? destroyedP-i:destroyedP
-                            scene.playerZone.data.values.cards_list[i].x-=(170*positions)
-                            scene.playerZone.data.values.card_text[i].x-=(170*positions)
+                            scene.playerZone.data.values.cards_list[i].x-=(170*destroyedP)
+                            scene.playerZone.data.values.card_text[i].x-=(170*destroyedP)
                         }
                         if (scene.opponentZone.data.values.cards_list[i]) {
                             let positions = destroyedO>i ? destroyedO-i:destroyedO
-                            scene.opponentZone.data.values.cards_list[i].x-=(170*positions)
-                            scene.opponentZone.data.values.card_text[i].x-=(170*positions)
+                            scene.opponentZone.data.values.cards_list[i].x-=(170*destroyedO)
+                            scene.opponentZone.data.values.card_text[i].x-=(170*destroyedO)
                         }
                         i++;
                     }
