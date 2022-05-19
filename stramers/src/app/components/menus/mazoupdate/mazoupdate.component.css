@@ -1,0 +1,69 @@
+.lateral{
+    float: right;
+    width: 16%;
+    height: 100vh;
+    background: #181728;
+    font-size: 1em;
+    text-align: center;
+    border: solid 1px;
+    border-radius: 10px;
+}
+
+.back{
+    float:left;
+}
+
+.mazo{
+    background-color: aquamarine;
+    height: 800px;
+}
+
+.guardar{
+    background-color: aqua;
+    border: 1px solid;
+    border-radius: 15px;
+}
+
+.cag input{
+    background-color: #181728;
+    color: aqua;
+    text-align: center;
+}
+
+.fixe{
+    position:sticky;
+}
+.relative{
+    position: relative;
+}
+
+.carta{
+    color:white;
+    cursor: pointer;
+}
+.comun{
+    background: linear-gradient(to right, #777777,#acacac );
+}
+.raro{
+    background: linear-gradient(to right, #105ba0,#3f6fad );
+}
+.epica{
+    background:linear-gradient(to right,rgb(97, 17, 97),rgb(163, 51, 163));
+}
+.legend{
+    background: linear-gradient(to right, #a86008, #ffba56);
+}
+
+.form-control{
+    width: 50%;
+}
+
+.filter{
+    background-color: #777777;
+    color: black;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+}

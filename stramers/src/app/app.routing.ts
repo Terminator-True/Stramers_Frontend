@@ -27,7 +27,7 @@ const appRoutes: Routes = [
     {path: 'lobby', component: LobbyComponent},
     {path: 'mazo', component: MazoComponent},
     {path: 'mazo/edit', component: MazoeditComponent},
-    {path: 'mazo/update', component: MazoupdateComponent},
+    {path: 'mazo/update/:deckname', component: MazoupdateComponent},
     {path: 'tienda/cartas', component: TiendaComponent},
     {path: 'tienda/ruleta', component: RuletaComponent},
     {path: 'lmta', component: AdminComponent},

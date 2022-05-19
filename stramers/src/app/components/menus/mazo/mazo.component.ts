@@ -47,13 +47,7 @@ export class MazoComponent implements OnInit {
    * extraer el nom del mazo y redirecciona al updatear mazos
    */
   change(mazo:any){
-    localStorage.setItem(this.key, 'Angular');
-
     console.log(mazo);
-    // setTimeout(() =>{
-    //   localStorage.getItem("mazoupdate",mazo)
-    // },500)
-
     // this._router.navigate(["/mazo/update"])
   }
 

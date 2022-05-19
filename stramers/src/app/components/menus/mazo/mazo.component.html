@@ -16,5 +16,5 @@
     Crear Mazo
   </button>
 </a>
-  <button class="mazo" *ngFor="let mazo of mazos" (click)="change(mazo)"> <span>{{ mazo }}</span><img class="mazo" src="http://localhost:3700/api/get-image-ico/Mazo.png"></button>
+  <button class="mazo" *ngFor="let mazo of mazos" [routerLink]="['/mazo/update',mazo]" (click)="change(mazo)"> <span>{{ mazo }}</span><img class="mazo" src="http://localhost:3700/api/get-image-ico/Mazo.png"></button>
 </div>
