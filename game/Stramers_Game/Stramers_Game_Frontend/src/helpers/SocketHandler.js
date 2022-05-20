@@ -76,12 +76,14 @@ export default class SocketHandler{
             if (scene.room.roomId === roomId) {    
                 if (socketId === scene.room.playerId) {
                     if (scene.GameHandler.playerHand.length<5) {
-                        for (let i in scene.GameHandler.playerHand) {
-                            scene.GameHandler.playerHand[i].destroy()
-                        }
-                        scene.GameHandler.playerHand=[]
-                        for (let i in cards) {
-                            scene.GameHandler.playerHand.push(scene.DeckHandler.dealCard(658+(i*170), 960, cards[i], "playerCard"))
+                        if (cards.length>0) {    
+                            for (let i in scene.GameHandler.playerHand) {
+                                scene.GameHandler.playerHand[i].destroy()
+                            }
+                            scene.GameHandler.playerHand=[]
+                            for (let i in cards) {
+                                scene.GameHandler.playerHand.push(scene.DeckHandler.dealCard(658+(i*170), 960, cards[i], "playerCard"))
+                            }
                         }
                     }else{
                         /**
@@ -90,12 +92,14 @@ export default class SocketHandler{
                     }
                 }else{
                     if (scene.GameHandler.opponentHand.length<5) {
-                        for (let i = 0; i < scene.GameHandler.opponentHand.length; i++) {
-                            scene.GameHandler.opponentHand[i].destroy();
-                        }
-                        scene.GameHandler.opponentHand=[]
-                        for(let i in cards){
-                            let card = scene.GameHandler.opponentHand.push(scene.DeckHandler.dealCard(658+(i*170), 135, "cardBack", "opponentCard"))
+                        if (cards.length>0){    
+                            for (let i = 0; i < scene.GameHandler.opponentHand.length; i++) {
+                                scene.GameHandler.opponentHand[i].destroy();
+                            }
+                            scene.GameHandler.opponentHand=[]
+                            for(let i in cards){
+                                let card = scene.GameHandler.opponentHand.push(scene.DeckHandler.dealCard(658+(i*170), 135, "cardBack", "opponentCard"))
+                            }
                         }
                     }
                 }
@@ -118,7 +122,9 @@ export default class SocketHandler{
         })
 
         scene.socket.on("disconnecting",()=>{
-            scene.socket.emit("disconnecting", scene.socket.id)
+            scene.socket.emit("disconnecting",scene.room.roomId)
+        })
+        scene.socket.on("Win",()=>{
         })
     }
 }
