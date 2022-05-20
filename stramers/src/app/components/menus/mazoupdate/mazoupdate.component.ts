@@ -21,7 +21,7 @@ export class MazoupdateComponent implements OnInit {
   alert = '';
   public mazos:any={};
   public count:number;
-  public mazonum:any;
+  public mazoUser:any;
   // filter
   public abc:boolean;
   public cag:boolean;
@@ -66,10 +66,11 @@ export class MazoupdateComponent implements OnInit {
     // peticion de obtener todos los mazos, 
     this._userService.getDecks(this.nick)
     .subscribe(mazos=>{
-      this.mazos=Object.values(mazos)[0][this.deckname];
+      this.mazos=Object.values(mazos)[0];
+      this.mazoUser=Object.values(mazos)[0][this.deckname];
       //recoremos con un doble forEach la array de mazos y el otro un array de objectos de cartas
       //para comprar las que tiene el mazo y mostrarlas en la derecha y poderlas editar el user
-      this.mazos.forEach((value: any, i: string) => {
+      this.mazoUser.forEach((value: any, i: string) => {
         this.cards.forEach( (element: { name: string; }) => {
           if(value==element.name.toLowerCase()){
             this.lista.push(element)
@@ -79,7 +80,15 @@ export class MazoupdateComponent implements OnInit {
     },
     error=>{
       console.log(error)
-    })
+    }),
+    //recore las cartas para eliminar las seleccioandos
+    this.cards.forEach((value: any, i: string) => {
+      console.log(value);
+      if (!this.lista.includes(value)) {
+        this.cards.splice(this.cards.indexOf(value),1)
+      }
+    });
+
   }
 
   /**
@@ -105,17 +114,16 @@ export class MazoupdateComponent implements OnInit {
     console.log(card);
     this.count-=1;
   }
+  //quitar el mazo con el nombre de la array de mazos
+  delDeck(){
+    
+  }
 
   /**
    * get de todos los mazos que tiene el usuario, lo actualitzaos para añadir el nuevo mazo i enviamos el nuevo array assosiatiu de mazos
    */
   updeck(){
     if(this.count==15){
-      if (localStorage.getItem("nick")==null) {
-        this._router.navigate([""])
-      }
-      this.nick=localStorage.getItem("nick")
-
       this.mazos[this.deckname]=this.lista.map(function(card:any){return card.name.toLowerCase() });
       let tmp={mazos:this.mazos}
       console.log(tmp);
