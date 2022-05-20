@@ -172,9 +172,7 @@ export default class GameHandler{
                      * Manera de hacer el cálculo
                      */
                     while (!terminated) {
-                        terminated = i>final;
-                        console.log(playerZone.indexOf(scene.playerZone.data.values.cards_list[i]))
-                        
+                        terminated = i>final;                        
                         if (scene.playerZone.data.values.cards_list[i]) {
                             if (i>0 && destroyedP>0) {
                                 if (i===2) {

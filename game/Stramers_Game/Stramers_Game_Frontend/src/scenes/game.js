@@ -74,7 +74,7 @@ export default class Game extends Phaser.Scene{
                 percentText.setText(parseInt(value * 100) + '%');
                 progressBar.clear();
                 progressBar.fillStyle(0xffffff, 1);
-                progressBar.fillRect(845, 475, 300 * value, 30);
+                progressBar.fillRect(width, height, 300 * value, 30);
             });
             
             this.load.on('fileprogress', function (file) {
@@ -161,6 +161,7 @@ export default class Game extends Phaser.Scene{
         this.load.image("willyrex","src/assets/cartas/willyrex.png")
     }
     create(){
+        //this.scale.on('resize', resize, this);
         this.matter.world.setBounds().disableGravity();
         this.circ = this.matter.add.image(200, 50, 'mana');
 
