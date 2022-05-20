@@ -36,7 +36,7 @@ export class MazoupdateComponent implements OnInit {
   ) {
     this.url=Global.url
     this.lista=[];
-    this.count=15;
+    this.count=0;
     // filter
     this.abc=true;
     this.cag=true;
@@ -73,22 +73,14 @@ export class MazoupdateComponent implements OnInit {
       this.mazoUser.forEach((value: any, i: string) => {
         this.cards.forEach( (element: { name: string; }) => {
           if(value==element.name.toLowerCase()){
-            this.lista.push(element)
+            this.addcard(element)
           }
         });
       });
     },
     error=>{
       console.log(error)
-    }),
-    //recore las cartas para eliminar las seleccioandos
-    this.cards.forEach((value: any, i: string) => {
-      console.log(value);
-      if (!this.lista.includes(value)) {
-        this.cards.splice(this.cards.indexOf(value),1)
-      }
-    });
-
+    })
   }
 
   /**
