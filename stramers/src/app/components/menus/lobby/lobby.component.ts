@@ -32,7 +32,7 @@ export class LobbyComponent implements OnInit {
     // peticion de obtener todos los mazos
     this._userService.getDecks(this.nick)
     .subscribe(mazos=>{
-      this.mazos=Object.keys(Object.values(mazos)[0]);      
+      this.mazos=Object.keys(Object.values(mazos)[0]);
     },
     error=>{
       console.log(error)
@@ -48,7 +48,7 @@ export class LobbyComponent implements OnInit {
     .subscribe(mazos=>{
       this.session_storage=Object.values(mazos)[0][mazoName];
       this.mazoName=mazoName;
-      this._userService.getDefaultDeck(this.session_storage,this.nick).subscribe(
+      this._userService.setDefaultDeck({mazo: this.session_storage},this.nick).subscribe(
         result=>result.toString()
       )
     },

@@ -19,8 +19,8 @@ export class UsuariService{
     }
     /**
      * para gurdar un nuevo usuari a la base de dades con el node
-     * @param register 
-     * @returns 
+     * @param register
+     * @returns
      */
     Registrar(register:Register){
         let params = JSON.stringify(register);
@@ -38,9 +38,9 @@ export class UsuariService{
     }
     /**
      * peticio para updatear el user a la bd y verificar si el password es ell
-     * @param nick 
-     * @param register 
-     * @returns 
+     * @param nick
+     * @param register
+     * @returns
      */
     updateUser(nick:string,register:Register){
         let params = JSON.stringify(register);
@@ -49,8 +49,8 @@ export class UsuariService{
     }
     /**
      * obtenir les monedas que te un usuari
-     * @param nick 
-     * @returns 
+     * @param nick
+     * @returns
      */
     getMoney(nick:string){
         return this._http.get(this.url+'/get-money/'+nick);
@@ -69,7 +69,7 @@ export class UsuariService{
     }
     /**
      * retorna totes les cartas del usuari
-     * @param nick 
+     * @param nick
      */
     getCards(nick:string){
         return this._http.get(this.url+'get-cards/'+nick);
@@ -80,18 +80,19 @@ export class UsuariService{
      * @param nick
      */
     Updeck(updeck:Object,nick:string){
-        console.log(updeck);
         let params = JSON.stringify(updeck);
         let headers =new HttpHeaders().set('Content-Type', 'application/json');
         return this._http.put(this.url+'updeck/'+nick, params, {headers: headers});
     }
     Deldeck(del:String,nick:string){
-        return this._http.delete(this.url+'deletedeck/'+nick+"/"+del );
+      let params = JSON.stringify(del);
+      let headers =new HttpHeaders().set('Content-Type', 'application/json');
+      return this._http.put(this.url+'deletedeck/'+nick, params, {headers: headers} );
     }
     /**
      * retorna els mazos del usuari
-     * @param nick 
-     * @returns 
+     * @param nick
+     * @returns
      */
     getDecks(nick:string){
         return this._http.get(this.url+'get-decks/'+nick);
@@ -112,9 +113,9 @@ export class UsuariService{
      * @param nick
      * @param updeck
      */
-    getDefaultDeck(updeck:Object,nick:string){
+    setDefaultDeck(updeck:Object,nick:string){
         let params = JSON.stringify(updeck);
         let headers =new HttpHeaders().set('Content-Type', 'application/json');
-        return this._http.put(this.url+'get-getDefaultDeck/'+nick, params, {headers: headers});
+        return this._http.put(this.url+'set-DefaultDeck/'+nick, params, {headers: headers});
     }
 }
