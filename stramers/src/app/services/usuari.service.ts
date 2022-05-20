@@ -84,7 +84,9 @@ export class UsuariService{
         let params = JSON.stringify(updeck);
         let headers =new HttpHeaders().set('Content-Type', 'application/json');
         return this._http.put(this.url+'updeck/'+nick, params, {headers: headers});
-
+    }
+    Deldeck(del:String,nick:string){
+        return this._http.delete(this.url+'deletedeck/'+nick+"/"+del );
     }
     /**
      * retorna els mazos del usuari

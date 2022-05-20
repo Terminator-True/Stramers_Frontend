@@ -28,6 +28,7 @@ export class MazoupdateComponent implements OnInit {
   public cost:boolean;
 
   public deckcard:any;
+  public decknameOrig: any;
 
   constructor(
     private _route: ActivatedRoute,
@@ -46,6 +47,7 @@ export class MazoupdateComponent implements OnInit {
   ngOnInit(): void {
     this._route.params.subscribe(params =>{
       this.deckname = params['deckname'];
+      this.decknameOrig = params['deckname'];
     });
     if (localStorage.getItem("nick")==null) {
       this._router.navigate([""])
@@ -68,6 +70,7 @@ export class MazoupdateComponent implements OnInit {
     .subscribe(mazos=>{
       this.mazos=Object.values(mazos)[0];
       this.mazoUser=Object.values(mazos)[0][this.deckname];
+      console.log(this.mazos);
       //recoremos con un doble forEach la array de mazos y el otro un array de objectos de cartas
       //para comprar las que tiene el mazo y mostrarlas en la derecha y poderlas editar el user
       this.mazoUser.forEach((value: any, i: string) => {
@@ -108,7 +111,10 @@ export class MazoupdateComponent implements OnInit {
   }
   //quitar el mazo con el nombre de la array de mazos
   delDeck(){
-    
+    this._userService.Deldeck(this.deckname,this.nick).subscribe(
+      result=>this.alert=result.toString()
+    )
+
   }
 
   /**
@@ -116,6 +122,10 @@ export class MazoupdateComponent implements OnInit {
    */
   updeck(){
     if(this.count==15){
+      //si se a cambiado el nombre del mazo el map elimina el mazo antiguo
+      if (this.decknameOrig!=this.deckname) {
+        delete this.mazos[this.decknameOrig]
+      }
       this.mazos[this.deckname]=this.lista.map(function(card:any){return card.name.toLowerCase() });
       let tmp={mazos:this.mazos}
       console.log(tmp);

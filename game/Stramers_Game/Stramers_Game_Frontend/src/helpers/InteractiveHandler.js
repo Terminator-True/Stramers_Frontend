@@ -59,6 +59,7 @@ export default class InteractiveHandler{
                 scene.playerZone.data.values.cards_list[scene.playerZone.data.values.cards]=gameObject;
                 gameObject.x = (dropZone.x-350)+(dropZone.data.values.cards*170);
                 gameObject.y = dropZone.y;
+                console.log((dropZone.x-350)+(dropZone.data.values.cards*170))
                 scene.playerZone.data.values.card_text[scene.playerZone.data.values.cards]=scene.add.bitmapText(gameObject.x-40,gameObject.y+120,"text",scene.playerZone.data.values.cards_list[scene.playerZone.data.values.cards].data.list.dmg+"/"+scene.playerZone.data.values.cards_list[scene.playerZone.data.values.cards].data.list.life).setFontSize(24) 
 
                 scene.playerZone.data.values.cards++;

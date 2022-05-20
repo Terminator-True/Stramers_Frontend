@@ -19,6 +19,8 @@ export class EdituserComponent implements OnInit {
   public email:any;
 
   public edituser:boolean
+  public error_status: string;
+  public session_storage: any;
 
   constructor(
     private _UsuariService:UsuariService,
@@ -28,6 +30,7 @@ export class EdituserComponent implements OnInit {
     this.edituser=true
     this.iniciUsuari = new Register('','','');
     this.changepass = new ChangePass('','');
+    this.error_status="";
   }
 
   /**
@@ -52,12 +55,19 @@ export class EdituserComponent implements OnInit {
    * @var passw1 nou password
    */
   onSubmit(form:any){
-    this._UsuariService.updateUser(this.nick,this.iniciUsuari).subscribe(
-      result=>this.alert=result.toString()
-    )
+    this._UsuariService.updateUser(this.nick,this.iniciUsuari).subscribe(result=>{
+      // this.session_storage=result
+      this.alert=result.toString()
+      setTimeout(() =>{
+        localStorage.setItem("email",this.session_storage.session.user.email)
+        localStorage.setItem("nick",this.session_storage.session.user.nick)
+      },500)
+    },error=>{
+      this.alert=error.error.message
+      this.error_status=""
+    })
     console.log(this.iniciUsuari);
     this.alert= "User editat correctament";
-    this._router.navigate(["menu"])
   }
 
   /**

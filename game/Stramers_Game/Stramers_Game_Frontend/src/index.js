@@ -4,9 +4,9 @@ import Game from './scenes/game';
 const config = {
     type: Phaser.AUTO,
     scale:{
-        mode:Phaser.Scale.AUTO,
-        width:"100%",
-        height:"100%"
+        mode:Phaser.Scale.FIT,
+        width:"80%",
+        height:"80%"
     },
     physics: {
         default: 'matter',

@@ -45,16 +45,24 @@ export default class GameHandler{
             this.isMyTurn = !this.isMyTurn;
             console.log("isMyturn:"+this.isMyTurn)
             if (this.isMyTurn) {
-                this.player.manaMax++;
+                if (this.player.manaMax<11) {
+                    this.player.manaMax++;
+                }
                 this.player.manaA=this.player.manaMax;
                 this.playerMana.text=this.player.manaA.toString()+"/"+this.player.manaMax.toString()
 
 
             }else{
                 if (!scene.room.playerA && this.turn>=2) {
-                    this.opponent.manaMax++;
+                    if (this.opponent.manaMax<11) {
+                        this.opponent.manaMax++;
+
+                    }
                 }else if(scene.room.playerA && this.turn>=3){
-                    this.opponent.manaMax++;
+                    if (this.opponent.manaMax<11) {
+                        this.opponent.manaMax++;
+
+                    }
                 }
                 this.opponent.manaA=this.opponent.manaMax;
                 this.opponentMana.text=this.opponent.manaA.toString()+"/"+this.opponent.manaMax.toString()
@@ -73,6 +81,8 @@ export default class GameHandler{
                     let final=scene.playerZone.data.values.cards < scene.opponentZone.data.values.cards ? scene.opponentZone.data.values.cards:scene.playerZone.data.values.cards;
                     let destroyedP=0;
                     let destroyedO=0;
+                    let positionsP=[]
+                    let positionsO=[]
                     while (!terminated) {
                         terminated = i===final
                         if (scene.playerZone.data.values.cards_list[i] && scene.opponentZone.data.values.cards_list[i]) {
@@ -83,12 +93,13 @@ export default class GameHandler{
                             let hpO = scene.opponentZone.data.values.cards_list[i].data.list.lifeA
 
                             console.log(dmgP+"/"+hpP+"vs"+dmgO+"/"+hpO)
-
+                            
                             if (hpO-dmgP>0 || hpP-dmgO>0) {
                                 if (hpO-dmgP>0) {
                                     scene.opponentZone.data.values.cards_list[i].data.list.lifeA-=dmgP
                                     scene.opponentZone.data.values.card_text[i].text=dmgO.toString()+"/"+(hpO-dmgP).toString()
                                     console.log(dmgP+"/"+hpP+"vs"+dmgO+"/"+hpO)
+                                    positionsO.push(destroyedO)
                                 }else{
                                     destroyedO++;
                                     scene.opponentZone.data.values.cards--;
@@ -102,6 +113,8 @@ export default class GameHandler{
                                     scene.playerZone.data.values.cards_list[i].data.list.lifeA-=dmgO
                                     scene.playerZone.data.values.card_text[i].text=dmgP.toString()+"/"+(hpP-dmgO).toString()
                                     console.log(dmgP+"/"+hpP+"vs"+dmgO+"/"+hpO)
+                                    positionsP.push(destroyedP)                            
+
 
                                 }else{
                                     destroyedP++;
@@ -110,7 +123,6 @@ export default class GameHandler{
                                     scene.playerZone.data.values.card_text[i].destroy()
                                     scene.playerZone.data.values.cards_list.splice(i,i+1)
                                     scene.playerZone.data.values.card_text.splice(i,i+1)
-                                    i--;
                                 }
 
 
@@ -122,6 +134,7 @@ export default class GameHandler{
                                     scene.opponentZone.data.values.card_text[i].destroy()
                                     scene.opponentZone.data.values.cards_list.splice(i,i+1)
                                     scene.opponentZone.data.values.card_text.splice(i,i+1)
+
                                 }
                                 destroyedP++;
                                 scene.playerZone.data.values.cards--;
@@ -153,10 +166,12 @@ export default class GameHandler{
                             let dmg=scene.playerZone.data.values.cards_list[i].data.list.dmgA
                             let player=false
                             this.recibeDañoPlayer(player,dmg)
+                            positionsP.push(destroyedP)                            
                         }else if(scene.opponentZone.data.values.cards_list[i]){
                             let player=true
                             let dmg=scene.opponentZone.data.values.cards_list[i].data.list.dmgA
                             this.recibeDañoPlayer(player,dmg)
+                            positionsO.push(destroyedO)
                         }
                         
                         i++
@@ -165,29 +180,26 @@ export default class GameHandler{
                     i=0;
                     final = scene.playerZone.data.values.cards < scene.opponentZone.data.values.cards ? scene.opponentZone.data.values.cards:scene.playerZone.data.values.cards;
                     
-
                     /**
                      * Se crea una array que con un cálculo se nos dice cuántas posiciones se ha de restar a las carta restante
                      * 
                      * Manera de hacer el cálculo
                      */
+                    console.log(positionsO)
+                    console.log(positionsP)
+
                     while (!terminated) {
-                        terminated = i>final;
-                        console.log(playerZone.indexOf(scene.playerZone.data.values.cards_list[i]))
-                        
-                        if (scene.playerZone.data.values.cards_list[i]) {
-                            if (i>0 && destroyedP>0) {
-                                if (i===2) {
-                                    scene.playerZone.data.values.cards_list[i].x-=(170*destroyedP)
-                                    scene.playerZone.data.values.card_text[i].x-=(170*destroyedP)
-                                }
+                        terminated = i>final; 
+                            if (scene.playerZone.data.values.cards_list[i] && positionsP[i]) {
+                                console.log(positionsP[i])
+                                scene.playerZone.data.values.cards_list[i].x-=(170*positionsP[i])
+                                scene.playerZone.data.values.card_text[i].x-=(170*positionsP[i])
+                            }  
+                            if (scene.opponentZone.data.values.cards_list[i] && positionsO[i]) {
+                                console.log(positionsO[i])
+                                scene.opponentZone.data.values.cards_list[i].x-=(170*positionsO[i])
+                                scene.opponentZone.data.values.card_text[i].x-=(170*positionsO[i])
                             }
-                            
-                        }
-                        if (scene.opponentZone.data.values.cards_list[i]) {
-                            scene.opponentZone.data.values.cards_list[i].x-=(170*destroyedO)
-                            scene.opponentZone.data.values.card_text[i].x-=(170*destroyedO)
-                        }
                         i++;
                     }
                 }    

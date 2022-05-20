@@ -19,9 +19,23 @@
 }
 
 .guardar{
-    background-color: aqua;
+    margin-top: 20px;
+    background-color: rgb(34, 160, 144);
     border: 1px solid;
     border-radius: 15px;
+}
+.guardar a{
+    color: white;
+}
+
+.delete{
+    margin-top: 10px;
+    background-color: rgb(250, 50, 50);
+    border: 1px solid;
+    border-radius: 15px;
+}
+.delete a{
+    color: white;
 }
 
 .cag input{
