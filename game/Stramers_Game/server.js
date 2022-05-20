@@ -81,9 +81,7 @@ io.on("connection", function(socket){
     })
     socket.on("cardPlayed", function(cardName,roomId, socketId){
         let indexCard=rooms[roomId][socketId].inHand.indexOf(cardName)
-        console.log(indexCard)
         rooms[roomId][socketId].inHand.splice(indexCard,indexCard+1)
-        console.log(rooms[roomId][socketId].inHand)
         io.sockets.in(roomId).emit("cardPlayed", cardName,roomId, socketId);
     })
 
@@ -93,7 +91,8 @@ io.on("connection", function(socket){
 
 
 
-    socket.on("disconnecting", function(){
+    socket.on("disconnecting", function(roomId){
+        io.sockets.in(roomId).emit("Win")
         delete rooms[socket.room]
         
         socket.leave(socket.room);  

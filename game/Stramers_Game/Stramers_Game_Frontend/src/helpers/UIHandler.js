@@ -25,6 +25,8 @@ export default class UIHandler{
 
             scene.add.image(450,130,"mana").setScale(0.20,0.20)
             scene.add.image(450,950,"mana").setScale(0.20,0.20)
+
+
         }
         this.buildUI = ()=>{
             scene.opponentZone=this.buildZones(1000,425,"opponent");
