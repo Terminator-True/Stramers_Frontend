@@ -16,7 +16,6 @@
     </div>
 
       <p style="color:white ;" >Se actualitza cada 24h</p>
-
   </div>
 
   <!-- lista de todas las cartas
@@ -24,7 +23,7 @@
     <li class="list-group-item " > <img src="{{url+'get-image/'+card.img}}" *ngIf="card.img != 'null'" style="width: 100px;"> </li>
   </ul>-->
 
-  <table>
+  <!-- <table>
     <tr>
       <td *ngFor="let card of cartasTienda"><a (click)="buy(card)" >
         <img src="{{url+'get-image/'+card.img}}" [ngClass]="cardsname.includes(card.name) ? 'carta obtenida':'carta'" alt="carta comun">
@@ -36,11 +35,26 @@
       <td><h1>800</h1></td>
       <td><h1>2000</h1></td>
     </tr>
-  </table>
+  </table> -->
 
+  <div class="container mx-auto mt-4">
+    <div class="row">
+      <div class="col-md-4 " *ngFor="let card of cartasTienda">
+        <button (click)="buy(card)">
+          <img src="{{url+'get-image/'+card.img}}" [ngClass]="cardsname.includes(card.name) ? 'carta obtenida':'carta'" alt="carta comun">
+        </button>
+        <ul class="card-body container-fluid list-group">
+          <li *ngIf="card.category=='Comun'" class="list-group-item  carta comun">600</li>
+          <li *ngIf="card.category=='Raro'" class="list-group-item  carta raro">800</li>
+          <li *ngIf="card.category=='Epica'" class="list-group-item  carta epica">2000</li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="lateral fixedR">
+
+<div class="lateral ml-auto mr-3 fixedR">
   <div class="cag"> <a href="/tienda/ruleta" class="btn">Ruleta</a></div>
   <div class="cag"> <a href="/tienda/cartas" class="btn">Cartas</a></div>
 </div>

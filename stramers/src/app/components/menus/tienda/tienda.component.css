@@ -53,11 +53,44 @@ td h1{
 
 .carta{
     width: 300px;
-    cursor: pointer;
     border-radius: 5px;
+    text-align: center;
 }
 .obtenida{
     filter: grayscale(100%);
     opacity: 0.5;
     cursor: not-allowed;
+}
+.comun{
+    background: linear-gradient(to right, #777777,#acacac );
+}
+.raro{
+    background: linear-gradient(to right, #105ba0,#3f6fad );
+}
+.epica{
+    background:linear-gradient(to right,rgb(97, 17, 97),rgb(163, 51, 163));
+}
+
+ul{
+    padding:0%;
+    padding-bottom: 10px;
+}
+button {
+    background: none;
+    border: 0;
+    color: inherit;
+    /* cursor: default; */
+    font: inherit;
+    line-height: normal;
+    overflow: visible;
+    padding: 0;
+    -webkit-user-select: none; /* for button */
+     -webkit-appearance: button; /* for input */
+       -moz-user-select: none;
+        -ms-user-select: none;
+  }
+
+div.row{
+    margin: 0%;
+    padding: 0%;
 }
