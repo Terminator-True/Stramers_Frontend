@@ -61,8 +61,6 @@ export class EdituserComponent implements OnInit {
    *
    */
   onSubmit(form:any){
-    this.iniciUsuari.email = this.iniciUsuari.email === "" ? this.email: this.iniciUsuari.email
-    this.iniciUsuari.nick = this.iniciUsuari.nick === "" ? this.nick: this.iniciUsuari.nick
     if (this.changepass.paswC === this.changepass.paswN) {
       this._UsuariService.updatePassword(this.nick,this.changepass).subscribe(result=>{
         this.alert=result.toString()
@@ -70,7 +68,9 @@ export class EdituserComponent implements OnInit {
         form.reset()
 
       })
-    }else{
+    }else if(this.iniciUsuari.email!=="" || this.iniciUsuari.nick!==""){
+      this.iniciUsuari.email = this.iniciUsuari.email === "" ? this.email: this.iniciUsuari.email
+      this.iniciUsuari.nick = this.iniciUsuari.nick === "" ? this.nick: this.iniciUsuari.nick
       this._UsuariService.updateUser(this.nick,this.iniciUsuari).subscribe(result=>{
         // this.session_storage=result
         this.alert=result.toString()
