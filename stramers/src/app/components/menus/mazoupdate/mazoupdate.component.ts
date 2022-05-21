@@ -70,7 +70,6 @@ export class MazoupdateComponent implements OnInit {
     .subscribe(mazos=>{
       this.mazos=Object.values(mazos)[0];
       this.mazoUser=Object.values(mazos)[0][this.deckname];
-      console.log(this.mazos);
       //recoremos con un doble forEach la array de mazos y el otro un array de objectos de cartas
       //para comprar las que tiene el mazo y mostrarlas en la derecha y poderlas editar el user
       this.mazoUser.forEach((value: any, i: string) => {
@@ -95,7 +94,6 @@ export class MazoupdateComponent implements OnInit {
       this.lista.push(card);
       this.count+=1;
       this.cards.splice(this.cards.indexOf(card),1)
-      console.log(this.lista)
     }
   }
   /**
@@ -111,10 +109,12 @@ export class MazoupdateComponent implements OnInit {
   }
   //quitar el mazo con el nombre de la array de mazos
   delDeck(){
-    this._userService.Deldeck(this.deckname,this.nick).subscribe(
+    delete this.mazos[this.deckname]
+    let tmp={mazos:this.mazos}
+    // peticion updatear array mazo
+    this._userService.Updeck(tmp,this.nick).subscribe(
       result=>this.alert=result.toString()
     )
-
   }
 
   /**
