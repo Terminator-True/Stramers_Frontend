@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 //Form
-import { Carta } from 'src/app/models/carta'; 
+import { Carta } from 'src/app/models/carta';
 import { CardService } from 'src/app/services/carta.service';
 
 import { UploadService } from 'src/app/services/upload.service';
-import { Global } from 'src/app/services/global'; 
+import { Global } from 'src/app/services/global';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
@@ -20,13 +21,18 @@ export class AdminComponent implements OnInit {
   public filesToUpload:any;
   public card_desat:any;
 
+
   constructor(
-    private _CardService:CardService, 
-    private _uploadService: UploadService
+    private _CardService:CardService,
+    private _uploadService: UploadService,
+    private _router:Router
   ) {
     this.cartas = new Carta('','Comun','Esbirro',0,0,0,'-',true,"null");
   }
   ngOnInit() {
+    if (localStorage.getItem("email")=="jf28renault@gmail.com" || localStorage.getItem("email")=="joliveda@gmail.com") {
+      this._router.navigate([""])
+    }
   }
   /**
    * recive una array con informacion de la img dentro de la primera array esta
@@ -59,7 +65,7 @@ export class AdminComponent implements OnInit {
             Global.url+'upload-image/'+this.card_desat.card._id, //ruta del backend
             [],
             this.filesToUpload, // array de ficheros que subimos
-            'img' // Nombre del campo que recive el campo en el modelo del backend "image" 
+            'img' // Nombre del campo que recive el campo en el modelo del backend "image"
           ).then((result:any)=>{
             console.log(result);
           });
@@ -69,6 +75,6 @@ export class AdminComponent implements OnInit {
       error => {
         console.log(error);
       }
-    );  
+    );
   }
 }

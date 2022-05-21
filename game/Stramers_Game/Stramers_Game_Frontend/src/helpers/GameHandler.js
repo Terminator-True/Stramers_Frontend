@@ -45,6 +45,15 @@ export default class GameHandler{
             this.isMyTurn = !this.isMyTurn;
             console.log("isMyturn:"+this.isMyTurn)
             if (this.isMyTurn) {
+                if (this.turn===1) {
+                    setTimeout(() => {
+                        scene.InfoText.text="Fase de Preparación !!!"
+                        scene.InfoText.setDepth(1)
+                    }, 1500);       
+                    setTimeout(() => {
+                        scene.InfoText.text=""
+                    }, 2500);       
+                }
                 if (this.player.manaMax<11) {
                     this.player.manaMax++;
                 }
@@ -54,12 +63,12 @@ export default class GameHandler{
 
             }else{
                 if (!scene.room.playerA && this.turn>=2) {
-                    if (this.opponent.manaMax<11) {
+                    if (this.opponent.manaMax<10) {
                         this.opponent.manaMax++;
 
                     }
                 }else if(scene.room.playerA && this.turn>=3){
-                    if (this.opponent.manaMax<11) {
+                    if (this.opponent.manaMax<10) {
                         this.opponent.manaMax++;
 
                     }
@@ -70,19 +79,27 @@ export default class GameHandler{
             if (this.turn>1) {
                 if (!scene.room.playerA && this.turn>=2 || scene.room.playerA && this.turn>=3 ) {
                     if (this.isMyTurn) {
+                        if (this.gameState==="Initializing") {
+                            this.gameState="Ready"
+                        }
                         scene.changeTrun.setInteractive();
-                        scene.socket.emit("dealCard",scene.room.roomId,scene.room.playerId)                        
+                        scene.socket.emit("dealCard",scene.room.roomId,scene.room.playerId) 
+                                        
                     }
 
                 }
                 if (!scene.room.playerA && this.turn>=4 || scene.room.playerA && this.turn>=5 ) {
+                    if (!scene.room.playerA && this.turn===4 || scene.room.playerA && this.turn===5 ) {
+                        scene.InfoText.text="Fase de Ataque!!!"
+                        scene.InfoText.setDepth(1)
+                        setTimeout(() => {
+                            scene.InfoText.text=""
+                        }, 2500);     
+                    }       
                     let terminated=false;
                     let i=0;
                     let final=scene.playerZone.data.values.cards < scene.opponentZone.data.values.cards ? scene.opponentZone.data.values.cards:scene.playerZone.data.values.cards;
-                    let destroyedP=0;
-                    let destroyedO=0;
-                    let positionsP=[]
-                    let positionsO=[]
+                    
                     while (!terminated) {
                         terminated = i===final
                         if (scene.playerZone.data.values.cards_list[i] && scene.opponentZone.data.values.cards_list[i]) {
@@ -98,10 +115,7 @@ export default class GameHandler{
                                 if (hpO-dmgP>0) {
                                     scene.opponentZone.data.values.cards_list[i].data.list.lifeA-=dmgP
                                     scene.opponentZone.data.values.card_text[i].text=dmgO.toString()+"/"+(hpO-dmgP).toString()
-                                    console.log(dmgP+"/"+hpP+"vs"+dmgO+"/"+hpO)
-                                    positionsO.push(destroyedO)
                                 }else{
-                                    destroyedO++;
                                     scene.opponentZone.data.values.cards--;
                                     scene.opponentZone.data.values.cards_list[i].destroy()
                                     scene.opponentZone.data.values.card_text[i].destroy()
@@ -112,12 +126,8 @@ export default class GameHandler{
                                 if (hpP-dmgO>0) {
                                     scene.playerZone.data.values.cards_list[i].data.list.lifeA-=dmgO
                                     scene.playerZone.data.values.card_text[i].text=dmgP.toString()+"/"+(hpP-dmgO).toString()
-                                    console.log(dmgP+"/"+hpP+"vs"+dmgO+"/"+hpO)
-                                    positionsP.push(destroyedP)                            
-
 
                                 }else{
-                                    destroyedP++;
                                     scene.playerZone.data.values.cards--;
                                     scene.playerZone.data.values.cards_list[i].destroy()
                                     scene.playerZone.data.values.card_text[i].destroy()
@@ -128,7 +138,6 @@ export default class GameHandler{
 
                             }else if(hpP-dmgO<=0){
                                 if (hpO-dmgP<=0) {
-                                    destroyedO++;
                                     scene.opponentZone.data.values.cards--;
                                     scene.opponentZone.data.values.cards_list[i].destroy()
                                     scene.opponentZone.data.values.card_text[i].destroy()
@@ -136,7 +145,6 @@ export default class GameHandler{
                                     scene.opponentZone.data.values.card_text.splice(i,i+1)
 
                                 }
-                                destroyedP++;
                                 scene.playerZone.data.values.cards--;
                                 scene.playerZone.data.values.cards_list[i].destroy()
                                 scene.playerZone.data.values.card_text[i].destroy()
@@ -146,14 +154,12 @@ export default class GameHandler{
 
                             }else if(hpO-dmgP<=0){
                                 if (hpP-dmgO<=0) {
-                                    destroyedP++;
                                     scene.playerZone.data.values.cards--;
                                     scene.playerZone.data.values.cards_list[i].destroy()
                                     scene.playerZone.data.values.card_text[i].destroy()
                                     scene.playerZone.data.values.cards_list.splice(i,i+1)
                                     scene.playerZone.data.values.card_text.splice(i,i+1)
                                 }
-                                destroyedO++;
                                 scene.opponentZone.data.values.cards--;
                                 scene.opponentZone.data.values.cards_list[i].destroy()
                                 scene.opponentZone.data.values.card_text[i].destroy()
@@ -165,42 +171,71 @@ export default class GameHandler{
                         }else if(scene.playerZone.data.values.cards_list[i]){
                             let dmg=scene.playerZone.data.values.cards_list[i].data.list.dmgA
                             let player=false
-                            this.recibeDañoPlayer(player,dmg)
-                            positionsP.push(destroyedP)                            
+                            this.recibeDañoPlayer(player,dmg)                 
                         }else if(scene.opponentZone.data.values.cards_list[i]){
                             let player=true
                             let dmg=scene.opponentZone.data.values.cards_list[i].data.list.dmgA
                             this.recibeDañoPlayer(player,dmg)
-                            positionsO.push(destroyedO)
-                        }
-                        
+                        }   
                         i++
                     }
-                    terminated=false;
-                    i=0;
-                    final = scene.playerZone.data.values.cards < scene.opponentZone.data.values.cards ? scene.opponentZone.data.values.cards:scene.playerZone.data.values.cards;
+                   
+                    let playerZoneCardName = scene.playerZone.data.values.cards_list.map((carta)=>{
+                        return carta.data.list.name
+                    })
+
+                    let opponentZoneCardName = scene.opponentZone.data.values.cards_list.map((carta)=>{
+                        return carta.data.list.name
+                    })
+                    
+                    //scene.playerZone.data.values.cards_list=playerZoneCard
+                    //scene.playerZone.data.values.card_text=playerZoneText
+
+                    //scene.opponentZone.data.values.cards_list=opponentZoneCard
+                    //scene.opponentZone.data.values.card_text=opponentZoneText
                     
                     /**
                      * Se crea una array que con un cálculo se nos dice cuántas posiciones se ha de restar a las carta restante
                      * 
                      * Manera de hacer el cálculo
                      */
-                    console.log(positionsO)
-                    console.log(positionsP)
+                    let statsP = []
+                    let statsO = []
 
-                    while (!terminated) {
-                        terminated = i>final; 
-                            if (scene.playerZone.data.values.cards_list[i] && positionsP[i]) {
-                                console.log(positionsP[i])
-                                scene.playerZone.data.values.cards_list[i].x-=(170*positionsP[i])
-                                scene.playerZone.data.values.card_text[i].x-=(170*positionsP[i])
-                            }  
-                            if (scene.opponentZone.data.values.cards_list[i] && positionsO[i]) {
-                                console.log(positionsO[i])
-                                scene.opponentZone.data.values.cards_list[i].x-=(170*positionsO[i])
-                                scene.opponentZone.data.values.card_text[i].x-=(170*positionsO[i])
-                            }
-                        i++;
+                    if (playerZoneCardName.length>0) {
+                        for (let i in scene.playerZone.data.values.cards_list) {
+                            statsP[i]={dmg: scene.playerZone.data.values.cards_list[i].data.list.dmgA, life: scene.playerZone.data.values.cards_list[i].data.list.lifeA}
+                            scene.playerZone.data.values.cards_list[i].destroy()
+                            scene.playerZone.data.values.card_text[i].destroy()
+                        }
+                        console.log(scene.playerZone.data.values.cards_list)
+                        scene.playerZone.data.values.cards_list=[]
+                        scene.playerZone.data.values.card_text=[]
+
+                        for (let i in playerZoneCardName) {
+                            scene.playerZone.data.values.cards_list[i]=scene.DeckHandler.dealCard((scene.playerZone.x-350)+(i*170), scene.playerZone.y, playerZoneCardName[i], "playerCard")
+                            scene.playerZone.data.values.cards_list[i].data.list.dmgA=statsP[i].dmg
+                            scene.playerZone.data.values.cards_list[i].data.list.lifeA=statsP[i].life
+                            scene.playerZone.data.values.card_text[i]=scene.add.bitmapText(scene.playerZone.data.values.cards_list[i].x-40,scene.playerZone.data.values.cards_list[i].y+120,"text",statsP[i].dmg+"/"+statsP[i].life).setFontSize(24) 
+                         }
+                    }
+                    if (opponentZoneCardName.length>0) {
+                        for (let i in scene.opponentZone.data.values.cards_list) {
+                            statsO[i] = {dmg: scene.opponentZone.data.values.cards_list[i].data.list.dmgA, life: scene.opponentZone.data.values.cards_list[i].data.list.lifeA}
+
+                            scene.opponentZone.data.values.cards_list[i].destroy()
+                            scene.opponentZone.data.values.card_text[i].destroy()
+                        }
+                       
+                        scene.opponentZone.data.values.cards_list=[]
+                        scene.opponentZone.data.values.card_text=[]
+
+                        for (let i in opponentZoneCardName) {
+                            scene.opponentZone.data.values.cards_list[i]=scene.DeckHandler.dealCard((scene.opponentZone.x-350)+(i*170), scene.opponentZone.y, opponentZoneCardName[i], "playerCard")
+                            scene.opponentZone.data.values.cards_list[i].data.list.dmgA=statsO[i].dmg
+                            scene.opponentZone.data.values.cards_list[i].data.list.lifeA=statsO[i].life
+                            scene.opponentZone.data.values.card_text[i]=scene.add.bitmapText(scene.opponentZone.data.values.cards_list[i].x-40,scene.opponentZone.data.values.cards_list[i].y-145,"text",statsO[i].dmg+"/"+statsO[i].life).setFontSize(24) 
+                        }
                     }
                 }    
             }
@@ -215,9 +250,23 @@ export default class GameHandler{
             if (player) {
                 this.player.life-=cantidad
                 this.playerLife.text=this.player.life.toString()
+                if (this.player.life<=0) {
+                    scene.InfoText.text="Conglaturations you lose!! :D"
+                    scene.InfoText.setDepth(1)
+                    setTimeout(() => {
+                        window.location.replace("http://localhost:4200/lobby/?win=false")
+                    }, 3000);
+                }
             }else{
                 this.opponent.life-=cantidad
                 this.opponentLife.text=this.opponent.life.toString()
+                if (this.opponent.life<=0) {
+                    scene.InfoText.text="I'm sorry you WON! :C"
+                    scene.InfoText.setDepth(1)
+                    setTimeout(() => {
+                        window.location.replace("http://localhost:4200/lobby/?win=true")
+                    }, 3000);
+                }
             }
         }
     }

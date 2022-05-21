@@ -181,7 +181,8 @@ export default class Game extends Phaser.Scene{
         var height = this.cameras.main.height;
 
         this.buscant = this.add.bitmapText(width/2-250,height/2-50,"text","Buscando Partida...").setFontSize(24);
-        this.InfoText = this.add.bitmapText(width/2-250,height/2-50,"text","").setFontSize(64)   
+        this.InfoText = this.add.bitmapText(width/2-350,height/2-50,"text","").setFontSize(64)   
+        this.InfoText.setDepth(1)
 
         this.CardHandler = new CardHandler();
         this.DeckHandler = new DeckHandler(this)
