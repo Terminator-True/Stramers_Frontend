@@ -1,7 +1,7 @@
 export class Register{
     constructor(
-        public nick:String,
-        public email:String,
-        public pasw:String,
+        public nick:string,
+        public email:string,
+        public pasw:string,
     ){}
 }
