@@ -3,6 +3,8 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 
 import { Global } from "./global";
 import { Register } from "../models/register.usuari";
+import { ChangePass } from "../models/changePassword.usuari";
+
 import { Login } from "../models/inici.usuari";
 
 @Injectable({
@@ -45,8 +47,19 @@ export class UsuariService{
     updateUser(nick:string,register:Register){
         let params = JSON.stringify(register);
         let headers =new HttpHeaders().set('Content-Type', 'application/json');
-        return this._http.put(this.url+'updateCards/'+nick, params, {headers: headers});
+        return this._http.put(this.url+'update-user/'+nick, params, {headers: headers});
     }
+    /**
+     * peticio para updatear el user a la bd y verificar si el password es ell
+     * @param nick
+     * @param register
+     * @returns
+     */
+    updatePassword(nick:string,password:ChangePass){
+      let params = JSON.stringify(password);
+      let headers =new HttpHeaders().set('Content-Type', 'application/json');
+      return this._http.put(this.url+'update-password/'+nick, params, {headers: headers});
+  }
     /**
      * obtenir les monedas que te un usuari
      * @param nick

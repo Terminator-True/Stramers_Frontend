@@ -22,14 +22,18 @@ export class EdituserComponent implements OnInit {
   public error_status: string;
   public session_storage: any;
 
+  public passw:any;
+  public passwN:any;
+  public passwC:any;
+
   constructor(
     private _UsuariService:UsuariService,
     private _router: Router
 
-  ) { 
+  ) {
     this.edituser=true
     this.iniciUsuari = new Register('','','');
-    this.changepass = new ChangePass('','');
+    this.changepass = new ChangePass('','','');
     this.error_status="";
   }
 
@@ -42,6 +46,7 @@ export class EdituserComponent implements OnInit {
     }
     this.nick=localStorage.getItem("nick")
     this.email=localStorage.getItem("email")
+    console.log(this.nick)
   }
 
   /**
@@ -50,24 +55,40 @@ export class EdituserComponent implements OnInit {
    * @var nick
    * @var email
    * @var passw password de confirmacio
-   * o
    * @var passw antic password de confirmacio
    * @var passw1 nou password
+   * Es necesario pasar todo el objeto de usuario por parametro para que se actualice
+   *
    */
   onSubmit(form:any){
-    this._UsuariService.updateUser(this.nick,this.iniciUsuari).subscribe(result=>{
-      // this.session_storage=result
-      this.alert=result.toString()
-      setTimeout(() =>{
-        localStorage.setItem("email",this.session_storage.session.user.email)
-        localStorage.setItem("nick",this.session_storage.session.user.nick)
-      },500)
-    },error=>{
-      this.alert=error.error.message
-      this.error_status=""
-    })
-    console.log(this.iniciUsuari);
-    this.alert= "User editat correctament";
+    if (this.changepass.paswC === this.changepass.paswN) {
+      this._UsuariService.updatePassword(this.nick,this.changepass).subscribe(result=>{
+        this.alert=result.toString()
+        console.log(result)
+        form.reset()
+
+      })
+    }else if(this.iniciUsuari.email!=="" || this.iniciUsuari.nick!==""){
+      this.iniciUsuari.email = this.iniciUsuari.email === "" ? this.email: this.iniciUsuari.email
+      this.iniciUsuari.nick = this.iniciUsuari.nick === "" ? this.nick: this.iniciUsuari.nick
+      this._UsuariService.updateUser(this.nick,this.iniciUsuari).subscribe(result=>{
+        // this.session_storage=result
+        this.alert=result.toString()
+        localStorage.clear()
+        setTimeout(() =>{
+          localStorage.setItem("email",this.iniciUsuari.email)
+          localStorage.setItem("nick",this.iniciUsuari.nick)
+          window.location.reload();
+        },500)
+      },error=>{
+        this.alert=error.error.message
+        this.error_status=""
+      })
+      console.log(this.nick);
+      this.alert= "User editat correctament";
+      form.reset()
+
+  }
   }
 
   /**
