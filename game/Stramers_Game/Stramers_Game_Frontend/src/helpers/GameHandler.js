@@ -188,12 +188,6 @@ export default class GameHandler{
                         return carta.data.list.name
                     })
                     
-                    //scene.playerZone.data.values.cards_list=playerZoneCard
-                    //scene.playerZone.data.values.card_text=playerZoneText
-
-                    //scene.opponentZone.data.values.cards_list=opponentZoneCard
-                    //scene.opponentZone.data.values.card_text=opponentZoneText
-                    
                     /**
                      * Se crea una array que con un cálculo se nos dice cuántas posiciones se ha de restar a las carta restante
                      * 

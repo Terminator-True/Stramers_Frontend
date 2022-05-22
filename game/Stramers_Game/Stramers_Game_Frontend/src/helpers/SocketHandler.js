@@ -124,7 +124,6 @@ export default class SocketHandler{
         scene.socket.on("disconnecting",()=>{
             scene.socket.emit("disconnecting",scene.room.roomId)
         })
-        scene.socket.on("Win",()=>{
-        })
+        
     }
 }
