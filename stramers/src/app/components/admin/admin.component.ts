@@ -30,7 +30,7 @@ export class AdminComponent implements OnInit {
     this.cartas = new Carta('','Comun','Esbirro',0,0,0,'-',true,"null");
   }
   ngOnInit() {
-    if (localStorage.getItem("email")=="jf28renault@gmail.com" || localStorage.getItem("email")=="joliveda@gmail.com") {
+    if (localStorage.getItem("email")=="jf28renault@gmail.com" && localStorage.getItem("nick")=="Ter" || localStorage.getItem("email")=="joliveda@gmail.com" && localStorage.getItem("nick")=="Jorextror"){
       this._router.navigate([""])
     }
   }
