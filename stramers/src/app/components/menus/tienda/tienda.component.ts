@@ -50,10 +50,9 @@ export class TiendaComponent implements OnInit {
     }
 
   /**
-   * 
+   *
    */
   ngOnInit(): void {
-    console.log(localStorage.getItem("nick")==null && localStorage.getItem("email")==null)
     if (localStorage.getItem("nick")==null) {
       this._router.navigate([""])
     }
@@ -83,7 +82,7 @@ export class TiendaComponent implements OnInit {
     },
     error=>{
       console.log(error)
-    
+
     })
 
     this.cardsname
@@ -142,7 +141,7 @@ export class TiendaComponent implements OnInit {
   }
 
   /**
-   * 
+   *Actuliza las monedas en la base de datos
    */
   salir(){
     var moneda=sessionStorage.getItem("moneda")

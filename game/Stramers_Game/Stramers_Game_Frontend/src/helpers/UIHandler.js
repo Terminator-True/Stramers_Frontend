@@ -2,11 +2,21 @@ import ZoneHandler from "./ZoneHandler";
 export default class UIHandler{
     constructor(scene){
         this.zoneHandler = new ZoneHandler(scene);
+        /**
+         * 
+         * @param x posicion X de la zona
+         * @param y posicion y de la zona
+         * @param type Opponent/Player
+         * @returns zona renderizada
+         */
         this.buildZones = (x,y,type) =>{
             var dropZone = this.zoneHandler.renderZone(x,y,type);
             this.zoneHandler.renderOutline(dropZone);
             return dropZone
         }
+        /**
+         * Renderiza las zonas de la mano, tanto del jugador como del oponente
+         */
         this.buildPlayerAreas = () =>{
             scene.playerHandArea = scene.add.rectangle(1000,960,850,230);
             scene.playerHandArea.setStrokeStyle(4, 0xff69b4);
@@ -18,6 +28,9 @@ export default class UIHandler{
             scene.oponentDeckArea= scene.add.rectangle(1550,135,155,215);
             scene.oponentDeckArea.setStrokeStyle(3,0x00ffff)
         }
+        /**
+         * Renderiza el texto para pasar turno y la zona de la vida y el 'mana'
+         */
         this.buildGameText = () =>{
             scene.changeTrun = scene.add.text(1500,540,"Pasa Turno").setFontSize(24)
             scene.add.image(300,130,"corazon").setScale(0.20,0.20)

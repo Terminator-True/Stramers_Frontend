@@ -7,6 +7,9 @@ import {Router} from "@angular/router"
 
 import Phaser from 'phaser';
 
+/**
+ * Clase de la ruleta
+ */
 class Roulete extends Phaser.Scene{
 
     //Definicion de variables
@@ -25,7 +28,7 @@ class Roulete extends Phaser.Scene{
     public categorias=[
         { id:0, a_i:0, a_f:0, nombre: 'raro_1'},
         { id:1, a_i:0, a_f:0, nombre: 'comun_1'},
-        { id:2, a_i:0, a_f:0, nombre: 'legend' }, //-27
+        { id:2, a_i:0, a_f:0, nombre: 'legend' },
         { id:3, a_i:0, a_f:0, nombre: 'retrigger'},
         { id:4, a_i:0, a_f:0, nombre: 'comun_2'},
         { id:5, a_i:0, a_f:0, nombre: 'raro_2'},
@@ -34,6 +37,16 @@ class Roulete extends Phaser.Scene{
     public intervalo_subdivision = 360/this.categorias.length;
     constructor(){
         super({key: 'Game'})
+
+        //Éste for hace los cálculos con el intervalo de subdivision
+        //para que el programa sepa de manera exacta los ángulos de
+        //cada categoría.
+        //a_i: representa donde empieza el ángulo
+        //a_f: representa donde termina
+        //Ejemplo:
+        //Si raro_1 tiene un  a_i:110º y un a_f:160º, si al girar
+        //la ruleta queda entre esas dos posiciones, te devolverá una carta rara
+
         for (let c=0; c < this.categorias.length; c++){
             this.categorias[c].a_i =  c*this.intervalo_subdivision;
             this.categorias[c].a_f = (c+1)*this.intervalo_subdivision;
@@ -50,9 +63,6 @@ class Roulete extends Phaser.Scene{
           legend:this.cards[3][0]
         }
     }
-
-    //Se asignan los valores de angulos a las categorias
-    //Se usan angulos de 0 a 360 como seria lògico
 
     preload ()
     {
@@ -79,40 +89,45 @@ class Roulete extends Phaser.Scene{
 
     create (){
         var that=this;
-        //this.add.image(600, 400, 'fondo');
         this.ruleta = this.add.sprite(600, 300, 'ruleta')
         this.arrow = this.add.sprite(770, 300, 'arrow');
         this.arrow.angle+=90;
         this.boton = this.add.sprite(600, 550, 'boton').setInteractive();
+
+        /**
+         * Si haces click al botón, llama a la función tirar
+         */
         this.boton.on('pointerdown', function () {
-          //that.setTint(0xff0000);
           that.tirar();
 
         });
-        this.boton.on('pointerout', function () {
 
-            //that.clearTint();
-
-        });
-        this.boton.on('pointerup', function () {
-
-            //that.clearTint()
-
-        });
-
+        //Se crea el botón siguiente, necesario para cuando te toca una carta
         this.boton_sig = this.add.sprite(600, 550, 'boton_sig').setInteractive();
+        //Lo hacemos invisible
         this.boton_sig.visible=false
+        //Indicamos que hace el botón al ser clicado
         this.boton_sig.on('pointerdown',  () => {
             this.siguiente();
             });
     }
 
     override update (){
+      //Antes de que la ruleta comience a girar al revés
+      //la detiene(debido a que en la ruleta siempre se le resta velociad cuando se hace una tirada
+      // es necesario si no, no pararía nunca si no que aceleraría a la inversa perpetuamente)
         if (this.velocidad < 0){
             this.velocidad = 0;
             if (!this.resultado_entregado) {
                 this.resultado_entregado=true
                 this.result=this.getResultado()
+                /**
+                 * Según el resultado hará:
+                 *  -Legendaria: crea unas particulas doradas y te muestra la carta
+                 *  -Épica: crea unas particulas moradas y te muestra la carta
+                 *  -Rara: Solamente te muestra la carta
+                 *  -Común Solamente te muestra la carta
+                 */
                 switch (this.result) {
                     case "legend":
                         this.particles = this.add.particles('flare');
@@ -199,31 +214,46 @@ class Roulete extends Phaser.Scene{
                 }
             }
         }
+        //actualiza el angulo de la ruleta(hace que gire)
         this.ruleta.angle += this.velocidad;
+        //Actualiza la velocidad(hace que se frene)
         this.velocidad += this.aceleracion;
     }
-
+    /**
+     *
+     * @param auto si la tirada es automática, la tirada es gratis
+     */
     tirar(auto=false) {
         if (auto) {
             this.resultado_entregado=false;
+            //genera una deceleración aleatoria
             this.aceleracion = - ((Math.random() * 3)+3)/30;
+            //genera una velociad aleatoria
             this.velocidad   = Math.floor(Math.random() * 30)+15;
         }else{
             var moneda = sessionStorage.getItem("moneda")
-            //Si la variable moneda al local storage es null retorna 0 si no
-            // retorna el valor indicat
-            //console.log(moneda)
+            //Si la variable moneda en el local storage es null devuelve 0 si no
+            // devuelve el valor indicado
             if (moneda==null ? null:parseInt(moneda) >= 1000) {
                 setTimeout(() => {
+                  //se actualiza el sessionStorage  con la moneda ya gastada
                     sessionStorage.setItem("moneda",(parseInt(typeof(moneda)=="string"? moneda:"null")-1000).toString())
                 }, 500);
                 this.resultado_entregado=false;
+                 //genera una deceleración aleatoria
                 this.aceleracion = - ((Math.random() * 3)+3)/30;
+                  //genera una velociad aleatoria
                 this.velocidad   = Math.floor(Math.random() * 30)+15;
             }
         }
     }
-
+    /**
+     * Devuelve si un número n está entre num1 y num2
+     * @param n
+     * @param num1
+     * @param num2
+     * @returns Boolean
+     */
     numeroEntre(n: number, num1: number, num2: number){
         if (num2 < num1){
             let aux = num2;
@@ -251,7 +281,10 @@ class Roulete extends Phaser.Scene{
         }
         return angulo;
     }
-
+    /**
+     * Según el ángulo, calcula que carta te ha tocado
+     * @returns el tipo de carta que te ha de tocar
+     */
     getResultado(){
         let pos = this.anguloPhaserAComun(this.ruleta.angle);
 
@@ -262,7 +295,11 @@ class Roulete extends Phaser.Scene{
         }
         return null;
     }
-
+    /**
+     * Al darle al botón siguiente cuando se te muestra la carta
+     * destruye la imagen hace el botón siguiente invisible,
+     * para que se pueda seguir con las tiradas
+     */
     siguiente() {
         this.carta.destroy()
         this.boton_sig.visible=false
@@ -309,7 +346,7 @@ export class RuletaComponent implements OnInit {
         this.moneda=sessionStorage.getItem("moneda")
         let carta = sessionStorage.getItem("carta")
         this.carta=JSON.parse(carta===null ? "null":carta)
-        console.log(this.carta)
+        //console.log(this.carta)
         sessionStorage.removeItem("carta")
         if (this.carta && this.carta!=="null") {
           this.guardaCarta()

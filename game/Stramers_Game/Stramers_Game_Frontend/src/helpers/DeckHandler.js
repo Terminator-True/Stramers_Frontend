@@ -53,6 +53,14 @@ import Lucille from "./cards/lucille"
 import Momoladinastia from "./cards/momoladinastia"
 export default class DeckHandler{
     constructor(scene){
+        /**
+         * 
+         * @param  x Posición X de la carta
+         * @param  y Posición Y de la carta
+         * @param  name Nombre de la carta
+         * @param  type Opponent or Player
+         * @returns Imagen renderizada de la carta especificada
+         */
         this.dealCard = (x, y, name, type) => {
             let cards = {
                 cardBack: new CardBack(scene),

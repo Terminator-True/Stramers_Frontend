@@ -1,6 +1,10 @@
 export default class InteractiveHandler{
     constructor(scene){
 
+        /**
+         * Cuando se da al botón de pasar turno, se deshabilita y 
+         * se manda al socket el cambio de turno
+         */
         scene.changeTrun.on("pointerdown", () => {
             scene.changeTrun.disableInteractive();
             scene.socket.emit("changeTurn",scene.room.roomId)
@@ -36,7 +40,7 @@ export default class InteractiveHandler{
         scene.input.on("dragstart", (pointer,gameObject)=>{
             gameObject.setTint(0xff69b4);
             scene.children.bringToTop(gameObject);
-            scene.cardPreview.setVisible(false);
+            scene.cardPreview.destroy();
         })
         scene.input.on("dragend",(pointer,gameObject,dropped)=>{
             gameObject.setTint();
