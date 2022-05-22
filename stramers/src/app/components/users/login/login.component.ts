@@ -6,8 +6,7 @@ import { Login } from 'src/app/models/inici.usuari';
 import { UsuariService } from 'src/app/services/usuari.service';
 
 import {Router, ActivatedRoute} from "@angular/router"
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 @Component({
@@ -22,9 +21,6 @@ export class LoginComponent implements OnInit {
   public game:any;
   public error_status: string;
   public alert:any;
-
-  public formAll: FormGroup = new FormGroup({});//declaracion de todo el form
-
   constructor(
     private _UsuariService:UsuariService,
     private _router: Router
@@ -37,23 +33,9 @@ export class LoginComponent implements OnInit {
    }
 
   ngOnInit(){
-    this.initFormValid()
   }
   /**
-  * valida el formulari
-  */
-  initFormValid():void{
-    this.formAll = new FormGroup(
-      {
-        email: new FormControl('',[Validators.required,Validators.email]),
-        pasw: new FormControl('',[Validators.required,Validators.pattern("^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$")])
-      }
-    )
-  }
-
-  /**
-   * formulari per logearte y si es correcta guarda el nick y 
-   * email al localstorage redireccionan al menu
+   * formulari per logearte y si es correcta guarda el nick y email al localstorage redireccionan al menu
    * @param form:
    * @var email
    * @var passw
@@ -74,4 +56,5 @@ export class LoginComponent implements OnInit {
   tanca(){
     this.error_status="none"
   }
+
 }
