@@ -9,7 +9,6 @@ import { CardService } from 'src/app/services/carta.service';
 
 import {Router} from "@angular/router"
 
-
 @Component({
   selector: 'app-mazoedit',
   templateUrl: './mazoedit.component.html',
@@ -98,7 +97,6 @@ export class MazoeditComponent implements OnInit {
     let index=this.lista.indexOf(card)
     this.cards.push(card)
     this.lista.splice(index,1)
-    console.log(card);
     this.count-=1;
   }
 
@@ -114,13 +112,11 @@ export class MazoeditComponent implements OnInit {
 
       this.mazos[this.deckname]=this.lista.map(function(card:any){return card.name.toLowerCase() });
       let tmp={mazos:this.mazos}
-      console.log(tmp);
       // peticion updatear array mazo
       this._userService.Updeck(tmp,this.nick).subscribe(
         result=>this.alert=result.toString()
       )
     }
-
   }
   /**
    * filtra afabeticament
@@ -149,7 +145,6 @@ export class MazoeditComponent implements OnInit {
         return 0;
       });
     }
-    
   }
   /**
    * filtra per categoria
@@ -206,6 +201,5 @@ export class MazoeditComponent implements OnInit {
         return 0;
       });
     }
-    
   }
 }

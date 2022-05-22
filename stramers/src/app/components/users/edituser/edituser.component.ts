@@ -46,7 +46,6 @@ export class EdituserComponent implements OnInit {
     }
     this.nick=localStorage.getItem("nick")
     this.email=localStorage.getItem("email")
-    console.log(this.nick)
   }
 
   /**
@@ -61,7 +60,8 @@ export class EdituserComponent implements OnInit {
    *
    */
   onSubmit(form:any){
-    if (this.changepass.paswC === this.changepass.paswN) {
+    if (this.changepass.paswC === this.changepass.paswN || this.changepass.paswC!=="" && this.changepass.paswN!==""
+    ) {
       this._UsuariService.updatePassword(this.nick,this.changepass).subscribe(result=>{
         this.alert=result.toString()
         console.log(result)

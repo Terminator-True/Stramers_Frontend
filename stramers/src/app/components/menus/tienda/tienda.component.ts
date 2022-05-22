@@ -17,8 +17,6 @@ import {Router} from "@angular/router"
 })
 
 @Injectable()
-
-
 export class TiendaComponent implements OnInit {
 
   public url:any;
@@ -33,7 +31,6 @@ export class TiendaComponent implements OnInit {
   // cartas de las tiendas
   public cartasTienda:any;
   public cardsname:any;
-
 
   alert = '';
 
@@ -59,12 +56,6 @@ export class TiendaComponent implements OnInit {
 
     this._cardService.getDailyCards().subscribe(cards=>{
         this.cards=Object.values(cards)[0];
-        console.log(this.cards)
-
-        // const target = this.cards[0][0]
-        // const source = {precio:this.precio[0]}
-        // const returnedTarget = Object.assign(target, source);
-        // console.log(returnedTarget)
     })
 
     this.nick=localStorage.getItem("nick")
@@ -82,7 +73,10 @@ export class TiendaComponent implements OnInit {
     },
     error=>{
       console.log(error)
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1e1c780c8b9341f2a5dc22067f5debfe0e395425
     })
 
     this.cardsname
