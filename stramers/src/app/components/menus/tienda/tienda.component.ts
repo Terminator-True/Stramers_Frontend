@@ -73,10 +73,6 @@ export class TiendaComponent implements OnInit {
     },
     error=>{
       console.log(error)
-<<<<<<< HEAD
-
-=======
->>>>>>> 1e1c780c8b9341f2a5dc22067f5debfe0e395425
     })
 
     this.cardsname

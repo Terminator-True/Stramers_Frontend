@@ -92,7 +92,6 @@ io.on("connection", function(socket){
 
 
     socket.on("disconnecting", function(roomId){
-        io.sockets.in(roomId).emit("Win")
         delete rooms[socket.room]
         
         socket.leave(socket.room);  
