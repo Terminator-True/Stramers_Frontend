@@ -12,12 +12,14 @@
   <a class="filter" (click)="filterCag()">Cag</a>
   <a class="filter" (click)="filterCosts()">Cost</a>
 
+
   <div class="container" style="padding: 0%; margin:2%" >
     <!-- lista todas las cartas que tiene el usuario -->
-     <button *ngFor="let card of cards" (click)="addcard(card)" class="btn hover-overlay "> <img  class="img-fluid rounded" src="{{url+'get-image/'+card.img}}" *ngIf="card.img != 'null'" style="width: 300px;"> </button>
+     <button *ngFor="let card of cards" (click)="addcard(card)" class="btn hover-overlay "> 
+        <img  class="img-fluid rounded" src="{{url+'get-image/'+card.img}}" *ngIf="card.img != 'null'" style="width: 300px;"> 
+      </button>
   </div>
 </div>
-
 
 <div class="lateral p-2 fixedR">
     <!-- nombre del mazo -->
@@ -31,5 +33,4 @@
        <li *ngIf="card.category=='Legend'" class="list-group-item ms-3 p-2 carta legend">{{card.name}}</li>
     </ul>
     <div class="guardar"> <a href="/mazo" (click)="updeck()" class="btn">Guardar</a></div>
-
 </div>

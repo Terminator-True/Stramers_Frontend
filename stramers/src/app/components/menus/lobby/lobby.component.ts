@@ -12,7 +12,7 @@ export class LobbyComponent implements OnInit {
 
   public nick:any;
   public mazos:any;
-  public session_storage:any;
+  public llistaCards:any;
   public mazoName:any;
 
   constructor(
@@ -24,7 +24,7 @@ export class LobbyComponent implements OnInit {
    * @var mazos nom del mazo
    */
   ngOnInit(): void {
-    // si no te nick el redirecciona al inici
+    // si no te nick, te redirecciona al inici
     if (localStorage.getItem("nick")==null) {
       this._router.navigate([""])
     }
@@ -42,21 +42,19 @@ export class LobbyComponent implements OnInit {
   /**
    * seleciona un mazo, lo guardarlo a la datebase para usarlo en el juego
    * @param mazoName nom del mazo
+   * @var llistaCards llista de las cartas del mazo
    */
   select(mazoName:any){
     this._userService.getDecks(this.nick)
     .subscribe(mazos=>{
-      this.session_storage=Object.values(mazos)[0][mazoName];
+      this.llistaCards=Object.values(mazos)[0][mazoName];
       this.mazoName=mazoName;
-      this._userService.setDefaultDeck({mazo: this.session_storage},this.nick).subscribe(
+      this._userService.setDefaultDeck({mazo: this.llistaCards},this.nick).subscribe(
         result=>result.toString()
       )
     },
     error=>{
       console.log(error)
     })
-
   }
-
-
 }

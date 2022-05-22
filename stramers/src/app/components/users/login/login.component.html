@@ -9,7 +9,8 @@
               </div>
               <div class="col-md-6 col-lg-7 d-flex align-items-center">
                 <div class="card-body p-4 p-lg-5 text-black">
-                    <form #form='ngForm' (ngSubmit)="onSubmit(form)" >
+                  
+                    <form #form='ngForm' [formGroup]="formAll" (ngSubmit)="onSubmit(form)" >
                         <h2 class="sr-only">Login Stramers</h2>
 
                         <label for="email">Email:</label>
