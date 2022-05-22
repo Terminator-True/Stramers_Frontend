@@ -50,6 +50,7 @@ export default class InteractiveHandler{
          *                                                      ejemplo de como coger el nombre de una carta que está en la array)
          */
         scene.input.on("drop",(pointer,gameObject,dropZone)=>{
+           
             if(scene.GameHandler.isMyTurn && scene.GameHandler.gameState==="Ready" && dropZone.data.values.type==="player" && scene.playerZone.data.values.cards<5 && scene.GameHandler.player.manaA-gameObject.data.list.cost>=0){
                 let card = scene.GameHandler.playerHand.indexOf(gameObject)
                 scene.GameHandler.playerHand.splice(card,card+1)
@@ -59,7 +60,7 @@ export default class InteractiveHandler{
                 scene.playerZone.data.values.cards_list[scene.playerZone.data.values.cards]=gameObject;
                 gameObject.x = (dropZone.x-350)+(dropZone.data.values.cards*170);
                 gameObject.y = dropZone.y;
-                console.log((dropZone.x-350)+(dropZone.data.values.cards*170))
+                //console.log((dropZone.x-350)+(dropZone.data.values.cards*170))
                 scene.playerZone.data.values.card_text[scene.playerZone.data.values.cards]=scene.add.bitmapText(gameObject.x-40,gameObject.y+120,"text",scene.playerZone.data.values.cards_list[scene.playerZone.data.values.cards].data.list.dmg+"/"+scene.playerZone.data.values.cards_list[scene.playerZone.data.values.cards].data.list.life).setFontSize(24) 
 
                 scene.playerZone.data.values.cards++;

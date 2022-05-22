@@ -5,8 +5,8 @@ const config = {
     type: Phaser.AUTO,
     scale:{
         mode:Phaser.Scale.FIT,
-        width:"80%",
-        height:"80%"
+        width:"160%",
+        height:"160%"
     },
     physics: {
         default: 'matter',
