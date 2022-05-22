@@ -26,7 +26,6 @@ export class TiendaComponent implements OnInit {
   public userCards:any;
   public cardsnum:any;
   public obtenida:any;
-  public precio:any;
 
   // cartas de las tiendas
   public cartasTienda:any;
@@ -40,7 +39,6 @@ export class TiendaComponent implements OnInit {
   ) {
     this.url=Global.url
     this.obtenida=false;
-    this.precio=[600,600,800,800,2000];
     setInterval(()=>{
       this.moneda=sessionStorage.getItem("moneda")
     }, 1000);
@@ -78,7 +76,6 @@ export class TiendaComponent implements OnInit {
     this.cardsname
     setTimeout(() => {
       this.cartasTienda=[this.cards[0][0],this.cards[0][1],this.cards[1][0],this.cards[1][1],this.cards[2][0]]
-      console.log(this.cartasTienda)
       this.cardsname=this.userCards.map((carta:any)=>{
         return carta.name
       })

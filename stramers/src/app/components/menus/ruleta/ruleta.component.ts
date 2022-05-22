@@ -346,7 +346,6 @@ export class RuletaComponent implements OnInit {
         this.moneda=sessionStorage.getItem("moneda")
         let carta = sessionStorage.getItem("carta")
         this.carta=JSON.parse(carta===null ? "null":carta)
-        //console.log(this.carta)
         sessionStorage.removeItem("carta")
         if (this.carta && this.carta!=="null") {
           this.guardaCarta()
@@ -388,7 +387,6 @@ export class RuletaComponent implements OnInit {
 
     setTimeout(() => {
       this._cardService.getRouletteCards().subscribe(cards=>{
-        console.log(cards)
         sessionStorage.setItem("Ruleta",JSON.stringify(cards))
       })
     }, 500);
@@ -407,16 +405,16 @@ export class RuletaComponent implements OnInit {
       let coste=0;
       switch (this.carta.category) {
         case "Comun":
-          coste=600;
+          coste=300;
           break;
         case "Raro":
-            coste=800;
+            coste=400;
             break;
         case "Epica":
           coste=1000;
           break;
         case "Legend":
-          coste=4000;
+          coste=2000;
           break;
       }
       setTimeout(() => {
