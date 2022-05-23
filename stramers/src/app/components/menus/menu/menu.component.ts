@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
 
+import { Global } from 'src/app/services/global';
 
 @Component({
   selector: 'app-menu',
@@ -8,9 +9,11 @@ import {Router} from "@angular/router";
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
-
+  public url:any;
   constructor(    private _router: Router
-    ) { }
+    ) {
+      this.url=Global.url
+     }
 
   /**
    * Redirrecciona al inici si no esta logeado

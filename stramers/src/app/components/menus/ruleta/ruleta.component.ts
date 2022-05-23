@@ -53,7 +53,6 @@ class Roulete extends Phaser.Scene{
         }
         var tmp = sessionStorage.getItem("Ruleta")
         this.cards = JSON.parse(typeof(tmp)=="string"? tmp:"null")
-        console.log(this.cards)
         this.cartas={
           comun_1:this.cards[0][0],
           comun_2:this.cards[0][1],
@@ -398,9 +397,7 @@ export class RuletaComponent implements OnInit {
     if (!names.includes(this.carta.name)) {
       this.userCards[this.cardsnum]=this.carta;
       var cartas = {cartas: this.userCards}
-      this._userService.SetCard(cartas,this.nick).subscribe(
-        result=>console.log(result)
-      )
+      this._userService.SetCard(cartas,this.nick).subscribe()
     }else{
       let coste=0;
       switch (this.carta.category) {
@@ -425,14 +422,12 @@ export class RuletaComponent implements OnInit {
     }
   }
   salir(){
+        this.phaserGame.destroy(true)
         var moneda=sessionStorage.getItem("moneda")
         sessionStorage.clear()
         this._userService.setMoney(this.nick,moneda == null ? "null": moneda).subscribe(ok=>{
             if (ok) {
-                console.log(ok)
                 sessionStorage.clear()
-            }else{
-                console.log(ok)
             }
         })
   }

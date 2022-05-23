@@ -39,8 +39,10 @@ export class TiendaComponent implements OnInit {
   ) {
     this.url=Global.url
     this.obtenida=false;
+
     setInterval(()=>{
       this.moneda=sessionStorage.getItem("moneda")
+
     }, 1000);
     }
 
@@ -118,9 +120,6 @@ export class TiendaComponent implements OnInit {
       setTimeout(() => {
         window.location.reload();
       }, 500);
-    }else{
-
-      console.log("ja tens la carta")
     }
   }
 
@@ -131,10 +130,7 @@ export class TiendaComponent implements OnInit {
     var moneda=sessionStorage.getItem("moneda")
     this._userService.setMoney(this.nick,moneda == null ? "null": moneda).subscribe(ok=>{
         if (ok) {
-            console.log(ok)
             sessionStorage.clear()
-        }else{
-            console.log(ok)
         }
     })
   }

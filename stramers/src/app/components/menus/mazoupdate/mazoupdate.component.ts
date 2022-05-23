@@ -32,7 +32,7 @@ export class MazoupdateComponent implements OnInit {
 
   constructor(
     private _route: ActivatedRoute,
-    private _userService:UsuariService, 
+    private _userService:UsuariService,
     private _router: Router
   ) {
     this.url=Global.url
@@ -65,7 +65,7 @@ export class MazoupdateComponent implements OnInit {
     error=>{
       console.log(error)
     }),
-    // peticion de obtener todos los mazos, 
+    // peticion de obtener todos los mazos,
     this._userService.getDecks(this.nick)
     .subscribe(mazos=>{
       this.mazos=Object.values(mazos)[0];
@@ -87,7 +87,7 @@ export class MazoupdateComponent implements OnInit {
 
   /**
    * añade un objecto de la carta a la llista y muesra el nombre a la llista de crear mazo
-   * @param card 
+   * @param card
    */
    addcard(card:any){
     if (!this.lista.includes(card) && this.count<=14){
@@ -104,7 +104,6 @@ export class MazoupdateComponent implements OnInit {
     let index=this.lista.indexOf(card)
     this.cards.push(card)
     this.lista.splice(index,1)
-    console.log(card);
     this.count-=1;
   }
   //quitar el mazo con el nombre de la array de mazos
@@ -128,7 +127,6 @@ export class MazoupdateComponent implements OnInit {
       }
       this.mazos[this.deckname]=this.lista.map(function(card:any){return card.name.toLowerCase() });
       let tmp={mazos:this.mazos}
-      console.log(tmp);
       // peticion updatear array mazo
       this._userService.Updeck(tmp,this.nick).subscribe(
         result=>this.alert=result.toString()
@@ -164,7 +162,7 @@ export class MazoupdateComponent implements OnInit {
         return 0;
       });
     }
-    
+
   }
   /**
    * filtra per categoria
@@ -221,6 +219,6 @@ export class MazoupdateComponent implements OnInit {
         return 0;
       });
     }
-    
+
   }
 }

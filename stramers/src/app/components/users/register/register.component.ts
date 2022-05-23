@@ -74,7 +74,6 @@ export class RegisterComponent implements OnInit {
         }
       },
       error=>{
-        console.log(error.error.message)
         this.alert=error.error.message
         this.error_status=""
       }

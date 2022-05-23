@@ -4,6 +4,8 @@ import { UsuariService } from 'src/app/services/usuari.service';
 import { Register } from 'src/app/models/register.usuari';
 import { ChangePass } from 'src/app/models/changePassword.usuari';
 
+import { Global } from 'src/app/services/global';
+
 import {Router} from "@angular/router"
 
 @Component({
@@ -26,6 +28,8 @@ export class EdituserComponent implements OnInit {
   public passwN:any;
   public passwC:any;
 
+  public url:any;
+
   constructor(
     private _UsuariService:UsuariService,
     private _router: Router
@@ -35,6 +39,7 @@ export class EdituserComponent implements OnInit {
     this.iniciUsuari = new Register('','','');
     this.changepass = new ChangePass('','','');
     this.error_status="";
+    this.url=Global.url
   }
 
   /**

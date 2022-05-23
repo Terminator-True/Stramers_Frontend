@@ -16,7 +16,7 @@ export default class Game extends Phaser.Scene{
 
         const nick = urlParams.get('nick')
         console.log(nick)
-        fetch("http://localhost:3700/api/get-getDefaultDeck/"+nick)
+        fetch("https://infla.cat:10186/api/get-getDefaultDeck/"+nick)
             .then(response=>response.json())
             .then(data => { 
                 setTimeout(() => {
