@@ -5,12 +5,12 @@
 				<img src="http://localhost:3700/api/get-image-ico/config.png" style="width:30px ;" alt="Config">
 			  </a>		
 			<div class="dropdown-menu dropdown-content" aria-labelledby="dropdownMenuLink">
-				<a class="dropdown-item" href="/edituser">Editar user</a>
-				<a class="dropdown-item" (click)="rmlocal()" href="/">Logout</a>
+				<a class="dropdown-item" [routerLink]="['/edituser']">Editar user</a>
+				<a class="dropdown-item" (click)="rmlocal()" [routerLink]="['/']">Logout</a>
 			</div>
 		</div>
-		<li class="vs"><a href="/lobby">VS</a></li>
-		<li class="mazo" ><a href="/mazo">Mazo</a></li>
-		<li class="tienda" ><a href="/tienda/ruleta">Tienda</a></li>
+		<li class="vs"><a [routerLink]="['/lobby']">VS</a></li>
+		<li class="mazo" ><a [routerLink]="['/mazo']">Mazo</a></li>
+		<li class="tienda" ><a [routerLink]="['/tienda/ruleta']">Tienda</a></li>
 	</ul>
 </div>

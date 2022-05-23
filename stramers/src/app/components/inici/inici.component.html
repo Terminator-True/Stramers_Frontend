@@ -2,16 +2,16 @@
 <nav class="navbar navbar-dark bg-dark">
   <div class="container-fluid">
       <div>
-        <a href=""> <img src="{{url}}api/get-image-ico/Stramers.png" style="width:70px"> </a>
+        <a [routerLink]="['']"> <img src="{{url}}api/get-image-ico/Stramers.png" style="width:70px"> </a>
       </div>
       <!-- si esta logeado no necesita logearse otra vez -->
       <div class="d-flex w-auto" *ngIf="nick==null else elseblock" >
-        <a class="nav-link m-2 login" href="login">Login</a>
-        <a class="nav-link m-2 regis" href="register">Juega ahora</a>
+        <a class="nav-link m-2 login" [routerLink]="['login']">Login</a>
+        <a class="nav-link m-2 regis" [routerLink]="['register']">Juega ahora</a>
       </div>
       <ng-template #elseblock>
         <div>
-          <a class="nav-link m-2 login" href="menu">Login</a>
+          <a class="nav-link m-2 login" [routerLink]="['menu']">Login</a>
         </div>
       </ng-template>
   </div>

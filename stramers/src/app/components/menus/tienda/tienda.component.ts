@@ -44,19 +44,16 @@ export class TiendaComponent implements OnInit {
     }, 1000);
     }
 
-  /**
-   *
-   */
   ngOnInit(): void {
     if (localStorage.getItem("nick")==null) {
       this._router.navigate([""])
     }
-
+    this.nick=localStorage.getItem("nick")
+    // obtenemos las cartas para la tienda
     this._cardService.getDailyCards().subscribe(cards=>{
         this.cards=Object.values(cards)[0];
     })
-
-    this.nick=localStorage.getItem("nick")
+    // Obtenemos las monedas qeu tiene el usuario
     this._userService.getMoney(this.nick).subscribe(ok=>{
       var moneda = Object.values(ok)[0]
       sessionStorage.setItem("moneda",moneda)
@@ -72,7 +69,7 @@ export class TiendaComponent implements OnInit {
     error=>{
       console.log(error)
     })
-
+    // Extraemos el nombre de las cartas
     this.cardsname
     setTimeout(() => {
       this.cartasTienda=[this.cards[0][0],this.cards[0][1],this.cards[1][0],this.cards[1][1],this.cards[2][0]]
