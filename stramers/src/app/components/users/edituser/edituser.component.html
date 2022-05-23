@@ -26,7 +26,7 @@
                       <input class="form-control" type="password" name="pasw"  [(ngModel)]="iniciUsuari.pasw" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$" /><br>
 
                       <input class="btn btn-primary btn-block" type="submit" value="Editar">
-                      <a href="/menu" class="btn btn-primary btn-block" type="submit">Cancelar</a>
+                      <a [routerLink]="['/menu']" class="btn btn-primary btn-block" type="submit">Cancelar</a>
                     </form>
                     <button class="btn" (click)="change()">Cambiar password</button>
                   </div>
@@ -45,7 +45,7 @@
                       <input class="form-control" type="password" name="pasw2" [(ngModel)]="changepass.paswC" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$" /><br>
 
                       <input class="btn btn-primary btn-block" type="submit" value="Editar" [disabled]="!form.form.valid">
-                      <a href="/menu" class="btn btn-primary btn-block" type="submit">Cancelar</a>
+                      <a [routerLink]="['/menu']" class="btn btn-primary btn-block" type="submit">Cancelar</a>
                     </form>
                     <button class="btn" (click)="change()">Editar user</button>
                   </ng-template>
