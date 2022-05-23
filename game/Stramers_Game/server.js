@@ -10,7 +10,7 @@ let readyCheck=0;
 
 const io = require("socket.io")(http, {
     cors: {
-        origin: "http://localhost:8080",
+        origin: "http://infla.cat:10086",
         methods: ["GET","POST"]
     }
 }) 
@@ -98,6 +98,7 @@ io.on("connection", function(socket){
     })
 })
 
-http.listen(3000, function(){
+
+http.listen(80, function(){
     console.log("[+] server started")
 }) 

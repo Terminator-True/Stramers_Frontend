@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router"
 import { UsuariService } from 'src/app/services/usuari.service';
 
+import { Global } from 'src/app/services/global';
+
 @Component({
   selector: 'app-mazo',
   templateUrl: './mazo.component.html',
@@ -12,10 +14,13 @@ export class MazoComponent implements OnInit {
 
   public nick:any;
   public mazos:any;
+  public url:any;
 
   constructor(
      private _router: Router, private _userService:UsuariService,
-    ) {}
+    ) {
+      this.url=Global.url
+    }
   /**
    * peticion de obtener todos los mazos del User
    */

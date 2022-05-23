@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Global } from 'src/app/services/global';
 @Component({
   selector: 'app-inici',
   templateUrl: './inici.component.html',
@@ -7,10 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class IniciComponent implements OnInit {
-
   public nick:any;
+  public url:any;
 
-  constructor() {  }
+  constructor() { this.url=Global.url }
 
   ngOnInit(){
     this.nick=localStorage.getItem("nick")

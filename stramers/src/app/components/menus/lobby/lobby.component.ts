@@ -3,6 +3,8 @@ import {Router} from "@angular/router";
 
 import { UsuariService } from 'src/app/services/usuari.service';
 
+import { Global } from 'src/app/services/global';
+
 @Component({
   selector: 'app-lobby',
   templateUrl: './lobby.component.html',
@@ -14,10 +16,12 @@ export class LobbyComponent implements OnInit {
   public mazos:any;
   public llistaCards:any;
   public mazoName:any;
-
+  public url:any;
   constructor(
     private _router: Router, private _userService:UsuariService,
-  ) { }
+  ) {
+    this.url=Global.url
+  }
 
   /**
    * llista els mazos del usuario que tiene

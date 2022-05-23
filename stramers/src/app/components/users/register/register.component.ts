@@ -8,6 +8,8 @@ import { Validators,FormControl,FormGroup } from "@angular/forms";
 
 import {Router} from "@angular/router"
 
+import { Global } from 'src/app/services/global';
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -23,6 +25,7 @@ export class RegisterComponent implements OnInit {
 
   public formAll: FormGroup = new FormGroup({});//declaracion de todo el form
 
+  public url:any;
   constructor(
     private _UsuariService:UsuariService,
     private _router: Router
@@ -31,6 +34,7 @@ export class RegisterComponent implements OnInit {
     this.pasw2="";
     this.iniciUsuari = new Register('','','');
     this.error_status="none";
+    this.url=Global.url
 
    }
   /**

@@ -2,7 +2,7 @@
 <nav class="navbar navbar-dark bg-dark">
   <div class="container-fluid">
       <div>
-        <a href=""> <img src="http://localhost:3700/api/get-image-ico/Stramers.png" style="width:70px"> </a>
+        <a href=""> <img src="{{url}}api/get-image-ico/Stramers.png" style="width:70px"> </a>
       </div>
       <!-- si esta logeado no necesita logearse otra vez -->
       <div class="d-flex w-auto" *ngIf="nick==null else elseblock" >
@@ -27,7 +27,7 @@
   <!-- primer gif de ruleta -->
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="http://localhost:3700/api/get-image-ico/ruleta.gif" class="d-block w-50" alt="Ruleta">
+      <img src="{{url}}get-image-ico/ruleta.gif" class="d-block w-50" alt="Ruleta">
       <div class="position-absolute top-50 translate-middle sliderR">
         <h1 class="slidertitle">Tira a la Ruleta</h1>
         <hr class="slidertitle">
@@ -36,7 +36,7 @@
     </div>
     <!-- primer gif de mazo -->
     <div class="carousel-item">
-      <img src="http://localhost:3700/api/get-image-ico/mazo.gif" class="d-block w-50" alt="Crear Mazos">
+      <img src="{{url}}get-image-ico/mazo.gif" class="d-block w-50" alt="Crear Mazos">
       <div class="position-absolute top-50 sliderR translate-middle">
         <h1 class="slidertitle">Crea tus Mazos</h1>
         <hr class="slidertitle">
@@ -45,7 +45,7 @@
     </div>
     <!-- primer gif de gameplay -->
     <div class="carousel-item">
-      <img src="http://localhost:3700/api/get-image-ico/gameplay.gif" class="d-block w-50" alt="Gamplay">
+      <img src="{{url}}get-image-ico/gameplay.gif" class="d-block w-50" alt="Gamplay">
       <div class="position-absolute top-50 sliderR translate-middle" >
         <h1 class="slidertitle">Compite contra otros</h1>
         <hr class="slidertitle">

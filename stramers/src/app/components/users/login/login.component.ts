@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 //Form
 import { Login } from 'src/app/models/inici.usuari';
 
+import { Global } from 'src/app/services/global';
 
 import { UsuariService } from 'src/app/services/usuari.service';
 
@@ -21,6 +22,7 @@ export class LoginComponent implements OnInit {
   public game:any;
   public error_status: string;
   public alert:any;
+  public url:any;
   constructor(
     private _UsuariService:UsuariService,
     private _router: Router
@@ -28,6 +30,7 @@ export class LoginComponent implements OnInit {
   ) {
     this.iniciUsuari = new Login('','');
     this.error_status="none";
+    this.url=Global.url
 
 
    }
