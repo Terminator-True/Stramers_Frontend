@@ -24,7 +24,7 @@ const appRoutes: Routes = [
     {path: 'login', component: LoginComponent},
     {path: 'edituser', component: EdituserComponent},
     {path: 'menu', component: MenuComponent},
-    {path: 'lobby', component: LobbyComponent},
+    {path: 'lobby/:win', component: LobbyComponent},
     {path: 'mazo', component: MazoComponent},
     {path: 'mazo/edit', component: MazoeditComponent},
     {path: 'mazo/update/:deckname', component: MazoupdateComponent},

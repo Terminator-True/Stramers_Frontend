@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from "@angular/router";
+import {Router, ActivatedRoute} from "@angular/router";
 
 import { UsuariService } from 'src/app/services/usuari.service';
 
@@ -17,8 +17,13 @@ export class LobbyComponent implements OnInit {
   public llistaCards:any;
   public mazoName:any;
   public url:any;
+  public win: any;
+  public moneda:any;
+
   constructor(
-    private _router: Router, private _userService:UsuariService,
+    private _router: Router, 
+    private _userService:UsuariService,
+    private route: ActivatedRoute
   ) {
     this.url=Global.url
   }
@@ -41,6 +46,37 @@ export class LobbyComponent implements OnInit {
     error=>{
       console.log(error)
     })
+    // Obtenemos las monedas qeu tiene el usuario
+    this._userService.getMoney(this.nick).subscribe(ok=>{
+      var moneda = Object.values(ok)[0]
+      sessionStorage.setItem("moneda",moneda)
+    })
+    // obtiene las monedas de la partida el usuario
+    this.route.queryParams
+      .subscribe(params => {
+        console.log(params); // { win: "fiction" }
+        this.win = params['win'];
+        console.log(this.win); // fiction
+        this.moneda = sessionStorage.getItem("moneda")
+        if(this.win==true){
+          this.moneda = this.moneda+500
+          this._userService.setMoney(this.nick,this.moneda == null ? "null": this.moneda).subscribe(ok=>{
+            if (ok) {
+                sessionStorage.clear()
+                this._router.navigate(["lobby"])
+            }
+        })
+        }else if (this.win==false) {
+          this.moneda = this.moneda+100
+          this._userService.setMoney(this.nick,this.moneda == null ? "null": this.moneda).subscribe(ok=>{
+            if (ok) {
+                sessionStorage.clear()
+                this._router.navigate(["lobby"])
+            }
+          })
+        }
+      }
+    );
   }
 
   /**
