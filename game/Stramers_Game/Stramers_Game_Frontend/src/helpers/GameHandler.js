@@ -248,7 +248,7 @@ export default class GameHandler{
                     scene.InfoText.text="Conglaturations you lose!! :D"
                     scene.InfoText.setDepth(1)
                     setTimeout(() => {
-                        window.location.replace("https://infla.cat:10186/lobby/?win=false")
+                        window.location.replace(scene.url+"/api/lobby/?win=false")
                     }, 3000);
                 }
             }else{
@@ -258,7 +258,7 @@ export default class GameHandler{
                     scene.InfoText.text="I'm sorry you WON! :C"
                     scene.InfoText.setDepth(1)
                     setTimeout(() => {
-                        window.location.replace("http://localhost:4200/lobby/?win=true")
+                        window.location.replace(scene.url+"/api/lobby/?win=true")
                     }, 3000);
                 }
             }

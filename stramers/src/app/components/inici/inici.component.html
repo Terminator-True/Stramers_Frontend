@@ -2,7 +2,7 @@
 <nav class="navbar navbar-dark bg-dark">
   <div class="container-fluid">
       <div>
-        <a [routerLink]="['']"> <img src="{{url}}api/get-image-ico/Stramers.png" style="width:70px"> </a>
+        <a [routerLink]="['']"> <img src="{{url}}get-image-ico/Stramers.png" style="width:70px"> </a>
       </div>
       <!-- si esta logeado no necesita logearse otra vez -->
       <div class="d-flex w-auto" *ngIf="nick==null else elseblock" >
@@ -11,7 +11,7 @@
       </div>
       <ng-template #elseblock>
         <div>
-          <a class="nav-link m-2 login" [routerLink]="['menu']">Login</a>
+          <a class="nav-link m-2 login" [routerLink]="['menu']">Entrar</a>
         </div>
       </ng-template>
   </div>
@@ -31,7 +31,7 @@
       <div class="position-absolute top-50 translate-middle sliderR">
         <h1 class="slidertitle">Tira a la Ruleta</h1>
         <hr class="slidertitle">
-        <p class="slidertext">Gira la ruleta para obtener legendarias</p>
+        <p class="slidertext">Gira la ruleta para obtener premios increíbles</p>
       </div>
     </div>
     <!-- primer gif de mazo -->
@@ -40,7 +40,7 @@
       <div class="position-absolute top-50 sliderR translate-middle">
         <h1 class="slidertitle">Crea tus Mazos</h1>
         <hr class="slidertitle">
-        <p class="slidertext">Podras crear tus mazos libremente</p>
+        <p class="slidertext">Crea tus mazos y demuestra tu poder estratégico</p>
       </div>
     </div>
     <!-- primer gif de gameplay -->
@@ -49,7 +49,7 @@
       <div class="position-absolute top-50 sliderR translate-middle" >
         <h1 class="slidertitle">Compite contra otros</h1>
         <hr class="slidertitle">
-        <p class="slidertext">prueba de lo que eres capaz</p>
+        <p class="slidertext">Prueba de lo que eres capaz</p>
       </div>
     </div>
   </div>
@@ -62,4 +62,43 @@
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Next</span>
   </button>
+</div>
+
+<div class="container-fluid text-light m-5">
+  <div class="row">
+    <div class="container col-sm-8 bg-dark p-5">
+      <hr>
+      <h2 class="p-2">Cómo se juega?</h2>
+      <p class="p-2" >En cuando empieza la partida cada jugador tiene 20 de vida y 0 de maná, cada turno el maná aumenta uno hasta un máximo de 10.
+
+        Cada turno robas una carta de tu mazo aleatoria de las cartas que elegiste antes.
+
+        Se juega tirando la carta arriba de tu mano (la mano son las cartas que tienes al lado del maná y el dorso que es tu mazo), puedes tirar las cartas al campo arrastrándola hacia arriba que es tu lado del campo.
+
+        Las cartas se colocan a la izquierda y no se puede cambiar de sitio
+
+        Al final del turno después de pasar 4 turnos(2 turnos de cada jugador) atacan las cartas al final del turno lo que tiene delante, el ataque y la vida de la carta se representa en ataque/vida si no tiene nada delante ataca al jugador.
+        </p>
+    </div>
+    <div class="container col-sm-8 bg-dark p-5">
+      <hr>
+      <h2 class="p-2">Consigue Premios increíbles!!!</h2>
+      <p class="p-2" >Puedes girar la ruleta por 1000 monedas.
+        Se puede ver las monedas arriba, al lado de la flecha donde te envía atrás hacia el menú.
+        En la barra lateral de la derecha se puede ir a comprar cartas o a la ruleta donde ya estamos, abajo hay una leyenda de los colores de la ruleta.
+
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="footer text-light">
+<div id="container">
+<div id="cont">
+<div class="footer_center">
+	   <h3>Stramers &copy; 2022</h3>
+     <hr>
+</div>
+</div>
+</div>
 </div>

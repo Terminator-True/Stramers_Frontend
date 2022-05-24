@@ -2,7 +2,7 @@ import InteractiveHandler from "./InteractiveHandler";
 import io from "socket.io-client"
 export default class SocketHandler{
     constructor(scene){
-        scene.socket = io("http://infla.cat:80");
+        scene.socket = io(scene.url);
 
         scene.socket.on("connect", ()=>{
             console.log("connected: "+scene.socket.id)

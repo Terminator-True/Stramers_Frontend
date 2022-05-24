@@ -10,13 +10,14 @@ export default class Game extends Phaser.Scene{
         super({
             key: 'Game'
         })
+        this.url="https://10.42.17.150"
         const queryString = window.location.search;
 
         const urlParams = new URLSearchParams(queryString);
 
         const nick = urlParams.get('nick')
         console.log(nick)
-        fetch("https://infla.cat:10186/api/get-getDefaultDeck/"+nick)
+        fetch(this.url+"/api/get-getDefaultDeck/"+nick)
             .then(response=>response.json())
             .then(data => { 
                 setTimeout(() => {
